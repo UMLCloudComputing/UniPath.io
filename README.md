@@ -101,7 +101,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [issues-shield]: https://img.shields.io/github/issues/UMLCloudComputing/UniPath.io.svg?style=for-the-badge
 [issues-url]: https://github.com/UMLCloudComputing/UniPath.io/issues
 [license-shield]: https://img.shields.io/github/license/UMLCloudComputing/UniPath.io.svg?style=for-the-badge
-[license-url]: https://github.com/UMLCloudComputing/UniPath.io/blob/master/LICENSE.txt
+[license-url]: https://github.com/UMLCloudComputing/UniPath.io/blob/master/LICENSE
 [twitter-shield]: https://img.shields.io/twitter/follow/UniPath_io?style=for-the-badge&logo=twitter&color=1DA1F2
 [twitter-url]: https://twitter.com/UniPath_io
 [product-screenshot]: https://unipath.io/assets/screenshot.png
