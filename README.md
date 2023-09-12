@@ -10,11 +10,8 @@
 <br />
 <div align="center">
   <a href="https://github.com/UMLCloudComputing/UniPath.io">
-    <img src="https://github.com/UMLCloudComputing/UniPath.io/blob/main/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/UMLCloudComputing/UniPath.io/blob/main/logo.png" alt="Logo" width="50%" height="50%">
   </a>
-
-  <h3 align="center">UniPath.io</h3>
-
   <p align="center">
     Plan, Create, and Share Your Academic Journey!
     <br />
