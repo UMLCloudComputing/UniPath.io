@@ -31,6 +31,16 @@
 
 UniPath.io is designed to simplify the academic lives of college students. Create, plan, and share your class schedules for your entire degree program with ease.
 
+### Project Goals and Technologies
+
+This project serves as a hands-on learning experience, covering various cloud computing and web development topics:
+
+#### Core Competencies
+- **DevOps**: Principles of continuous integration, continuous deployment, and infrastructure as code.
+- **Cloud Computing**: AWS services, serverless architectures, and cloud-native solutions.
+- **Software Engineering (SWE)**: Best practices, design patterns, and modern web development techniques.
+- **Frontend Web Development**: User interfaces using technologies like HTML, CSS, JavaScript, and React JS.
+
 ### Application Architecture
 
 - Frontend:
