@@ -7,6 +7,8 @@ export default function Home() {
       <div className={styles.description}>
         <p>
           Hello World, this is my first Next.js app!
+
+          Testing to see if the Amplify PR Previews work
         </p>
         <div>
           <a
