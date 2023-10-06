@@ -145,3 +145,4 @@ Arranged from alphabetical order by last name.
 
 - Christopher Coco
 - Martin Marwad
+- Edmund Kam
