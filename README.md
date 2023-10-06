@@ -151,3 +151,4 @@ Arranged from alphabetical order by last name.
 - Kojo Bempah
 - Rohan Mallu
 - Matthew Hudzikiewicz
+- Gurpreet Singh
