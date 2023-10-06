@@ -143,5 +143,7 @@ These are a list of contributors to the project. If you would like to contribute
 
 Arranged from alphabetical order by last name.
 
+- Christopher Coco
 - Martin Marwad
+- Edmund Kam
 - Kojo Bempah
