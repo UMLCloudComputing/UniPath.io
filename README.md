@@ -154,3 +154,5 @@ Arranged from alphabetical order by last name.
 - Rahul Rajesh
 - Matthew Hudzikiewicz
 - Alvin Yu
+- Gurpreet Singh
+- Rahul Rajesh
