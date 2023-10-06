@@ -153,3 +153,4 @@ Arranged from alphabetical order by last name.
 - Noah Shayne
 - Rahul Rajesh
 - Matthew Hudzikiewicz
+- Alvin Yu
