@@ -150,5 +150,6 @@ Arranged from alphabetical order by last name.
 - Edmund Kam
 - Kojo Bempah
 - Rohan Mallu
+- Noah Shayne
 - Rahul Rajesh
 - Matthew Hudzikiewicz
