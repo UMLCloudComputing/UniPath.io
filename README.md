@@ -151,8 +151,8 @@ Arranged from alphabetical order by last name.
 - Kojo Bempah
 - Rohan Mallu
 - Noah Shayne
-- Rahul Rajesh
 - Matthew Hudzikiewicz
 - Alvin Yu
 - Gurpreet Singh
 - Rahul Rajesh
+- Roshan Rajesh
