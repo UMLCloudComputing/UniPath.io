@@ -9,7 +9,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/UMLCloudComputing/UniPath.io">
-    <img src="https://github.com/UMLCloudComputing/UniPath.io/blob/main/logo.png" alt="Logo" width="50%" height="50%">
+    <img src="./Images/logo.png" alt="Logo" width="50%" height="50%">
   </a>
   <p align="center">
     Plan, Create, and Share Your Academic Journey!
@@ -26,7 +26,7 @@
 ## About the Project
 
 <p align="center">
-    <img src="https://github.com/UMLCloudComputing/UniPath.io/blob/main/prepare-yourself-unipath-is-coming.gif" alt="App Screenshot" width="80%"/>
+    <img src="./Images/prepare-yourself-unipath-is-coming.gif" alt="App Screenshot" width="80%"/>
 </p>
 
 UniPath.io is designed to simplify the academic lives of college students. Create, plan, and share your class schedules for your entire degree program with ease.
@@ -139,7 +139,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contributors
 
-These are a list of contributors to the project. If you would like to contribute, please see the [contributing guidlines](./Contribution-Guideline/README.md).
+This is a list of contributors to the project. If you would like to contribute, please see the [contributing guidelines](./Contribution-Guideline/README.md).
 
 Arranged from alphabetical order by last name.
 
