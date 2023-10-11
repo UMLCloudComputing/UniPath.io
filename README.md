@@ -143,16 +143,16 @@ These are a list of contributors to the project. If you would like to contribute
 
 Arranged from alphabetical order by last name.
 
-- Matthew Marwad Kostandin
-- Martin Marwad
-- Christopher Coco
-- Martin Marwad
-- Edmund Kam
 - Kojo Bempah
-- Rohan Mallu
-- Noah Shayne
+- Christopher Coco
 - Matthew Hudzikiewicz
-- Alvin Yu
-- Gurpreet Singh
+- Edmund Kam
+- Matthew Kostandin
+- Rohan Mallu
+- Martin Marwad
 - Rahul Rajesh
 - Roshan Rajesh
+- Noah Shayne
+- Gurpreet Singh
+- Avlin Yu
+
