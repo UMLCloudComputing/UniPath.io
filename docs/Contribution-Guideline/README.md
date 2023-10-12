@@ -27,7 +27,7 @@ The structure planned for the [UniPath.io](https://www.UniPath.io) project's bra
 3. Feature Branches. Each proposed feature will have a branch created where members will contribute changes.
    * No protections (Anarchy!)
 
-<img src="Images/BranchProc.png">
+<img src="./Images/BranchProc.png">
 
 ## Procedure For Contributing
 
