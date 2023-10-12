@@ -105,6 +105,28 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Contributors
+
+This is a list of contributors to the project. If you would like to contribute, please see the [contributing guidelines](./docs/Contribution-Guideline/Contribution-Guideline/README.md).
+
+Arranged from alphabetical order by last name.
+
+- Kojo Bempah
+- Christopher Coco
+- Matthew Hudzikiewicz
+- Edmund Kam
+- Matthew Marwad Kostandin
+- Rohan Mallu
+- Martin Marwad
+- Rahul Rajesh
+- Roshan Rajesh
+- Aaron Roche
+- Noah Shayne
+- Gurpreet Singh
+- Alvin Yu
+
+
+
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
