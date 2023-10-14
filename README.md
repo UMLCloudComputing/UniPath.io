@@ -9,7 +9,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/UMLCloudComputing/UniPath.io">
-    <img src="https://github.com/UMLCloudComputing/UniPath.io/blob/main/logo.png" alt="Logo" width="50%" height="50%">
+    <img src="./docs/Images/logo.png" alt="Logo" width="50%" height="50%">
   </a>
   <p align="center">
     Plan, Create, and Share Your Academic Journey!
@@ -26,7 +26,7 @@
 ## About the Project
 
 <p align="center">
-    <img src="https://github.com/UMLCloudComputing/UniPath.io/blob/main/prepare-yourself-unipath-is-coming.gif" alt="App Screenshot" width="80%"/>
+    <img src="./docs/Images/prepare-yourself-unipath-is-coming.gif" alt="App Screenshot" width="80%"/>
 </p>
 
 UniPath.io is designed to simplify the academic lives of college students. Create, plan, and share your class schedules for your entire degree program with ease.
@@ -91,7 +91,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Contact
-- Project Link: [https://github.com/UMLCloudComputing/UniPath.io](https://github.com/UMLCloudComputing/UniPath.io)
+- Homepage: https://github.com/UMLCloudComputing/Fall2023
 - Discord: https://discord.gg/WC2NdqYtDt
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -104,6 +104,28 @@ Distributed under the MIT License. See `LICENSE` for more information.
 * [README Template](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Contributors
+
+This is a list of contributors to the project. If you would like to contribute, please see the [contributing guidelines](./docs/Contribution-Guideline/Contribution-Guideline/README.md).
+
+Arranged from alphabetical order by last name.
+
+- Kojo Bempah
+- Christopher Coco
+- Matthew Hudzikiewicz
+- Edmund Kam
+- Matthew Marwad Kostandin
+- Rohan Mallu
+- Martin Marwad
+- Rahul Rajesh
+- Roshan Rajesh
+- Aaron Roche
+- Noah Shayne
+- Gurpreet Singh
+- Alvin Yu
+
+
 
 
 
@@ -135,24 +157,3 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [React-url]: https://reactjs.org/
 [Material-UI]: https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white
 [Material-UI-url]: https://material-ui.com/
-
-
-## Contributors
-
-These are a list of contributors to the project. If you would like to contribute, please see the [contributing guidlines](./Contribution-Guideline/README.md).
-
-Arranged from alphabetical order by last name.
-
-- Matthew Marwad Kostandin
-- Martin Marwad
-- Christopher Coco
-- Martin Marwad
-- Edmund Kam
-- Kojo Bempah
-- Rohan Mallu
-- Noah Shayne
-- Matthew Hudzikiewicz
-- Alvin Yu
-- Gurpreet Singh
-- Rahul Rajesh
-- Roshan Rajesh

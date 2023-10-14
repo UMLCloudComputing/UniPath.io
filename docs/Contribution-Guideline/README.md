@@ -27,7 +27,7 @@ The structure planned for the [UniPath.io](https://www.UniPath.io) project's bra
 3. Feature Branches. Each proposed feature will have a branch created where members will contribute changes.
    * No protections (Anarchy!)
 
-<img src="Images/BranchProc.png">
+<img src="./Images/BranchProc.png">
 
 ## Procedure For Contributing
 
@@ -36,7 +36,7 @@ There are a few expectations, and requests we make for those contributing to the
 ### Cooperation and Personal Expectations
 1. We as a group understand this is a learning process for everyone, so mistakes are **OK** and *expected*. Please learn from them!
 2. Please be respectful in the PR, and Issue comments! 
-3.  /<Insert More/>
+3.  \<Insert More!\>
 
 ### Commit 
 1. Each commit is expected to have a meaningful **Subject**. 
@@ -60,3 +60,4 @@ There are a few expectations, and requests we make for those contributing to the
 3. The body should contain information as to what this pull request changes. 
 
 ## Code and Documentation Expectations
+Please refer any question to Martin or one of the EBoard members! Until this is formalized you should follow the general best practices related to formatting, and *please* comment and document your code!
