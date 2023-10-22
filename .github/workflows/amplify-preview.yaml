@@ -1,0 +1,35 @@
+name: Amplify PR Preview
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Amplify Preview Deployment
+    - name: Set branch name environment variable
+      id: setenvname
+      run: |
+        echo "##[set-output name=setbranchname;]$(echo ${GITHUB_HEAD_REF})"
+      
+    - name: Deploy PR preview
+      uses: yinlinchen/amplify-preview-actions@master
+      with:
+        branch_name: ${{ steps.setenvname.outputs.setbranchname }}
+        amplify_command: deploy
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        AmplifyAppId: ${{ secrets.AMPLIFYAPPID }}
+        BackendEnvARN: ${{ secrets.BACKENDENVARN }} # If applicable
+        # EnvironmentVariables: 'key1=value,key2=value' # If you have any environment variables
+        AWS_REGION: 'us-east-1'
