@@ -14,6 +14,25 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    # Set up AWS CLI
+    - name: Set up AWS CLI
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    # Check if branch exists in Amplify
+    - name: Check if branch exists
+      id: checkbranch
+      run: |
+        EXISTS=$(aws amplify list-branches --app-id ${{ secrets.AMPLIFYAPPID }} | jq '.branches[] | select(.branchName=="${{ steps.setenvname.outputs.setbranchname }}")')
+        if [[ -z "$EXISTS" ]]; then
+          echo "##[set-output name=branchExists;]false"
+        else
+          echo "##[set-output name=branchExists;]true"
+        fi
+
     # Amplify Preview Deployment
     - name: Set branch name environment variable
       id: setenvname
@@ -21,6 +40,7 @@ jobs:
         echo "##[set-output name=setbranchname;]$(echo ${GITHUB_HEAD_REF})"
       
     - name: Deploy PR preview
+      if: steps.checkbranch.outputs.branchExists == 'false'
       uses: yinlinchen/amplify-preview-actions@master
       with:
         branch_name: ${{ steps.setenvname.outputs.setbranchname }}
@@ -30,6 +50,6 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         AmplifyAppId: ${{ secrets.AMPLIFYAPPID }}
-        # BackendEnvARN: ${{ secrets.BACKENDENVARN }} # If applicable
+        BackendEnvARN: ${{ secrets.BACKENDENVARN }} # If applicable
         # EnvironmentVariables: 'key1=value,key2=value' # If you have any environment variables
         AWS_REGION: 'us-east-1'
