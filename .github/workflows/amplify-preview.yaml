@@ -30,6 +30,6 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         AmplifyAppId: ${{ secrets.AMPLIFYAPPID }}
-        BackendEnvARN: ${{ secrets.BACKENDENVARN }} # If applicable
+        # BackendEnvARN: ${{ secrets.BACKENDENVARN }} # If applicable
         # EnvironmentVariables: 'key1=value,key2=value' # If you have any environment variables
         AWS_REGION: 'us-east-1'
