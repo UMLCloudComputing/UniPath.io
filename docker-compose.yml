@@ -1,0 +1,27 @@
+version: '3'
+
+# Create a service called "nextjs-app"
+services:
+
+  # Create a service called "nextjs-app"
+  nextjs-app:
+
+    # Use the Dockerfile in the current directory.
+    build:
+
+      # Use the Dockerfile in the current directory.
+      context: .
+
+      # Name the image "nextjs-app".
+      dockerfile: Dockerfile
+
+    # Mount the current directory on the host to the container.
+    ports:
+      - "3000:3000"
+
+    # Mount the current directory on the host to the container.
+    volumes:
+      - .:/app
+
+    # Run the
+    command: npm run dev
