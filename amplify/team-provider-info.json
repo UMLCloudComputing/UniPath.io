@@ -36,6 +36,11 @@
       "StackName": "amplify-unipathio-dev-170007",
       "StackId": "arn:aws:cloudformation:us-east-1:840414111995:stack/amplify-unipathio-dev-170007/225d4ac0-7b55-11ee-b149-12daad1e7f53",
       "AmplifyAppId": "d2zs7m7q4yzmc"
+    },
+    "categories": {
+      "auth": {
+        "UniPathio": {}
+      }
     }
   },
   "test": {

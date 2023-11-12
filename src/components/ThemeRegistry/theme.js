@@ -17,13 +17,13 @@ const theme = createTheme({
     },
     components: {
         MuiAlert: {
-            styleOverrides: {
-                root: ({ ownerState }) => ({
-                    ...(ownerState.severity === 'info' && {
-                        backgroundColor: '#60a5fa',
-                    }),
-                }),
-            },
+            // styleOverrides: {
+            //     root: ({ ownerState }) => ({
+            //         ...(ownerState.severity === 'info' && {
+            //             backgroundColor: '#60a5fa',
+            //         }),
+            //     }),
+            // },
         },
     },
 });

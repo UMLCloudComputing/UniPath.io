@@ -1,0 +1,15 @@
+type Course @model @auth(rules: [{allow: public}]) {
+  id: ID!
+}
+
+type Task @model @auth(rules: [{allow: public}]) {
+  id: ID!
+}
+
+type Pathway @model @auth(rules: [{allow: public}]) {
+  id: ID!
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+}
