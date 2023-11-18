@@ -18,7 +18,7 @@ import MediaCard from '@/components/MediaCard';
 export default function HomePage() {
     return (
         <Box sx={{ display: 'flex' }}>
-            <div>
+            <div>   
                 <Alert severity="info" sx={{ mt: 2, mb: 5 }}>
                     <AlertTitle>Hello 👋</AlertTitle>
                     This app uses the Next.js App Router and Material UI v5.

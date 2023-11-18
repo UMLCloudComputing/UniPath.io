@@ -24,9 +24,13 @@ export default function LandingPage() {
                 <Toolbar>
 
                     {/* Logo */}
-                    <Box>
-                        <img src="/logo.png" alt="UniPath.io Logo" style={{ height: '50px', marginRight: '10px' }} />
-                    </Box>
+                        <img src="/favicon.png" alt="UniPath.io Logo" style={{ height: '50px', marginRight: '10px'}} />
+                        <Typography variant = "h6" noWrap  sx = 
+                        {{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' }}}>
+                                UniPath.io
+                        </Typography>
 
                     {/* This pushes everything after it to the right */}
                     <Box sx={{ flexGrow: 1 }} />
