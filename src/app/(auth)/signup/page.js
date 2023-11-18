@@ -1,10 +1,12 @@
+// React
 import React from 'react';
+
+// Material UI
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CSSBaseline from '@mui/material/CSSBaseline';
+import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
 
 {/*Current Version will be based on template 
 https://github.com/mui/material-ui/blob/v5.14.18/docs/data/material/getting-started/templates/sign-up/SignUp.js;
