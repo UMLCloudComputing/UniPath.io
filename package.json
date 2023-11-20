@@ -11,10 +11,9 @@
   "dependencies": {
     "@aws-amplify/cli": "^12.7.1",
     "@emotion/cache": "latest",
-    "@emotion/react": "latest",
-    "@emotion/styled": "latest",
-    "@mui/icons-material": "latest",
-    "@mui/material": "latest",
+    "@emotion/react": "^11.11.1",
+    "@mui/icons-material": "^5.14.18",
+    "@mui/material": "^5.14.18",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"

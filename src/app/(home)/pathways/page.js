@@ -21,7 +21,7 @@ export default function StarredPage() {
                 }}
             >
                 <Typography variant="body1" gutterBottom>
-                    Starred Page
+                    Pathways Page
                 </Typography>
             </Box>
         </Container>
