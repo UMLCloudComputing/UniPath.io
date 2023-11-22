@@ -2,6 +2,7 @@
 // React
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation'
 
 // Material UI
 import Drawer from '@mui/material/SwipeableDrawer';
@@ -31,6 +32,9 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 
 // Component: DrawerComponent
 export default function DrawerComponent({ drawerWidth, open, handleDrawerClose, handleDrawerOpen }) {
+
+    // NextJS: Get current URL pathname
+    const pathname = usePathname()
 
     // React Vars and Hooks
     const theme = useTheme();
@@ -79,6 +83,7 @@ export default function DrawerComponent({ drawerWidth, open, handleDrawerClose, 
                         [theme.breakpoints.up('sm')]: {
                             width: `calc(${theme.spacing(8)} + 1px)`,
                         },
+                        overflow: 'hidden',
                     },
                 }),
             }}
@@ -91,7 +96,7 @@ export default function DrawerComponent({ drawerWidth, open, handleDrawerClose, 
             <List>
 
                 {/* Pathways */}
-                <ListItemButton onClick={handlePathwaysClick} href='/pathways'>
+                <ListItemButton onClick={handlePathwaysClick} href='/pathways' selected={pathname === '/pathways'}>
                     <ListItemIcon>
                         <PathIcon />
                     </ListItemIcon>
@@ -103,7 +108,7 @@ export default function DrawerComponent({ drawerWidth, open, handleDrawerClose, 
                 </Collapse> */}
 
                 {/* Tasks */}
-                <ListItemButton onClick={handleTasksClick} href='/tasks'>
+                <ListItemButton onClick={handleTasksClick} href='/tasks' selected={pathname === '/tasks'}>
                     <ListItemIcon>
                         <TaskIcon />
                     </ListItemIcon>
@@ -118,6 +123,7 @@ export default function DrawerComponent({ drawerWidth, open, handleDrawerClose, 
 
             {/* Spacer element to push the following List to the bottom */}
             <Box sx={{ flexGrow: 1 }} />
+            <Divider />
 
             <List>
                 <ListItemButton>
@@ -130,7 +136,7 @@ export default function DrawerComponent({ drawerWidth, open, handleDrawerClose, 
                     <ListItemIcon>
                         <HomeIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Home Page" href='/' />
+                    <ListItemText primary="Home Page" href='/#' />
                 </ListItemButton>
                 <ListItemButton>
                     <ListItemIcon>

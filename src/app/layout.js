@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
             </head>
             <body>
                 <ThemeRegistry>
-                    <Box component="main" sx={{ p: 1,  }}>
+                    <Box component="main" sx={{  }}>
                         {children}
                     </Box>
                 </ThemeRegistry>
