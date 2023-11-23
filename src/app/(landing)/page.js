@@ -38,8 +38,8 @@ export default function LandingPage() {
                     {/* Buttons */}
                     <Box>
                         <Button color="inherit" href="/home">About</Button>
-                        <Button color="inherit" href="/home">Login</Button>
-                        <Button color="inherit" href="/home">Sign Up</Button>
+                        <Button color="inherit" href="/signin">Login</Button>
+                        <Button color="inherit" href="/signup">Sign Up</Button>
                     </Box>
 
                 </Toolbar>
