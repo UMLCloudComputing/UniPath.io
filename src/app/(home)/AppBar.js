@@ -15,6 +15,7 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useTheme } from '@mui/material/styles';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 // Material UI: Icons
 import MenuIcon from '@mui/icons-material/Menu';
@@ -34,6 +35,13 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    const trigger = useScrollTrigger({
+        disableHysteresis: true,
+        threshold: 0,
+        // target: window ? window() : undefined,
+    });
+
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -128,16 +136,21 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed" elevation={0} sx={{
-                zIndex: (theme) => theme.zIndex.drawer + 1,
-                transition: (theme) => theme.transitions.create(['margin', 'width'], {
-                    easing: theme.transitions.easing.sharp,
-                    duration: theme.transitions.duration.leavingScreen,
-                }),
-                bgcolor: 'background.paper',
-                color: 'text.primary',
-                borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
-            }}>
+            <AppBar 
+                position="fixed" 
+                elevation={trigger ? 2 : 0}
+                sx={{
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                    transition: (theme) => theme.transitions.create(['margin', 'width'], {
+                        easing: theme.transitions.easing.sharp,
+                        duration: theme.transitions.duration.leavingScreen,
+                    }),
+                    bgcolor: 'background.paper',
+                    color: 'text.primary',
+                    borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
+                    // backdropFilter: 'blur(12px)', // trying to copy the appbar blur from the mui.com docs
+                }}
+            >
                 <Toolbar>
                     
                     {/* Left Group */}
