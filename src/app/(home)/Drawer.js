@@ -43,12 +43,23 @@ export default function DrawerComponent({ drawerWidth, open, handleDrawerClose, 
     const [pathwaysOpen, setPathwaysOpen] = useState(true);
     const [tasksOpen, setTasksOpen] = useState(true);
 
+    const [settingsOpen, setSettingsOpen] = useState(true);
+    const [supportOpen, setSupportOpen] = useState(true);
+  
     const handlePathwaysClick = () => {
         setPathwaysOpen(!pathwaysOpen);
     };
 
     const handleTasksClick = () => {
         setTasksOpen(!tasksOpen);
+    };
+
+    const handleSettingsClick = () => {
+        setSettingsOpen(!settingsOpen);
+    };
+
+    const handleSupportClick = () => {
+        setSupportOpen(!supportOpen);
     };
 
     return (
@@ -126,7 +137,7 @@ export default function DrawerComponent({ drawerWidth, open, handleDrawerClose, 
             <Divider />
 
             <List>
-                <ListItemButton>
+                <ListItemButton onClick={handleSupportClick} href='/support' selected={pathname === '/support'}>
                     <ListItemIcon>
                         <SupportIcon />
                     </ListItemIcon>
@@ -138,7 +149,7 @@ export default function DrawerComponent({ drawerWidth, open, handleDrawerClose, 
                     </ListItemIcon>
                     <ListItemText primary="Home Page" href='/#' />
                 </ListItemButton>
-                <ListItemButton>
+                <ListItemButton onClick={handleSettingsClick} href='/settings' selected={pathname === '/settings'}>
                     <ListItemIcon>
                         <SettingsIcon />
                     </ListItemIcon>
