@@ -83,6 +83,7 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
             id={menuId}
             keepMounted
             transformOrigin={{
+                
                 vertical: 'top',
                 horizontal: 'right',
             }}
