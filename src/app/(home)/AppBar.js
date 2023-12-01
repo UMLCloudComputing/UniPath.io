@@ -14,7 +14,11 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import Button from  '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
+
+// Local Components
+import DialogComponent from './Dialog';
 
 // Material UI: Icons
 import MenuIcon from '@mui/icons-material/Menu';
@@ -23,6 +27,15 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+
+// Amplify
+import { Amplify } from 'aws-amplify';
+import { Authenticator } from '@aws-amplify/ui-react';
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from '../../aws-exports';
+
+Amplify.configure(awsExports);
 
 
 // Component: AppBarComponent
@@ -34,6 +47,11 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    const [openDialog, setOpenDialog] = React.useState(false);
+
+    //Amplify hooks
+    const { authenticated, authStatus, user, signOut } = useAuthenticator((context) => [context.user]);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -51,6 +69,8 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
+
+    // Button redirect click handler
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -75,6 +95,9 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
     );
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
+
+  
+
     const renderMobileMenu = (
         <Menu
             anchorEl={mobileMoreAnchorEl}
@@ -204,7 +227,25 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
     
                     {/* Right */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                        
+                        {
+                            authStatus === "unauthenticated" 
+                            ? 
+                            <Button /*onClick={() => redirect("/signup")*/ variant = "outlined">Sign Up</Button>
+                            : 
+                            <IconButton
+                                size="large"
+                                edge="end"
+                                aria-label="account of current user"
+                                aria-controls={menuId}
+                                aria-haspopup="true"
+                                onClick={handleProfileMenuOpen}
+                                color="inherit"
+                            > 
+                                <AccountCircle />
+                            </IconButton>
+                        }
+                        {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="error">
                                 <MailIcon />
                             </Badge>
@@ -217,7 +258,7 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
                             <Badge badgeContent={17} color="error">
                                 <NotificationsIcon />
                             </Badge>
-                        </IconButton>
+                        </IconButton> */}
                         <IconButton
                             size="large"
                             edge="end"
