@@ -24,9 +24,8 @@ import DialogComponent from './Dialog';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
+import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
+import Divider from '@mui/material/Divider';
 
 // Amplify
 import { Amplify } from 'aws-amplify';
@@ -34,6 +33,7 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import awsExports from '../../aws-exports';
+import SignUpPage from '../(auth)/signup/page';
 
 Amplify.configure(awsExports);
 
@@ -53,6 +53,7 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
     //Amplify hooks
     const { authenticated, authStatus, user, signOut } = useAuthenticator((context) => [context.user]);
 
+    //click handlers
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -68,6 +69,13 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
 
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
+    };
+
+    const handleDialogOpen = () => {
+        setOpenDialog(true);
+    };
+    const handleDialogClose = () => {
+        setOpenDialog(false);
     };
 
     // Button redirect click handler
@@ -97,7 +105,6 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
 
-  
 
     const renderMobileMenu = (
         <Menu
@@ -115,27 +122,7 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                >
-                    <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
-                    </Badge>
-                </IconButton>
-                <p>Notifications</p>
-            </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
+            <MenuItem onClick={handleMobileMenuClose}>
                 <IconButton
                     size="large"
                     aria-label="account of current user"
@@ -145,7 +132,19 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
                 >
                     <AccountCircle />
                 </IconButton>
-                <p>Profile</p>
+                <p>My Account</p>
+            </MenuItem>
+            <MenuItem onClick={handleMobileMenuClose}>
+                <IconButton
+                    size = "large"
+                    aria-label='add another user icon button'
+                    aria-controls='primary-search-account-menu'
+                    aria-haspopup="true"
+                    color = "inherit"
+                    >
+                        <PersonAddAltRoundedIcon />
+                    </IconButton>
+                    <p>Add Account</p>
             </MenuItem>
         </Menu>
     );
@@ -228,12 +227,22 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
     
                     {/* Right */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        
                         {
-                            authStatus === "unauthenticated" 
+                            /* Logged out UI, sign up button showed */
+                            authStatus === "unauthenticated"
                             ? 
-                            <Button /*onClick={() => redirect("/signup")*/ variant = "outlined">Sign Up</Button>
+                            /* Sign Up Button */
+                            <>
+                                <Button variant = "outlined" onClick={handleDialogOpen}>Sign Up / Log In</Button>
+                                <DialogComponent open={openDialog} handleClose={handleDialogClose}/>
+                            </>
                             : 
+                            <></>
+                        }
+                        {
+                            /* Logged in UI, with IconButton instead of Sign Up Button */
+                            authStatus === "authenticated"
+                            ?
                             <IconButton
                                 size="large"
                                 edge="end"
@@ -245,44 +254,44 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
                             > 
                                 <AccountCircle />
                             </IconButton>
+                            :
+                            <></>
                         }
-                        {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="error">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                        >
-                            <Badge badgeContent={17} color="error">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton> */}
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
+                        
                     </Box>
+                    
+                    {/* TODO */}
+                    {/* Mobile configuration for the Sign Up/Account Settings*/}
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
+                        {
+                            /* Sign Up Button */
+                            authStatus === "unauthenticated" && authStatus != "configuring"
+                            ? 
+                            <>
+                                <PersonAddAltRoundedIcon onClick = {handleDialogOpen}/>
+                                {/* Improve this to launch it's own page instead of a portal since the portal has sizing issues*/}
+                                <DialogComponent open = {openDialog} handleClose = {handleDialogClose}/>
+                            </>
+                            : 
+                            <></>
+                        }
+                        {
+                            authStatus === "authenticated"
+                            ?
+                            /* Logged in UI, with IconButton instead of Sign Up Button */
+                            <IconButton
                             size="large"
                             aria-label="show more"
                             aria-controls={mobileMenuId}
                             aria-haspopup="true"
                             onClick={handleMobileMenuOpen}
                             color="inherit"
-                        >
-                            <MoreIcon />
-                        </IconButton>
+                            >
+                                <AccountCircle />
+                            </IconButton>
+                            :
+                            <></>
+                        }
                     </Box>
                 </Toolbar>
             </AppBar>

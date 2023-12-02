@@ -8,17 +8,14 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
+import { Authenticator } from '@aws-amplify/ui-react';
 
-export default function CustomizedDialogs() {
-    const [open, setOpen] = React.useState(false);
+export default function CustomizedDialogs(props) {
+    const menuId = 'primary-search-account-menu';
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const { open, handleClose } = props;
 
     return (
         <React.Fragment>
@@ -28,7 +25,7 @@ export default function CustomizedDialogs() {
                 open={open}
             >
                 <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                    Modal title
+                    Sign Up
                 </DialogTitle>
                 <IconButton
                     aria-label="close"
@@ -43,26 +40,15 @@ export default function CustomizedDialogs() {
                     <CloseIcon />
                 </IconButton>
                 <DialogContent dividers>
-                    <Typography gutterBottom>
-                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                        dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                        consectetur ac, vestibulum at eros.
-                    </Typography>
-                    <Typography gutterBottom>
-                        Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-                        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-                    </Typography>
-                    <Typography gutterBottom>
-                        Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-                        magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-                        ullamcorper nulla non metus auctor fringilla.
-                    </Typography>
+                    <Authenticator initialState = "signUp">
+                        {({ signOut, user }) => (
+                            <main>
+                                <h1>Hello {user.username}</h1>
+                                <button onClick={signOut}>Sign out</button>
+                            </main>
+                        )}
+                    </Authenticator>
                 </DialogContent>
-                {/* <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Save changes
-          </Button>
-        </DialogActions> */}
             </Dialog>
         </React.Fragment>
     );
