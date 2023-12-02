@@ -1,4 +1,22 @@
 {
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-unipathio-dev-170007-authRole",
+      "UnauthRoleArn": "arn:aws:iam::840414111995:role/amplify-unipathio-dev-170007-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::840414111995:role/amplify-unipathio-dev-170007-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-unipathio-dev-170007-deployment",
+      "UnauthRoleName": "amplify-unipathio-dev-170007-unauthRole",
+      "StackName": "amplify-unipathio-dev-170007",
+      "StackId": "arn:aws:cloudformation:us-east-1:840414111995:stack/amplify-unipathio-dev-170007/225d4ac0-7b55-11ee-b149-12daad1e7f53",
+      "AmplifyAppId": "d2zs7m7q4yzmc"
+    },
+    "categories": {
+      "auth": {
+        "UniPathio": {}
+      }
+    }
+  },
   "staging": {
     "awscloudformation": {
       "AuthRoleName": "amplify-amplify014cc52c61cf4-staging-75314-authRole",
@@ -23,24 +41,6 @@
       "StackName": "amplify-unipathio-prod-41310",
       "StackId": "arn:aws:cloudformation:us-east-1:840414111995:stack/amplify-unipathio-prod-41310/fe708660-7ae9-11ee-bc5e-125bd53fa243",
       "AmplifyAppId": "d2zs7m7q4yzmc"
-    }
-  },
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-unipathio-dev-170007-authRole",
-      "UnauthRoleArn": "arn:aws:iam::840414111995:role/amplify-unipathio-dev-170007-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::840414111995:role/amplify-unipathio-dev-170007-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-unipathio-dev-170007-deployment",
-      "UnauthRoleName": "amplify-unipathio-dev-170007-unauthRole",
-      "StackName": "amplify-unipathio-dev-170007",
-      "StackId": "arn:aws:cloudformation:us-east-1:840414111995:stack/amplify-unipathio-dev-170007/225d4ac0-7b55-11ee-b149-12daad1e7f53",
-      "AmplifyAppId": "d2zs7m7q4yzmc"
-    },
-    "categories": {
-      "auth": {
-        "UniPathio": {}
-      }
     }
   },
   "test": {
