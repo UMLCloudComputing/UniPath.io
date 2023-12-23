@@ -22,7 +22,15 @@ import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
 //         for meticulous degree path planning and progress tracking.`,
 // };
 
-// Component: RootLayout
+/**
+ * RootLayout is a high-level layout component that wraps around other components.
+ * It provides them with theme and authentication context.
+ *
+ * @param {Object} props - The properties passed to this component.
+ * @param {ReactNode} props.children - The child components to be rendered inside this layout.
+ *
+ * @returns {ReactElement} The React Element created by this function.
+ */
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
