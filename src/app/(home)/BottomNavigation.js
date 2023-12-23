@@ -16,7 +16,13 @@ import NotificationIcon from '@mui/icons-material/Notifications'; // Placeholder
 import SettingsIcon from '@mui/icons-material/Settings';
 
 
-// Component: SimpleBottomNavigation
+/**
+ * SimpleBottomNavigation is a React component that renders a bottom navigation bar.
+ * It includes links to 'Pathways', 'Tasks', 'Notifications', and 'Settings'.
+ * The active link is determined by the current URL pathname.
+ *
+ * @returns {ReactElement} The React Element created by this function.
+ */
 export default function SimpleBottomNavigation() {
 
     // NextJS: Get current URL pathname
