@@ -17,7 +17,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 
 /**
- * SimpleBottomNavigation is a React component that renders a bottom navigation bar.
+ * SimpleBottomNavigation renders a bottom navigation bar.
  * It includes links to 'Pathways', 'Tasks', 'Notifications', and 'Settings'.
  * The active link is determined by the current URL pathname.
  *
