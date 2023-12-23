@@ -23,7 +23,7 @@ import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
 // };
 
 /**
- * RootLayout is a high-level layout component that wraps around other components.
+ * RootLayout is the main high-level layout component that wraps around other components in this application.
  * It provides them with theme and authentication context.
  *
  * @param {Object} props - The properties passed to this component.
