@@ -15,7 +15,12 @@ import CardContent from '@mui/material/CardContent';
 import Container from '@mui/material/Container';
 import SchoolIcon from '@mui/icons-material/School';
 
-// Page: LandingPage
+/**
+ * LandingPage is a React component that renders the landing page of the application.
+ * It includes an AppBar with navigation buttons, a Hero section, a Features section, and a Footer.
+ *
+ * @returns {ReactElement} The React Element created by this function.
+ */
 export default function LandingPage() {
     return (
         <Box>
