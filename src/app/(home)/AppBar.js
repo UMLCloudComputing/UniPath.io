@@ -252,10 +252,12 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
                             <></>
                         }
                         {
-                            /* Logged in UI, with IconButton instead of Sign Up Button */
+                            /* Logged in UI, with sign out button and profile icon */
                             authStatus === "authenticated"
                             ?
-                            <IconButton
+                            <>
+                              <Button variant="outlined" onClick={signOut}>LOG OUT</Button>
+                              <IconButton
                                 size="large"
                                 edge="end"
                                 aria-label="account of current user"
@@ -263,9 +265,10 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
                                 aria-haspopup="true"
                                 onClick={handleProfileMenuOpen}
                                 color="inherit"
-                            > 
+                              > 
                                 <AccountCircle />
-                            </IconButton>
+                              </IconButton>
+                            </>
                             :
                             <></>
                         }
