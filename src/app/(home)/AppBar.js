@@ -253,7 +253,7 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
                             <></>
                         }
                         {
-                            /* Logged in UI, with sign out button and profile icon */
+                            /* Logged in UI, with IconButton instead of Sign Up Button */
                             authStatus === "authenticated"
                             ?
                               <IconButton
