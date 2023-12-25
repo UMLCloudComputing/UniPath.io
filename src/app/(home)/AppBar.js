@@ -107,6 +107,7 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Sign out</MenuItem>
         </Menu>
     );
 
@@ -245,7 +246,7 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
                             ? 
                             /* Sign Up Button */
                             <>
-                                <Button variant = "outlined" onClick={handleDialogOpen}>Sign Up / Log In</Button>
+                                <Button variant = "outlined" onClick={handleDialogOpen}>Sign Up / Sign In</Button>
                                 <DialogComponent open={openDialog} handleClose={handleDialogClose}/>
                             </>
                             : 
@@ -255,8 +256,6 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
                             /* Logged in UI, with sign out button and profile icon */
                             authStatus === "authenticated"
                             ?
-                            <>
-                              <Button variant="outlined" onClick={signOut}>LOG OUT</Button>
                               <IconButton
                                 size="large"
                                 edge="end"
@@ -268,7 +267,6 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
                               > 
                                 <AccountCircle />
                               </IconButton>
-                            </>
                             :
                             <></>
                         }
