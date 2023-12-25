@@ -107,7 +107,7 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Sign out</MenuItem>
+            <MenuItem onClick={signOut}>Sign out</MenuItem>
         </Menu>
     );
 
