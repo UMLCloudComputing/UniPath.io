@@ -30,8 +30,19 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
 
-// Component: DrawerComponent
-export default function DrawerComponent({ drawerWidth, open, handleDrawerClose, handleDrawerOpen }) {
+/**
+ * A responsive drawer which opens from the left side.
+ * It includes links to 'Pathways', 'Tasks', 'Support', 'Home Page', and 'Settings'.
+ * The active link is determined by the current URL pathname.
+ *
+ * @param {Object} props - The properties passed to this component.
+ * @param {number} props.drawerWidth - The width of the drawer.
+ * @param {boolean} props.open - The state of the drawer (open or closed).
+ * @param {Function} props.handleDrawerClose - The function to handle the closing of the drawer.
+ * @param {Function} props.handleDrawerOpen - The function to handle the opening of the drawer.
+ *
+ * @returns {ReactElement} The React Element created by this function.
+ */export default function DrawerComponent({ drawerWidth, open, handleDrawerClose, handleDrawerOpen }) {
 
     // NextJS: Get current URL pathname
     const pathname = usePathname()

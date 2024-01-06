@@ -38,8 +38,17 @@ import SignUpPage from '../(auth)/signup/page';
 
 Amplify.configure(awsExports);
 
-
-// Component: AppBarComponent
+/**
+ * AppBarComponent renders an AppBar with various interactive elements.
+ * It includes a drawer, search bar, sign up/log in button, and account settings.
+ *
+ * @param {Object} props - The properties passed to this component.
+ * @param {number} props.drawerWidth - The width of the drawer.
+ * @param {boolean} props.open - The state of the drawer (open or closed).
+ * @param {Function} props.handleDrawerOpen - The function to handle the opening of the drawer.
+ *
+ * @returns {ReactElement} The React Element created by this function.
+ */
 export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen }) {
 
     // React Vars and Hooks

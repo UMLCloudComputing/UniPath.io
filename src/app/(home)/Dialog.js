@@ -12,10 +12,18 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 
 import { Authenticator } from '@aws-amplify/ui-react';
 
-export default function CustomizedDialogs(props) {
+/**
+ * A dialog box for user sign up.
+ * It includes a title, a close button, and an Amplify Authenticator component for user sign up.
+ *
+ * @param {Object} props - The properties passed to this component.
+ * @param {boolean} props.open - The state of the dialog (open or closed).
+ * @param {Function} props.handleClose - The function to handle the closing of the dialog.
+ *
+ * @returns {ReactElement} The React Element created by this function.
+ */
+export default function CustomizedDialogs({ open, handleClose }) {
     const menuId = 'primary-search-account-menu';
-
-    const { open, handleClose } = props;
 
     return (
         <React.Fragment>
