@@ -18,7 +18,15 @@ import BottomNavigation from './BottomNavigation';
 const drawerWidth = 240;
 const drawerWidthClosed = 100;
 
-// Component: Layout Template for (home) pages
+/**
+ * The main layout of the application.
+ * It includes an AppBar at the top, a responsive Drawer that opens from the left, the main content area, and a BottomNavigation.
+ *
+ * @param {Object} props - The properties passed to this component.
+ * @param {ReactNode} props.children - The child components to be rendered in the main content area.
+ *
+ * @returns {ReactElement} The React Element created by this function.
+ */
 export default function Layout({ children }) {
 
     const theme = useTheme();

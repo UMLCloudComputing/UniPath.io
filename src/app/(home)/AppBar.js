@@ -38,8 +38,17 @@ import SignUpPage from '../(auth)/signup/page';
 
 Amplify.configure(awsExports);
 
-
-// Component: AppBarComponent
+/**
+ * AppBarComponent renders an AppBar with various interactive elements.
+ * It includes a drawer, search bar, sign up/log in button, and account settings.
+ *
+ * @param {Object} props - The properties passed to this component.
+ * @param {number} props.drawerWidth - The width of the drawer.
+ * @param {boolean} props.open - The state of the drawer (open or closed).
+ * @param {Function} props.handleDrawerOpen - The function to handle the opening of the drawer.
+ *
+ * @returns {ReactElement} The React Element created by this function.
+ */
 export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen }) {
 
     // React Vars and Hooks
@@ -107,6 +116,7 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={signOut}>Sign out</MenuItem>
         </Menu>
     );
 
@@ -245,7 +255,7 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
                             ? 
                             /* Sign Up Button */
                             <>
-                                <Button variant = "outlined" onClick={handleDialogOpen}>Sign Up / Log In</Button>
+                                <Button variant = "outlined" onClick={handleDialogOpen}>Sign Up / Sign In</Button>
                                 <DialogComponent open={openDialog} handleClose={handleDialogClose}/>
                             </>
                             : 
@@ -255,7 +265,7 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
                             /* Logged in UI, with IconButton instead of Sign Up Button */
                             authStatus === "authenticated"
                             ?
-                            <IconButton
+                              <IconButton
                                 size="large"
                                 edge="end"
                                 aria-label="account of current user"
@@ -263,9 +273,9 @@ export default function AppBarComponent({ drawerWidth, open, handleDrawerOpen })
                                 aria-haspopup="true"
                                 onClick={handleProfileMenuOpen}
                                 color="inherit"
-                            > 
+                              > 
                                 <AccountCircle />
-                            </IconButton>
+                              </IconButton>
                             :
                             <></>
                         }
