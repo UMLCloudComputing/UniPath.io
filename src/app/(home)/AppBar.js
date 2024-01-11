@@ -33,7 +33,10 @@ import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
+import awsExports from '../../aws-exports';
 import SignUpPage from '../(auth)/signup/page';
+
+Amplify.configure(awsExports);
 
 /**
  * AppBarComponent renders an AppBar with various interactive elements.
