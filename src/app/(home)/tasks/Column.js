@@ -1,5 +1,8 @@
 
+// React
 import * as React from 'react';
+
+// MUI
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -8,11 +11,14 @@ import Checkbox from '@mui/material/Checkbox';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import StarOutlineRoundedIcon from '@mui/icons-material/StarOutlineRounded';
-import { Typography } from '@mui/material';
-import { PassThrough } from 'stream';
 import CalendarTodayRoundedIcon from '@mui/icons-material/CalendarTodayRounded';
+import { Typography } from '@mui/material';
 
-export default function Column(tasks, title) {
+
+// NOT DEVICE AGNOSTIC
+// NOT MOBILE FIRST (YET)
+// Column Component
+export default function Column(tasks) {
     const checkedInit = [];
     const importantInit = [];
 
@@ -24,9 +30,13 @@ export default function Column(tasks, title) {
             importantInit.push(value);
         }
     });
+    
+    // States for animation
     const [checked, setChecked] = React.useState(checkedInit);
     const [impChecked, setImpChecked] = React.useState(importantInit);
 
+    // Currently only able to handle toggling the states
+    // Ideally would have backend integration to handle changes to the backend via AWS DynamoDB
     const handleToggle = (value) => () => {
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
@@ -42,6 +52,8 @@ export default function Column(tasks, title) {
         setChecked(newChecked);
     };
 
+    // Currently only able to handle toggling the states
+    // Ideally would have backend integration to handle changes to the backend via AWS DynamoDB
     const handleImpToggle = (val) => () => {
         const currentPos = impChecked.indexOf(val);
         const newImpChecked = [...impChecked];
@@ -56,19 +68,25 @@ export default function Column(tasks, title) {
 
         setImpChecked(newImpChecked);
     };
+
+
     return (
+        // Returns an MUI List
         <List sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper' }}>
+            {/* Maps the tasks from the initialData file (At the moment, ideally cloud backend)*/}
             {tasks.tasks.map((value) => {
                 return (
                     <ListItem
                         key={value}
                         secondaryAction={
+                            // Important Checkbox (Star)
                             <Checkbox
                                 size='medium'
                                 color='secondary'
                                 icon={<StarOutlineRoundedIcon />}
                                 checkedIcon={<StarRoundedIcon />}
                                 edge="end"
+                                // Checked on whether the value is mapped as checked within the impChecked state
                                 checked={impChecked.indexOf(value) !== -1}
                                 onChange={handleImpToggle(value)}
                                 inputProps={{ 'aria-labelledby': value.id }}
@@ -76,6 +94,7 @@ export default function Column(tasks, title) {
                         }
                         disablePadding
                     >
+                        {/* Task itself */}
                         <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
                             <ListItemIcon>
                                 <Checkbox
@@ -87,6 +106,7 @@ export default function Column(tasks, title) {
                                     inputProps={{ 'aria-labelledby': value.id }}
                                 />
                             </ListItemIcon>
+                            {/* Task Text, primary and secondary */}
                             <ListItemText
                                 id={value.id}
                                 primary={<Typography variant='h6'>{value.content}</Typography>}
