@@ -70,8 +70,15 @@ export default function Lists() {
         data.columnOrder.map(columnId => {
             const column = data.columns[columnId];
             const tasks = column.tasksIds.map(taskId => data.tasks[taskId]);
-
-            return <div style={{display:'inline-flex', flexDirection: 'row', rowGap: '20px'}}> <Column tasks={tasks}/> </div>
+            const title = column.title;
+            return (
+                <div style={{ display: 'inline-flex', flexDirection: 'row', rowGap: '20px' }}>
+                    <div style={{ display: 'inline-flex', flexDirection: 'column', columnGap: '20px' }}>
+                        <Typography variant='h4'>{title}</Typography>
+                        <Column tasks={tasks} title={title} />
+                    </div>
+                </div>
+            );
         }));
     // <List>
     //   {initialData.tasks.map((value) => {
