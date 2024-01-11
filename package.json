@@ -15,12 +15,20 @@
     "@emotion/react": "^11.11.1",
     "@mui/icons-material": "^5.14.18",
     "@mui/material": "^5.14.18",
-    "aws-amplify": "^6.0.5",
+    "aws-amplify": "^6.0.11",
     "next": "latest",
+    "npm": "^10.3.0",
     "react": "latest",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "latest"
   },
   "devDependencies": {
-    "@types/node": "20.8.4"
+    "@aws-amplify/backend": "^0.10.0",
+    "@aws-amplify/backend-cli": "^0.9.5",
+    "@types/node": "20.8.4",
+    "aws-cdk": "^2.110.1",
+    "aws-cdk-lib": "^2.110.1",
+    "constructs": "^10.3.0",
+    "typescript": "^5.3.3"
   }
 }
