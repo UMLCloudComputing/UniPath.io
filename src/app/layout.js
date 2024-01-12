@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 
 // Local
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
-
+import ConfigureAmplifyClientSide from '@/components/ConfigureAmplify';
 
 // Metadata
 // export const metadata = {
@@ -39,6 +39,7 @@ export default function RootLayout({ children }) {
             </head>
             <body>
                 <ThemeRegistry>
+                    <ConfigureAmplifyClientSide />
                     <Box component="main" sx={{ p: 1,  }}>
                         <Authenticator.Provider>
                             <View>
