@@ -77,3 +77,24 @@ export const accordionData = [
       ]
   }
 ];  
+
+export const pathwayData = {
+  pathways: [
+    {
+      "title": "Computer Science",
+      "degree": "Bachelor of Science",
+    },
+    {
+      "title": "Computer Engineering",
+      "degree": "Bachelor of Engineering",
+    }
+  ]
+}
+
+export const mockPathwayApiCall = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(pathwayData);
+    }, 500);
+  });
+};
