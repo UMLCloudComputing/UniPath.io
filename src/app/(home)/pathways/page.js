@@ -61,63 +61,12 @@ export default function PathwaysPage() {
               <Typography variant="h4">Pathways</Typography>
             </Box>
             {/*sample card */}
-            <Card
-              sx={{
-                width: '35%',
-                p: 2,
-              }}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                }}
-              >
-                <RouteIcon
-                  sx={{
-                    color: theme.palette.grey[500],
-                  }}
-                />  
-                <Typography
-                  variant="subtitle1"
-                  sx={{
-                    ml: 1,
-                  }}
-                >
-                  Computer Science
-                </Typography>
-                <MoreVertIcon
-                  sx={{
-                    ml: 'auto',
-                  }}
-                />
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  mt: 4,
-                }}
-              >
-                <SchoolIcon
-                  sx={{
-                    color: theme.palette.grey[500],
-                  }}
-                />
-                <Typography
-                variant="subtitle2"
-                fontWeight="regular"
-                sx={{
-                  ml: 1,
-                  color: theme.palette.grey[700],
-                }}  
-                >Bachelor of Science</Typography> {/*degree*/}
-                <ArrowForwardIcon
-                  sx={{
-                    ml: 'auto',
-                    color: theme.palette.primary.main,
-                  }}
-                />
-              </Box>
-            </Card>
+            <PathwayCard
+              title="Computer Science"
+              subtitle="Bachelor of Science"
+            />
+
+            
             <IconButton
               onClick={() => handlePlusClick()}
             >
@@ -133,4 +82,69 @@ export default function PathwaysPage() {
             </IconButton>
         </Box>
     );
+}
+
+const PathwayCard = ({title, subtitle, handlePathwayClick, handlePathwayDelete}) => {
+  const theme = useTheme();
+  return (
+    <>
+      <Card
+        sx={{
+          width: '35%',
+          p: 2,
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+          }}
+        >
+          <RouteIcon
+            sx={{
+              color: theme.palette.grey[500],
+            }}
+          />  
+          <Typography
+            variant="subtitle1"
+            sx={{
+              ml: 1,
+            }}
+          >
+            {title}
+          </Typography>
+          <MoreVertIcon
+            sx={{
+              ml: 'auto',
+            }}
+          />
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            mt: 4,
+          }}
+        >
+          <SchoolIcon
+            sx={{
+              color: theme.palette.grey[500],
+            }}
+          />
+          <Typography
+          variant="subtitle2"
+          fontWeight="regular"
+          sx={{
+            ml: 1,
+            color: theme.palette.grey[700],
+          }}  
+          >{subtitle}</Typography> {/*degree*/}
+          <ArrowForwardIcon
+            sx={{
+              ml: 'auto',
+              color: theme.palette.primary.main,
+            }}
+          />
+        </Box>
+      </Card>
+    </>
+  )
 }
