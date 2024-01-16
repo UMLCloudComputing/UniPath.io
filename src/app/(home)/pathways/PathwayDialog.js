@@ -13,6 +13,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+//TODO: function to add course requirements to pathway
 export default function PathwayDialog({open, handleClose, handleAddPathwayCard }) {
 
    // State to manage the expanded/collapsed state of the accordion

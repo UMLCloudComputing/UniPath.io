@@ -1,4 +1,3 @@
-
 "use client"
 
 // React
@@ -12,27 +11,30 @@ import Grid from '@mui/material/Grid';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import RouteIcon from '@mui/icons-material/Route';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import SchoolIcon from '@mui/icons-material/School';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import LinearProgress from '@mui/material/LinearProgress';
 
 // Local
 import Accordion from './Accordion';
 import PathwayDialog from './PathwayDialog';
 import { accordionData, mockPathwayApiCall } from './mockData';
+import PathwayCard from './PathwayCard';
 
 
 // Component: PathwaysPage
+//TODO: transition between: grid <--> list view
+//TODO: blue arrow button to --> pathway details page (/pathways/{id})
+//TODO: use accordion component in pathway details page
 export default function PathwaysPage() {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [pathways, setPathways] = useState([]);
 
+    //simulate api call
     useEffect(() => {
       mockPathwayApiCall().then((data) => {
         setPathways(data.pathways);
+        setLoading(false);
       })
     }, [])
 
@@ -45,9 +47,9 @@ export default function PathwaysPage() {
       setOpen(false);
     }
 
-    //TODO: grid <--> list view
     return (
         <Box>
+            {/*Popup Dialog*/}
             <PathwayDialog
               open={open}
               handleClose={handleDialogClose}
@@ -57,8 +59,10 @@ export default function PathwaysPage() {
                 console.log(new_pathways);
               }}
             />
-            {/*Top*/}
+
+            {/*Heading*/}
             <Box
+              component="header"
               sx={{
                 mb: 2,
               }}
@@ -66,7 +70,18 @@ export default function PathwaysPage() {
               <Typography variant="h4">Pathways</Typography>
             </Box>
 
-            {/*Cards*/}
+            {/*Loading state (below heading)*/}
+            {
+              loading ? (
+                <Box sx={{ width: '100%' }}>
+                  <LinearProgress />
+                </Box>
+              ) : (
+                <></>
+              )
+            }
+
+            {/*Pathway Cards*/}
             <Box
               sx={{
                 display: 'flex',
@@ -104,69 +119,4 @@ export default function PathwaysPage() {
             </IconButton>
         </Box>
     );
-}
-
-const PathwayCard = ({title, subtitle, handlePathwayClick, handlePathwayDelete}) => {
-  const theme = useTheme();
-  return (
-    <>
-      <Card
-        sx={{
-          width: '35%',
-          p: 2,
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-          }}
-        >
-          <RouteIcon
-            sx={{
-              color: theme.palette.grey[500],
-            }}
-          />  
-          <Typography
-            variant="h6"
-            sx={{
-              ml: 1,
-            }}
-          >
-            {title}
-          </Typography>
-          <MoreVertIcon
-            sx={{
-              ml: 'auto',
-            }}
-          />
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            mt: 4,
-          }}
-        >
-          <SchoolIcon
-            sx={{
-              color: theme.palette.grey[500],
-            }}
-          />
-          <Typography
-          variant="subtitle2"
-          fontWeight="regular"
-          sx={{
-            ml: 1,
-            color: theme.palette.grey[700],
-          }}  
-          >{subtitle}</Typography> {/*degree*/}
-          <ArrowForwardIcon
-            sx={{
-              ml: 'auto',
-              color: theme.palette.primary.main,
-            }}
-          />
-        </Box>
-      </Card>
-    </>
-  )
 }
