@@ -6,8 +6,22 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Typography from '@mui/material/Typography';
+import Accordion from '@mui/material/Accordion';
+import Box from '@mui/material/Box';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function PathwayDialog({open, handleClose}) {
+
+   // State to manage the expanded/collapsed state of the accordion
+   const [expanded, setExpanded] = React.useState(true);
+
+   // Function to handle toggle of accordion
+   const handleToggle = () => {
+       setExpanded(!expanded);
+   };
 
   return (
     <>
@@ -26,27 +40,53 @@ export default function PathwayDialog({open, handleClose}) {
           },
         }}
       >
-        <DialogTitle>Subscribe</DialogTitle>
+        <DialogTitle>Create Pathway</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
-          </DialogContentText>
           <TextField
             autoFocus
             required
             margin="dense"
-            id="name"
-            name="email"
-            label="Email Address"
-            type="email"
+            id="pathwayName"
+            name="pathwayName"
+            label="Pathway Name"
+            type="text"
             fullWidth
             variant="standard"
           />
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            id="degree"
+            name="degree"
+            label="Degree"
+            type="text"
+            fullWidth
+            variant="standard"
+          />
+          <Typography
+            variant="subtitle1"
+            sx={{
+              mt: 2,
+              mb: 1,
+            }}  
+          >
+            Course Requirements
+          </Typography>
+          <Box>
+            <Accordion
+              expanded={expanded}
+              onChange={handleToggle}
+            >
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography variant="subtitle2">Add Course</Typography>
+              </AccordionSummary>
+            </Accordion>
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Subscribe</Button>
+          <Button type="submit">Save</Button>
         </DialogActions>
       </Dialog>
     </>
