@@ -1,7 +1,6 @@
 // components/ConfigureAmplify.tsx
 "use client";
 
-
 import config from "MAIN/amplifyconfiguration.json";
 import { Amplify } from "aws-amplify";
 

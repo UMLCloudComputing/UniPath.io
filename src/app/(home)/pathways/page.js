@@ -1,15 +1,21 @@
 
+"use client"
+
 // React
-import * as React from 'react';
+import{ useState } from 'react';
 
 // Material UI
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import IconButton from '@mui/material/IconButton';
+import { useTheme } from '@mui/material/styles';
 
 // Local
 import Accordion from './Accordion';
+import PathwayDialog from './PathwayDialog';
 
 
 // Component: PathwaysPage
@@ -95,18 +101,43 @@ export default function PathwaysPage() {
         }
     ];  
 
+    const theme = useTheme();
+    const [open, setOpen] = useState(false);
+
+    const handlePlusClick = () => {
+      setOpen(true);
+    }
+
+    const handleDialogClose = () => {
+      console.log("close");
+      setOpen(false);
+    }
+
     return (
         <Box sx={{ 
-            mx: { xs: 0, md: 15 },
+            
          }}>
-            <Grid container spacing={2}>
+            {/* <Grid container spacing={2}>
                 {data.map((accordionData, index) => (
                     <Grid item xs={12} key={index}>
                         <Accordion title={accordionData.title} rows={accordionData.rows} />
                     </Grid>
                 ))}
-            </Grid>
-
+            </Grid> */}
+            <PathwayDialog open={open} handleClose={handleDialogClose} />
+            <IconButton
+              onClick={() => handlePlusClick()}
+            >
+              <AddCircleOutlineIcon
+                sx={{
+                  position: 'fixed',
+                  bottom: '4%',
+                  right: '4%',
+                  fontSize: '40px',
+                  color: theme.palette.primary.main,
+                }}
+              />
+            </IconButton>
         </Box>
     );
 }
