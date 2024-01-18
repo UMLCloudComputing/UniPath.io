@@ -1,0 +1,41 @@
+{
+    "Tasks" : [
+        {
+            "Name" : "Task 1",
+            "Id" : "task-1",
+            "Content" : "Complete the Tasks Page",
+            "Date" : 1673757208,
+            "Checked" : false,
+            "Important" : true,
+            "Status" : "In progress"
+        }
+        ,
+        {
+            "Name" : "Task 2",
+            "Id" : "task-2",
+            "Content" : "Transfer the Backend Stack to Amplify 2.0",
+            "Date" : 1673757208,
+            "Checked" : true,
+            "Important" : true,
+            "Status" : "Done"
+        },
+        {
+            "Name" : "Class 1",
+            "Id" : "class-1",
+            "Content" : "COMP.4220 - Machine Learning",
+            "Date" : 1673930008,
+            "Checked" : true,
+            "Important" : false,
+            "Status" : "In progress"
+        },
+        {
+            "Name" : "Class 2",
+            "Id" : "class-2",
+            "Content" : "COMP.2040 - Computing IV",
+            "Date" : 1673930008,
+            "Checked" : true,
+            "Important" : true,
+            "Status" : "Done"
+        }
+    ]
+}

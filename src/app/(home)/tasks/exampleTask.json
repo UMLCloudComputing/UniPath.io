@@ -1,0 +1,9 @@
+{
+    "Name" : "Example Task",
+    "Id" : "ExampleTask",
+    "Content" : "A Simple example Task",
+    "Date" : 0,
+    "Checked" : false,
+    "Important" : false,
+    "Status" : "Done"
+}
