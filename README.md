@@ -153,7 +153,7 @@ See the [project board](https://github.com/orgs/UMLCloudComputing/projects/1) fo
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**. Please see the [contributing guidlines](./Contribution-Guideline/README.md) for more information.
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**. Please see the [contributing guidlines](./docs/Contribution-Guideline/README.md) for more information.
 
 See the [best practices](./docs/best-practices.md) for more information on how to make meaningful contributions to the project.
 
@@ -182,7 +182,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contributors
 
-This is a list of contributors to the project. If you would like to contribute, please see the [contributing guidelines](./docs/Contribution-Guideline/Contribution-Guideline/README.md).
+This is a list of contributors to the project. If you would like to contribute, please see the [contributing guidelines](./docs/Contribution-Guideline/README.md).
 
 Arranged from alphabetical order by last name.
 
