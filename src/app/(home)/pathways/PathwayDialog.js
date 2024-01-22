@@ -13,15 +13,16 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-export default function PathwayDialog({open, handleClose}) {
+//TODO: function to add course requirements to pathway
+export default function PathwayDialog({ open, handleClose, handleAddPathwayCard }) {
 
-   // State to manage the expanded/collapsed state of the accordion
-   const [expanded, setExpanded] = React.useState(true);
+  // State to manage the expanded/collapsed state of the accordion
+  const [expanded, setExpanded] = React.useState(true);
 
-   // Function to handle toggle of accordion
-   const handleToggle = () => {
-       setExpanded(!expanded);
-   };
+  // Function to handle toggle of accordion
+  const handleToggle = () => {
+    setExpanded(!expanded);
+  };
 
   return (
     <>
@@ -34,9 +35,13 @@ export default function PathwayDialog({open, handleClose}) {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries(formData.entries());
-            const email = formJson.email;
-            console.log(email);
+            const pathwayTitle = formJson.pathwayTitle;
+            const degree = formJson.degree;
             handleClose();
+            handleAddPathwayCard({
+              title: pathwayTitle,
+              degree: degree,
+            });
           },
         }}
       >
@@ -46,9 +51,9 @@ export default function PathwayDialog({open, handleClose}) {
             autoFocus
             required
             margin="dense"
-            id="pathwayName"
-            name="pathwayName"
-            label="Pathway Name"
+            id="pathwayTitle"
+            name="pathwayTitle"
+            label="Pathway Title"
             type="text"
             fullWidth
             variant="standard"
@@ -69,7 +74,7 @@ export default function PathwayDialog({open, handleClose}) {
             sx={{
               mt: 2,
               mb: 1,
-            }}  
+            }}
           >
             Course Requirements
           </Typography>
@@ -86,9 +91,9 @@ export default function PathwayDialog({open, handleClose}) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Save</Button>
-        </DialogActions>
-      </Dialog>
+          <Button type="submit">Add</Button>
+        </DialogActions >
+      </Dialog >
     </>
   );
 }
