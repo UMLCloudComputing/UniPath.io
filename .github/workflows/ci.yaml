@@ -35,9 +35,10 @@ jobs:
         script: |
           const branchName = context.payload.pull_request.head.ref;
           const previewUrl = `https://${branchName}.d3c5lsis3camij.amplifyapp.com/`;
-          github.issues.createComment({
+          github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
             body: `CI/CD pipeline completed successfully! View branch preview: ${previewUrl}`
           })
+
