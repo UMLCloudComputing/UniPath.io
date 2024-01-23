@@ -22,6 +22,9 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Create dummy amplifyconfiguration.json file
+      run: echo "{}" > amplifyconfiguration.json
+
     - name: Run build
       run: npm run build
 
@@ -38,4 +41,3 @@ jobs:
             repo: context.repo.repo,
             body: `CI/CD pipeline completed successfully! View branch preview: ${previewUrl}`
           })
-
