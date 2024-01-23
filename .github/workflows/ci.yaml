@@ -17,10 +17,28 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '18'
+        node-version: '20'
 
     - name: Install dependencies
       run: npm install
 
+    - name: Create dummy amplifyconfiguration.json file
+      run: echo "{}" > amplifyconfiguration.json
+
     - name: Run build
       run: npm run build
+
+    - name: Post success message
+      if: success()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const branchName = context.payload.pull_request.head.ref;
+          const previewUrl = `https://${branchName}.d3c5lsis3camij.amplifyapp.com/`;
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `CI/CD pipeline completed successfully! View branch preview: ${previewUrl}`
+          })
+

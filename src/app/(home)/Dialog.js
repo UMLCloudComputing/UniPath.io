@@ -48,7 +48,7 @@ export default function CustomizedDialogs({ open, handleClose }) {
                     <CloseIcon />
                 </IconButton>
                 <DialogContent dividers>
-                    <Authenticator initialState = "signUp">
+                    <Authenticator initialState="signUp" socialProviders={['google']}>
                         {({ signOut, user }) => (
                             <main>
                                 <h1>Hello {user.username}</h1>
