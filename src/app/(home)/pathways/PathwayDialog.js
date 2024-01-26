@@ -12,17 +12,27 @@ import Box from '@mui/material/Box';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import IconButton from '@mui/material/IconButton';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import Chip from '@mui/material/Chip';
 
 //TODO: function to add course requirements to pathway
-export default function PathwayDialog({open, handleClose, handleAddPathwayCard }) {
+export default function PathwayDialog({ open, handleClose, handleAddPathwayCard }) {
 
-   // State to manage the expanded/collapsed state of the accordion
-   const [expanded, setExpanded] = React.useState(true);
+  // State to manage the expanded/collapsed state of the accordion
+  const [expanded, setExpanded] = React.useState(true);
+  const [tags, setTags] = React.useState([]);
 
-   // Function to handle toggle of accordion
-   const handleToggle = () => {
-       setExpanded(!expanded);
-   };
+  const tagFieldRef = React.useRef();
+
+  // Function to handle toggle of accordion
+  const handleToggle = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleTagAdd = (tag) => {
+    setTags([...tags, tag]);
+  }
 
   return (
     <>
@@ -38,6 +48,8 @@ export default function PathwayDialog({open, handleClose, handleAddPathwayCard }
             const pathwayTitle = formJson.pathwayTitle;
             const degree = formJson.degree;
             handleClose();
+
+            //this method below is subject to change (when adding backend)
             handleAddPathwayCard({
               title: pathwayTitle,
               degree: degree,
@@ -74,7 +86,7 @@ export default function PathwayDialog({open, handleClose, handleAddPathwayCard }
             sx={{
               mt: 2,
               mb: 1,
-            }}  
+            }}
           >
             Course Requirements
           </Typography>
@@ -87,6 +99,68 @@ export default function PathwayDialog({open, handleClose, handleAddPathwayCard }
                 <Typography variant="subtitle2">Add Course</Typography>
               </AccordionSummary>
             </Accordion>
+          </Box>
+
+          {/* Tag creation */}
+          <Box>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                mt: 2,
+                mb: 1,
+              }}
+            >
+              Create Tags
+            </Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+              }}
+            >
+              <TextField
+                sx={{
+                  width: '50%',
+                }}
+                label="tag"
+                variant="standard"
+                inputRef={tagFieldRef}
+              />
+              <IconButton>
+                <AddCircleOutlineIcon
+                  onClick={() => {
+                    handleTagAdd({ name: tagFieldRef.current.value });
+                    console.log("tag add clicked");
+                    console.log(tagFieldRef.current.value);
+                  }}
+                />
+              </IconButton>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                mt: 1,
+              }}
+            >
+              {
+                tags.map((tag, index) => {
+                  return (
+                    <Chip
+                      key={index}
+                      label={tag.name}
+                      onDelete={() => {
+                        setTags(tags.filter((item) => item !== tag));
+                      }}
+                      sx={{
+                        m: 0.5,
+                      }}
+                    />
+                  )
+                })
+              }
+            </Box>
           </Box>
         </DialogContent>
         <DialogActions>
