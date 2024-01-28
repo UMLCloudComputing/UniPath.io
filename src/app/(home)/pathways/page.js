@@ -3,6 +3,10 @@
 // React
 import { useState, useEffect } from 'react';
 
+//Amplify
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { generateClient } from 'aws-amplify/data';
+
 // Material UI
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -30,21 +34,71 @@ export default function PathwaysPage() {
   const [loading, setLoading] = useState(true);
   const [pathways, setPathways] = useState([]);
 
-  //simulate api call
+  const { user, authStatus } = useAuthenticator();
+
+  const client = generateClient({ authMode: 'userPool'});
+
+  //fetches pathways from backend if authenticated, else uses mock data (for now)
   useEffect(() => {
-    mockPathwayApiCall().then((data) => {
-      setPathways(data.pathways);
-      setLoading(false);
-    })
-  }, [])
+    setLoading(true);
+    if (authStatus === 'authenticated') {
+      client.models.Pathway.list()
+        .then((data) => {
+          setPathways(data.data.map((item) => {  // transforms request data to required format
+            return {
+              title: item.title,
+              degree: item.degree,
+            }
+          }));
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else if (authStatus === 'unauthenticated'){
+      // TODO: change to use local storage
+      mockPathwayApiCall()
+        .then((data) => {
+          setPathways(data.pathways);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [authStatus])
 
   const handlePlusClick = () => {
     setOpen(true);
   }
 
   const handleDialogClose = () => {
-    console.log("close");
     setOpen(false);
+  }
+
+  const handleAddPathwayCard = async (pathway) => {
+    const new_pathways = [...pathways, pathway];
+
+    switch (authStatus) {
+      case 'authenticated':
+        const { errors, data } = await client.models.Pathway.create(
+          { 
+            title: pathway.title,
+            degree: pathway.degree,
+          },
+        );
+        
+        if (errors) {
+          console.error(errors);
+        }
+
+        break;
+
+      default:
+        break;
+    }
+
+    setPathways(new_pathways);
   }
 
   return (
@@ -53,11 +107,7 @@ export default function PathwaysPage() {
       <PathwayDialog
         open={open}
         handleClose={handleDialogClose}
-        handleAddPathwayCard={(pathway) => {
-          const new_pathways = [...pathways, pathway];
-          setPathways(new_pathways);
-          console.log(new_pathways);
-        }}
+        handleAddPathwayCard={handleAddPathwayCard}
       />
 
       {/*Heading*/}
@@ -120,3 +170,4 @@ export default function PathwaysPage() {
     </Box>
   );
 }
+

@@ -85,7 +85,7 @@ export const pathwayData = {
       "degree": "Bachelor of Science",
     },
     {
-      "title": "Computer Engineering",
+      "title": "Mechanical Engineering",
       "degree": "Bachelor of Engineering",
     }
   ]
