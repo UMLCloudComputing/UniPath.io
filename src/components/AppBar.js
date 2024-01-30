@@ -51,19 +51,6 @@ import Link from "next/link";
  * @returns {ReactElement} The React Element created by this function.
  */
 export default function AppBarComponent({
-<<<<<<< Updated upstream
-    drawerWidth,
-    open,
-    handleDrawerOpen,
-    isLandingPage,
-}) {
-    // React Vars and Hooks
-    const theme = useTheme();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-=======
   drawerWidth,
   open,
   handleDrawerOpen,
@@ -75,23 +62,14 @@ export default function AppBarComponent({
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
->>>>>>> Stashed changes
 
   const [_theme, setTheme] = React.useState(localStorage.getItem("theme"));
-
-<<<<<<< Updated upstream
-    //Amplify hooks
-    const { authenticated, authStatus, user, signOut } = useAuthenticator(
-        (context) => [context.user]
-    );
-=======
-  const [openDialog, setOpenDialog] = React.useState(false);
->>>>>>> Stashed changes
 
   //Amplify hooks
   const { authenticated, authStatus, user, signOut } = useAuthenticator(
     (context) => [context.user]
   );
+  const [openDialog, setOpenDialog] = React.useState(false);
 
   //click handlers
   const trigger = useScrollTrigger({
@@ -100,11 +78,6 @@ export default function AppBarComponent({
     // target: window ? window() : undefined,
   });
 
-<<<<<<< Updated upstream
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
-=======
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -146,7 +119,6 @@ export default function AppBarComponent({
   };
 
   // Button redirect click handler
->>>>>>> Stashed changes
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -197,253 +169,9 @@ export default function AppBarComponent({
           aria-haspopup="true"
           color="inherit"
         >
-<<<<<<< Updated upstream
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-            <MenuItem onClick={signOut}>Sign out</MenuItem>
-        </Menu>
-    );
-
-    const mobileMenuId = "primary-search-account-menu-mobile";
-
-    const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            id={mobileMenuId}
-            keepMounted
-            transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
-        >
-            <MenuItem onClick={handleMobileMenuClose}>
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>My Account</p>
-            </MenuItem>
-            <MenuItem onClick={handleMobileMenuClose}>
-                <IconButton
-                    size="large"
-                    aria-label="add another user icon button"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <PersonAddAltRoundedIcon />
-                </IconButton>
-                <p>Add Account</p>
-            </MenuItem>
-        </Menu>
-    );
-
-    return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar
-                position="fixed"
-                elevation={trigger ? 2 : 0}
-                sx={{
-                    zIndex: (theme) => theme.zIndex.drawer + 1,
-                    transition: (theme) =>
-                        theme.transitions.create(["margin", "width"], {
-                            easing: theme.transitions.easing.sharp,
-                            duration: theme.transitions.duration.leavingScreen,
-                        }),
-                    bgcolor: "background.paper",
-                    color: "text.primary",
-                    borderBottom: (theme) =>
-                        `1px solid ${theme.palette.divider}`,
-                    // backdropFilter: 'blur(12px)', // trying to copy the appbar blur from the mui.com docs
-                }}
-            >
-                <Toolbar>
-                    {/* Left Group */}
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <img
-                        src="/favicon.png"
-                        alt="UniPath.io Logo"
-                        style={{ height: "50px", marginRight: "10px" }}
-                    />
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: "none", sm: "block" } }}
-                    >
-                        UniPath.io
-                    </Typography>
-                    <Box sx={{ flexGrow: 1 }} />
-
-                    {/* Center */}
-
-                    {!isLandingPage ? (
-                        <Box
-                            sx={{
-                                position: "relative",
-                                borderRadius: (theme) =>
-                                    theme.shape.borderRadius,
-                                backgroundColor: (theme) =>
-                                    alpha(theme.palette.common.white, 0.15),
-                                "&:hover": {
-                                    backgroundColor: (theme) =>
-                                        alpha(theme.palette.common.white, 0.25),
-                                },
-                                marginRight: (theme) => theme.spacing(2),
-                                marginLeft: 0,
-                                width: "100%",
-                                [theme.breakpoints.up("sm")]: { width: 400 },
-                                [theme.breakpoints.down("sm")]: { width: 200 },
-                            }}
-                        >
-                            <Box
-                                sx={{
-                                    padding: (theme) => theme.spacing(0, 2),
-                                    height: "100%",
-                                    position: "absolute",
-                                    pointerEvents: "none",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                }}
-                            >
-                                <SearchIcon />
-                            </Box>
-                            <InputBase
-                                sx={{
-                                    color: "inherit",
-                                    "& .MuiInputBase-input": {
-                                        padding: (theme) =>
-                                            theme.spacing(1, 1, 1, 0),
-                                        paddingLeft: (theme) =>
-                                            `calc(1em + ${theme.spacing(4)})`,
-                                        transition: (theme) =>
-                                            theme.transitions.create("width"),
-                                        width: "100%",
-                                        [theme.breakpoints.up("md")]: {
-                                            width: "20ch",
-                                        },
-                                    },
-                                }}
-                                placeholder="Search…"
-                                inputProps={{ "aria-label": "search" }}
-                            />
-                        </Box>
-                    ) : (
-                        <></>
-                    )}
-
-                    <Box sx={{ flexGrow: 1 }} />
-
-                    {/* Right */}
-                    <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                        {isLandingPage ? (
-                            <Button color="inherit" href="/home">
-                                About
-                            </Button>
-                        ) : (
-                            <></>
-                        )}
-                        {
-                            /* Logged out UI, sign up button showed */
-                            authStatus === "unauthenticated" ? (
-                                /* Sign Up Button */
-                                <>
-                                    <Button variant="outlined" href={"/signin"}>
-                                        Login
-                                    </Button>
-                                </>
-                            ) : (
-                                <></>
-                            )
-                        }
-                        {
-                            /* Logged in UI, with IconButton instead of Sign Up Button */
-                            authStatus === "authenticated" ? (
-                                <Box>
-                                    <Typography>{user.username}</Typography>
-                                    <IconButton
-                                        size="large"
-                                        edge="end"
-                                        aria-label="account of current user"
-                                        aria-controls={menuId}
-                                        aria-haspopup="true"
-                                        onClick={handleProfileMenuOpen}
-                                        color="inherit"
-                                    >
-                                        <AccountCircle />
-                                    </IconButton>
-                                </Box>
-                            ) : (
-                                <></>
-                            )
-                        }
-                    </Box>
-
-                    {/* TODO */}
-                    {/* Mobile configuration for the Sign Up/Account Settings*/}
-                    <Box sx={{ display: { xs: "flex", md: "none" } }}>
-                        {
-                            /* Sign Up Button */
-                            authStatus === "unauthenticated" &&
-                            authStatus != "configuring" ? (
-                                <>
-                                    <PersonAddAltRoundedIcon
-                                        onClick={handleDialogOpen}
-                                    />
-                                    {/* Improve this to launch it's own page instead of a portal since the portal has sizing issues*/}
-                                    <DialogComponent
-                                        open={openDialog}
-                                        handleClose={handleDialogClose}
-                                    />
-                                </>
-                            ) : (
-                                <></>
-                            )
-                        }
-                        {authStatus === "authenticated" ? (
-                            /* Logged in UI, with IconButton instead of Sign Up Button */
-                            <IconButton
-                                size="large"
-                                aria-label="show more"
-                                aria-controls={mobileMenuId}
-                                aria-haspopup="true"
-                                onClick={handleMobileMenuOpen}
-                                color="inherit"
-                            >
-                                <AccountCircle />
-                            </IconButton>
-                        ) : (
-                            <></>
-                        )}
-                    </Box>
-                </Toolbar>
-            </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
-        </Box>
-    );
-=======
+          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+          <MenuItem onClick={signOut}>Sign out</MenuItem>
           <AccountCircle />
         </IconButton>
         <p>My Account</p>
@@ -493,13 +221,11 @@ export default function AppBarComponent({
           >
             <MenuIcon />
           </IconButton>
-          <Link href={"/"}>
-            <img
-              src="/favicon.png"
-              alt="UniPath.io Logo"
-              style={{ height: "50px", marginRight: "10px" }}
-            />
-          </Link>
+          <img
+            src="/favicon.png"
+            alt="UniPath.io Logo"
+            style={{ height: "50px", marginRight: "10px" }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -567,16 +293,16 @@ export default function AppBarComponent({
           <Box sx={{ flexGrow: 1 }} />
 
           {/* Right */}
+          <IconButton onClick={handleThemeChange}>
+            {localStorage.getItem("theme") === "dark" ? (
+              <DarkModeOutlined />
+            ) : (
+              <DarkMode />
+            )}
+          </IconButton>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton onClick={handleThemeChange}>
-              {localStorage.getItem("theme") === "dark" ? (
-                <DarkModeOutlined />
-              ) : (
-                <DarkMode />
-              )}
-            </IconButton>
             {isLandingPage ? (
-              <Button color="inherit" href="/about">
+              <Button color="inherit" href="/home">
                 About
               </Button>
             ) : (
@@ -592,6 +318,12 @@ export default function AppBarComponent({
                   </Button>
                 </>
               ) : (
+                <></>
+              )
+            }
+            {
+              /* Logged in UI, with IconButton instead of Sign Up Button */
+              authStatus === "authenticated" ? (
                 <Box>
                   <IconButton
                     size="large"
@@ -605,6 +337,8 @@ export default function AppBarComponent({
                     <AccountCircle />
                   </IconButton>
                 </Box>
+              ) : (
+                <></>
               )
             }
           </Box>
@@ -650,5 +384,4 @@ export default function AppBarComponent({
       {renderMenu}
     </Box>
   );
->>>>>>> Stashed changes
 }
