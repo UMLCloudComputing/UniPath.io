@@ -9,7 +9,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 // Local
 import NextAppDirEmotionCacheProvider from "./EmotionCache";
-import theme from "./theme";
 
 const darkTheme = createTheme({
     palette: {
@@ -23,10 +22,13 @@ const lightTheme = createTheme({
     },
 });
 
-let currentTheme = localStorage.getItem("theme");
-
 // Component: ThemeRegistry
 export default function ThemeRegistry({ children }) {
+    const [currentTheme, setCurrentTheme] = React.useState();
+    React.useEffect(() => {
+        let theme = localStorage.getItem("theme");
+        setCurrentTheme(theme);
+    }, []);
     return (
         <NextAppDirEmotionCacheProvider options={{ key: "mui" }}>
             <ThemeProvider

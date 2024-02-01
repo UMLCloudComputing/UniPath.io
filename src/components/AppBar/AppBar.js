@@ -4,7 +4,7 @@
 import * as React from "react";
 
 // Material UI
-import {alpha, useTheme} from "@mui/material/styles";
+import { alpha, useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -27,9 +27,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 
 // Amplify
-import {useAuthenticator} from "@aws-amplify/ui-react";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-
 
 /**
  * AppBarComponent renders an AppBar with various interactive elements.
@@ -43,11 +42,11 @@ import "@aws-amplify/ui-react/styles.css";
  * @returns {ReactElement} The React Element created by this function.
  */
 export default function AppBarComponent({
-                                            drawerWidth,
-                                            open,
-                                            handleDrawerOpen,
-                                            isLandingPage,
-                                        }) {
+    drawerWidth,
+    open,
+    handleDrawerOpen,
+    isLandingPage,
+}) {
     // React Vars and Hooks
     const theme = useTheme();
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -55,10 +54,8 @@ export default function AppBarComponent({
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    const [_theme, setTheme] = React.useState(localStorage.getItem("theme"));
-
     //Amplify hooks
-    const {authenticated, authStatus, user, signOut} = useAuthenticator(
+    const { authenticated, authStatus, user, signOut } = useAuthenticator(
         (context) => [context.user]
     );
     const [openDialog, setOpenDialog] = React.useState(false);
@@ -98,7 +95,6 @@ export default function AppBarComponent({
     const handleDialogClose = () => {
         setOpenDialog(false);
     };
-
 
     // Button redirect click handler
 
@@ -154,7 +150,7 @@ export default function AppBarComponent({
                     <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
                     <MenuItem onClick={handleMenuClose}>My account</MenuItem>
                     <MenuItem onClick={signOut}>Sign out</MenuItem>
-                    <AccountCircle/>
+                    <AccountCircle />
                 </IconButton>
                 <p>My Account</p>
             </MenuItem>
@@ -166,7 +162,7 @@ export default function AppBarComponent({
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <PersonAddAltRoundedIcon/>
+                    <PersonAddAltRoundedIcon />
                 </IconButton>
                 <p>Add Account</p>
             </MenuItem>
@@ -174,7 +170,7 @@ export default function AppBarComponent({
     );
 
     return (
-        <Box sx={{flexGrow: 1}}>
+        <Box sx={{ flexGrow: 1 }}>
             <AppBar
                 position="fixed"
                 elevation={trigger ? 2 : 0}
@@ -187,7 +183,8 @@ export default function AppBarComponent({
                         }),
                     bgcolor: "background.paper",
                     color: "text.primary",
-                    borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
+                    borderBottom: (theme) =>
+                        `1px solid ${theme.palette.divider}`,
                     // backdropFilter: 'blur(12px)', // trying to copy the AppBar blur from the mui.com docs
                 }}
             >
@@ -199,24 +196,24 @@ export default function AppBarComponent({
                         color="inherit"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
-                        sx={{mr: 2}}
+                        sx={{ mr: 2 }}
                     >
-                        <MenuIcon/>
+                        <MenuIcon />
                     </IconButton>
                     <img
                         src="/favicon.png"
                         alt="UniPath.io Logo"
-                        style={{height: "50px", marginRight: "10px"}}
+                        style={{ height: "50px", marginRight: "10px" }}
                     />
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{display: {xs: "none", sm: "block"}}}
+                        sx={{ display: { xs: "none", sm: "block" } }}
                     >
                         UniPath.io
                     </Typography>
-                    <Box sx={{flexGrow: 1}}/>
+                    <Box sx={{ flexGrow: 1 }} />
 
                     {/* Center */}
 
@@ -224,7 +221,8 @@ export default function AppBarComponent({
                         <Box
                             sx={{
                                 position: "relative",
-                                borderRadius: (theme) => theme.shape.borderRadius,
+                                borderRadius: (theme) =>
+                                    theme.shape.borderRadius,
                                 backgroundColor: (theme) =>
                                     alpha(theme.palette.common.white, 0.15),
                                 "&:hover": {
@@ -234,8 +232,8 @@ export default function AppBarComponent({
                                 marginRight: (theme) => theme.spacing(2),
                                 marginLeft: 0,
                                 width: "100%",
-                                [theme.breakpoints.up("sm")]: {width: 400},
-                                [theme.breakpoints.down("sm")]: {width: 200},
+                                [theme.breakpoints.up("sm")]: { width: 400 },
+                                [theme.breakpoints.down("sm")]: { width: 200 },
                             }}
                         >
                             <Box
@@ -249,15 +247,18 @@ export default function AppBarComponent({
                                     justifyContent: "center",
                                 }}
                             >
-                                <SearchIcon/>
+                                <SearchIcon />
                             </Box>
                             <InputBase
                                 sx={{
                                     color: "inherit",
                                     "& .MuiInputBase-input": {
-                                        padding: (theme) => theme.spacing(1, 1, 1, 0),
-                                        paddingLeft: (theme) => `calc(1em + ${theme.spacing(4)})`,
-                                        transition: (theme) => theme.transitions.create("width"),
+                                        padding: (theme) =>
+                                            theme.spacing(1, 1, 1, 0),
+                                        paddingLeft: (theme) =>
+                                            `calc(1em + ${theme.spacing(4)})`,
+                                        transition: (theme) =>
+                                            theme.transitions.create("width"),
                                         width: "100%",
                                         [theme.breakpoints.up("md")]: {
                                             width: "20ch",
@@ -265,19 +266,18 @@ export default function AppBarComponent({
                                     },
                                 }}
                                 placeholder="Search…"
-                                inputProps={{"aria-label": "search"}}
+                                inputProps={{ "aria-label": "search" }}
                             />
                         </Box>
                     ) : (
                         <></>
                     )}
 
-                    <Box sx={{flexGrow: 1}}/>
+                    <Box sx={{ flexGrow: 1 }} />
 
                     {/* Right */}
 
-                    <Box sx={{display: {xs: "none", md: "flex"}}}>
-
+                    <Box sx={{ display: { xs: "none", md: "flex" } }}>
                         {isLandingPage ? (
                             // change this to ref about page once its been written
                             <Button color="inherit" href="/home">
@@ -287,8 +287,9 @@ export default function AppBarComponent({
                             <></>
                         )}
 
-                        <DarkModeToggle/>
-                        {/* Logged out UI, sign up button showed */
+                        <DarkModeToggle />
+                        {
+                            /* Logged out UI, sign up button showed */
                             authStatus === "unauthenticated" ? (
                                 /* Sign Up Button */
                                 <>
@@ -296,8 +297,9 @@ export default function AppBarComponent({
                                         Login
                                     </Button>
                                 </>
-                            ) : authStatus === "authenticated" ? ( /* Logged in UI, with IconButton instead of Sign Up
-                        Button */
+                            ) : authStatus ===
+                              "authenticated" /* Logged in UI, with IconButton instead of Sign Up
+                        Button */ ? (
                                 <Box>
                                     <IconButton
                                         size="large"
@@ -308,24 +310,26 @@ export default function AppBarComponent({
                                         onClick={handleProfileMenuOpen}
                                         color="inherit"
                                     >
-                                        <AccountCircle/>
+                                        <AccountCircle />
                                     </IconButton>
                                 </Box>
                             ) : (
                                 <></>
-                            )}
-
+                            )
+                        }
                     </Box>
 
                     {/* TODO */}
                     {/* Mobile configuration for the Sign Up/Account Settings*/}
-                    <Box sx={{display: {xs: "flex", md: "none"}}}>
+                    <Box sx={{ display: { xs: "flex", md: "none" } }}>
                         {
                             /* Sign Up Button */
                             authStatus === "unauthenticated" &&
                             authStatus != "configuring" ? (
                                 <>
-                                    <PersonAddAltRoundedIcon onClick={handleDialogOpen}/>
+                                    <PersonAddAltRoundedIcon
+                                        onClick={handleDialogOpen}
+                                    />
                                     {/* Improve this to launch it's own page instead of a portal since the portal has sizing issues*/}
                                     <DialogComponent
                                         open={openDialog}
@@ -346,7 +350,7 @@ export default function AppBarComponent({
                                 onClick={handleMobileMenuOpen}
                                 color="inherit"
                             >
-                                <AccountCircle/>
+                                <AccountCircle />
                             </IconButton>
                         ) : (
                             <></>
