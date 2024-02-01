@@ -12,28 +12,30 @@ import NextAppDirEmotionCacheProvider from "./EmotionCache";
 import theme from "./theme";
 
 const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
+    palette: {
+        mode: "dark",
+    },
 });
 
 const lightTheme = createTheme({
-  palette: {
-    mode: "light",
-  },
+    palette: {
+        mode: "light",
+    },
 });
 
 let currentTheme = localStorage.getItem("theme");
 
 // Component: ThemeRegistry
 export default function ThemeRegistry({ children }) {
-  return (
-    <NextAppDirEmotionCacheProvider options={{ key: "mui" }}>
-      <ThemeProvider theme={currentTheme === "light" ? darkTheme : lightTheme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        {children}
-      </ThemeProvider>
-    </NextAppDirEmotionCacheProvider>
-  );
+    return (
+        <NextAppDirEmotionCacheProvider options={{ key: "mui" }}>
+            <ThemeProvider
+                theme={currentTheme === "light" ? lightTheme : darkTheme}
+            >
+                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                <CssBaseline />
+                {children}
+            </ThemeProvider>
+        </NextAppDirEmotionCacheProvider>
+    );
 }
