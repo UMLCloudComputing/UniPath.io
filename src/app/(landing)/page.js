@@ -12,7 +12,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Container from "@mui/material/Container";
 import SchoolIcon from "@mui/icons-material/School";
-import AppBarComponent from "@/components/AppBar";
+import AppBarComponent from "@/components/AppBar/AppBar";
 
 /**
  * LandingPage is a React component that renders the landing page of the application.
@@ -24,7 +24,7 @@ export default function LandingPage() {
     return (
         <Box>
             {/* AppBar */}
-            <AppBarComponent isLandingPage={true} />
+            <AppBarComponent isLandingPage={true}/>
             {/*<AppBar position="static" color="transparent" elevation={0}>*/}
             {/*    <Toolbar>*/}
             {/*        /!* Logo *!/*/}
@@ -63,7 +63,7 @@ export default function LandingPage() {
             {/*</AppBar>*/}
 
             {/* Hero Section */}
-            <Box sx={{ p: { xs: 3, sm: 5, md: 10 } }}>
+            <Box sx={{p: {xs: 3, sm: 5, md: 10}}}>
                 {" "}
                 {/* Responsive padding */}
                 <Grid
@@ -91,11 +91,11 @@ export default function LandingPage() {
                     </Grid>
 
                     {/* Responsive Image */}
-                    <Grid item xs={12} md={6} style={{ textAlign: "center" }}>
+                    <Grid item xs={12} md={6} style={{textAlign: "center"}}>
                         <img
                             src="https://wp-assets.infinum.com/uploads/2019/11/easy-way-to-implement-demo-mode-in-ios-apps-0.jpeg"
                             alt="Demo"
-                            style={{ width: "100%", height: "100%" }}
+                            style={{width: "100%", height: "100%"}}
                         />
                     </Grid>
                 </Grid>
@@ -117,7 +117,7 @@ export default function LandingPage() {
                             }}
                         >
                             <CardContent>
-                                <SchoolIcon fontSize="large" />
+                                <SchoolIcon fontSize="large"/>
                                 <Typography variant="h5">
                                     Degree Path Planning
                                 </Typography>
@@ -140,7 +140,7 @@ export default function LandingPage() {
                             }}
                         >
                             <CardContent>
-                                <SchoolIcon fontSize="large" />
+                                <SchoolIcon fontSize="large"/>
                                 <Typography variant="h5">
                                     Visual Progress Tracking
                                 </Typography>
@@ -164,7 +164,7 @@ export default function LandingPage() {
                             }}
                         >
                             <CardContent>
-                                <SchoolIcon fontSize="large" />
+                                <SchoolIcon fontSize="large"/>
                                 <Typography variant="h5">
                                     Requirement Mapping
                                 </Typography>
@@ -187,7 +187,7 @@ export default function LandingPage() {
                             }}
                         >
                             <CardContent>
-                                <SchoolIcon fontSize="large" />
+                                <SchoolIcon fontSize="large"/>
                                 <Typography variant="h5">
                                     Course Dependencies
                                 </Typography>
@@ -210,7 +210,7 @@ export default function LandingPage() {
                             }}
                         >
                             <CardContent>
-                                <SchoolIcon fontSize="large" />
+                                <SchoolIcon fontSize="large"/>
                                 <Typography variant="h5">
                                     Interactive Pathway Validation
                                 </Typography>
@@ -234,7 +234,7 @@ export default function LandingPage() {
                             }}
                         >
                             <CardContent>
-                                <SchoolIcon fontSize="large" />
+                                <SchoolIcon fontSize="large"/>
                                 <Typography variant="h5">
                                     Collaborative Planning
                                 </Typography>
@@ -257,7 +257,7 @@ export default function LandingPage() {
                             }}
                         >
                             <CardContent>
-                                <SchoolIcon fontSize="large" />
+                                <SchoolIcon fontSize="large"/>
                                 <Typography variant="h5">
                                     Pathway Comparison
                                 </Typography>
@@ -280,7 +280,7 @@ export default function LandingPage() {
                             }}
                         >
                             <CardContent>
-                                <SchoolIcon fontSize="large" />
+                                <SchoolIcon fontSize="large"/>
                                 <Typography variant="h5">
                                     Community Engagement
                                 </Typography>
@@ -299,7 +299,7 @@ export default function LandingPage() {
             {/* More sections go under here */}
 
             {/* Footer */}
-            <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
+            <Box sx={{bgcolor: "background.paper", p: 6}} component="footer">
                 <Typography variant="h6" align="center" gutterBottom>
                     UniPath.io - Your Path to Academic Success
                 </Typography>

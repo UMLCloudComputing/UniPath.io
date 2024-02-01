@@ -27,23 +27,6 @@ import {useRouter} from "next/navigation";
 import {signIn} from "aws-amplify/auth";
 import {Authenticator, useAuthenticator} from "@aws-amplify/ui-react";
 
-function Copyright(props) {
-    return (
-        <Typography
-            variant="body2"
-            color="text.secondary"
-            align="center"
-            {...props}
-        >
-            {"Copyright © "}
-            <Link color="inherit" href="https://mui.com/">
-                UniPath.io
-            </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
-        </Typography>
-    );
-}
 
 const defaultTheme = createTheme();
 
@@ -60,7 +43,9 @@ export default function SignInPage() {
 
     return (
 
-        <Authenticator/>
+        <Authenticator
+            initialState={"signIn"}
+        />
 
     );
 }

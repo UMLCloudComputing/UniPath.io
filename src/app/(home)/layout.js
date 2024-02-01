@@ -1,16 +1,16 @@
 "use client";
 
 // React
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 // Material UI
-import { useTheme } from "@mui/material/styles";
+import {useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 // Local
-import AppBar from "../../components/AppBar"; // Import AppBar component
+import AppBar from "@/components/AppBar/AppBar"; // Import AppBar component
 import Drawer from "./Drawer"; // Import Drawer component
 import BottomNavigation from "./BottomNavigation";
 
@@ -27,7 +27,7 @@ const drawerWidthClosed = 100;
  *
  * @returns {ReactElement} The React Element created by this function.
  */
-export default function Layout({ children }) {
+export default function Layout({children}) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md")); // Using a media query to determine screen size
     const [open, setOpen] = useState(!isMobile);
@@ -50,7 +50,7 @@ export default function Layout({ children }) {
             }}
         >
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
+            <CssBaseline/>
 
             {/* AppBar */}
             <AppBar
@@ -86,7 +86,7 @@ export default function Layout({ children }) {
                             theme.transitions.create("margin", {
                                 easing: theme.transitions.easing.easeOut,
                                 duration:
-                                    theme.transitions.duration.enteringScreen,
+                                theme.transitions.duration.enteringScreen,
                             }),
                     }),
                 }}
@@ -100,10 +100,10 @@ export default function Layout({ children }) {
                 />
 
                 {/* Children */}
-                <Box sx={{ mt: 7 }}>{children}</Box>
+                <Box sx={{mt: 7}}>{children}</Box>
 
                 {/* Bottom Navigation */}
-                <BottomNavigation />
+                <BottomNavigation/>
             </Box>
         </Box>
     );
