@@ -1,10 +1,10 @@
 import { DarkMode, DarkModeOutlined } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
-import { useState, useEffect } from "react";
+import * as React from "react";
 
 export default function DarkModeToggle() {
-    const [theme, setTheme] = useState("light");
-    useEffect(() => {
+    const [theme, setTheme] = React.useState("light");
+    React.useEffect(() => {
         let currentTheme = localStorage.getItem("theme");
         setTheme(currentTheme);
     }, []);
