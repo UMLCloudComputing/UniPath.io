@@ -30,6 +30,9 @@ import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
+// Next
+import { useRouter } from "next/navigation";
+
 /**
  * AppBarComponent renders an AppBar with various interactive elements.
  * It includes a drawer, search bar, sign up/log in button, and account settings.
@@ -42,21 +45,22 @@ import "@aws-amplify/ui-react/styles.css";
  * @returns {ReactElement} The React Element created by this function.
  */
 export default function AppBarComponent({
-    drawerWidth,
-    open,
-    handleDrawerOpen,
-    isLandingPage,
-}) {
+                                            drawerWidth,
+                                            open,
+                                            handleDrawerOpen,
+                                            isLandingPage,
+                                        }) {
     // React Vars and Hooks
     const theme = useTheme();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const router = useRouter();
 
     //Amplify hooks
     const { authenticated, authStatus, user, signOut } = useAuthenticator(
-        (context) => [context.user]
+        (context) => [context.user],
     );
     const [openDialog, setOpenDialog] = React.useState(false);
 
@@ -94,6 +98,14 @@ export default function AppBarComponent({
     };
     const handleDialogClose = () => {
         setOpenDialog(false);
+    };
+
+    const handleLoginClick = () => {
+        router.replace("/login");
+    };
+
+    const handleAboutClick = () => {
+        router.replace("/about");
     };
 
     // Button redirect click handler
@@ -280,7 +292,7 @@ export default function AppBarComponent({
                     <Box sx={{ display: { xs: "none", md: "flex" } }}>
                         {isLandingPage ? (
                             // change this to ref about page once its been written
-                            <Button color="inherit" href="/home">
+                            <Button color="inherit" onClick={handleAboutClick} href={"/about"}>
                                 About
                             </Button>
                         ) : (
@@ -293,12 +305,12 @@ export default function AppBarComponent({
                             authStatus === "unauthenticated" ? (
                                 /* Sign Up Button */
                                 <>
-                                    <Button variant="outlined" href={"/signin"}>
+                                    <Button variant="outlined" onClick={handleLoginClick}>
                                         Login
                                     </Button>
                                 </>
                             ) : authStatus ===
-                              "authenticated" /* Logged in UI, with IconButton instead of Sign Up
+                            "authenticated" /* Logged in UI, with IconButton instead of Sign Up
                         Button */ ? (
                                 <Box>
                                     <IconButton

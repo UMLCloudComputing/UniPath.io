@@ -1,24 +1,18 @@
 import { DarkMode, DarkModeOutlined } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import * as React from "react";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 export default function DarkModeToggle() {
-    const [theme, setTheme] = React.useState("light");
-    React.useEffect(() => {
-        let currentTheme = localStorage.getItem("theme");
-        setTheme(currentTheme);
-    }, []);
+    const { darkMode, setDarkMode } = React.useContext(ThemeContext);
 
     const handleThemeChange = () => {
-        let updatedTheme = theme === "light" ? "dark" : "light";
-        setTheme(updatedTheme);
-        localStorage.setItem("theme", updatedTheme);
-        window.location.reload();
+        setDarkMode(!darkMode);
     };
 
     return (
         <IconButton onClick={handleThemeChange}>
-            {theme === "dark" ? (
+            {darkMode ? (
                 <DarkMode color={"inherit"} />
             ) : (
                 <DarkModeOutlined color={"inherit"} />

@@ -9,6 +9,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 // Local
 import NextAppDirEmotionCacheProvider from "./EmotionCache";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const darkTheme = createTheme({
     palette: {
@@ -24,16 +25,11 @@ const lightTheme = createTheme({
 
 // Component: ThemeRegistry
 export default function ThemeRegistry({ children }) {
-    const [currentTheme, setCurrentTheme] = React.useState();
-    React.useEffect(() => {
-        let theme = localStorage.getItem("theme");
-        setCurrentTheme(theme);
-    }, []);
+    const { darkMode, setDarkMode } = React.useContext(ThemeContext);
+
     return (
         <NextAppDirEmotionCacheProvider options={{ key: "mui" }}>
-            <ThemeProvider
-                theme={currentTheme === "light" ? lightTheme : darkTheme}
-            >
+            <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline />
                 {children}
