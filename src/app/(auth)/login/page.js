@@ -19,5 +19,7 @@ export default function SignInPage() {
         }
     }, [route]);
 
-    return <Authenticator initialState={"signIn"} />;
+    return <Authenticator
+        socialProviders={["google"]}
+        initialState={"signIn"} />;
 }
