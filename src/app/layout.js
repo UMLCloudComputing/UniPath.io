@@ -2,36 +2,40 @@
 
 // React
 import * as React from "react";
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { Authenticator, View } from "@aws-amplify/ui-react";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css"; // default theme
+import "@aws-amplify/ui-react/styles.css"; // Amplify component styles
 
 // Material UI
+import { ThemeProvider } from '@mui/material/styles';
 import Box from "@mui/material/Box";
 
 // Local
-import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
 import ConfigureAmplifyClientSide from "@/components/ConfigureAmplify";
-import { ThemeProvider } from "@/contexts/ThemeContext";
+import { darkTheme, lightTheme } from "@/components/theme";
+import { ThemeContext, ThemeContextProvider } from "@/contexts/ThemeContext";
 
-// Metadata
-// export const metadata = {
-//     title: 'UniPath.io',
-//     description: `UniPath.io is an innovative web application designed to revolutionize the way
-//         college students plan and visualize their academic journey. With a focus on user-driven
-//         content and a dynamic visual interface, UniPath.io offers a comprehensive suite of tools
-//         for meticulous degree path planning and progress tracking.`,
-// };
 
-/**
- * RootLayout is the main high-level layout component that wraps around other components in this application.
- * It provides them with theme and authentication contexts.
- *
- * @param {Object} props - The properties passed to this component.
- * @param {ReactNode} props.children - The child components to be rendered inside this layout.
- *
- * @returns {ReactElement} The React Element created by this function.
- */
+// MainApp is the main high-level layout component that wraps around other components in this application.
+const MainApp = ({ children }) => {
+    const { darkMode } = React.useContext(ThemeContext);
+
+    return (
+        <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+            <Authenticator.Provider>
+                <View>
+                    <Box>
+                        {children}
+                    </Box>
+                </View>
+            </Authenticator.Provider>
+        </ThemeProvider>
+    );
+};
+
+// RootLayout is the main high-level layout component that wraps around other components in this application. 
+// It provides them with theme and authentication contexts.
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
@@ -39,16 +43,14 @@ export default function RootLayout({ children }) {
                 <link rel="icon" href="/favicon.png" />
             </head>
             <body>
-                <ThemeRegistry>
+                <AppRouterCacheProvider>
                     <ConfigureAmplifyClientSide />
-                    <Box component="main" sx={{ p: 1 }}>
-                        <Authenticator.Provider>
-                            <ThemeProvider>
-                                <View>{children}</View>
-                            </ThemeProvider>
-                        </Authenticator.Provider>
-                    </Box>
-                </ThemeRegistry>
+                    <ThemeContextProvider>
+                        <MainApp>
+                            {children}
+                        </MainApp>
+                    </ThemeContextProvider>
+                </AppRouterCacheProvider>
             </body>
         </html>
     );

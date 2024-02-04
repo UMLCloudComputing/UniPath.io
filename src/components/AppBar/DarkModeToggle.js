@@ -4,14 +4,10 @@ import * as React from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
 
 export default function DarkModeToggle() {
-    const { darkMode, setDarkMode } = React.useContext(ThemeContext);
-
-    const handleThemeChange = () => {
-        setDarkMode(!darkMode);
-    };
+    const { darkMode, toggleTheme } = React.useContext(ThemeContext);
 
     return (
-        <IconButton onClick={handleThemeChange}>
+        <IconButton onClick={toggleTheme}>
             {darkMode ? (
                 <DarkMode color={"inherit"} />
             ) : (

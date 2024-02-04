@@ -11,11 +11,12 @@
   "dependencies": {
     "@aws-amplify/cli": "^12.7.1",
     "@aws-amplify/ui-react": "^6.0.3",
-    "@emotion/cache": "latest",
+    "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.18",
     "@mui/material": "^5.14.18",
+    "@mui/material-nextjs": "^5.15.7",
     "aws-amplify": "^6.0.11",
     "next": "latest",
     "react": "latest",

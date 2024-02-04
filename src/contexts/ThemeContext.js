@@ -1,21 +1,40 @@
-import React from "react";
+import React, { useState, useEffect, createContext } from 'react';
 
-export const ThemeContext = React.createContext();
+// Create a ThemeContext
+const ThemeContext = createContext();
 
-export const ThemeProvider = ({ children }) => {
-    const [darkMode, setDarkMode] = useState(() => {
-        const storedDarkMode = localStorage.getItem("darkMode");
-        return storedDarkMode ? JSON.parse(storedDarkMode) : false;
+const ThemeContextProvider = ({ children }) => {
+    // Initialize theme state with default values
+    const [themeState, setThemeState] = useState({
+        darkMode: false, // This can include more theme related states
     });
 
+    // Load theme state from localStorage on mount
+    useEffect(() => {
+        const storedTheme = localStorage.getItem('themeState');
+        if (storedTheme) {
+            setThemeState(JSON.parse(storedTheme));
+        }
+    }, []);
+
+    // Save theme state to localStorage on change
+    useEffect(() => {
+        localStorage.setItem('themeState', JSON.stringify(themeState));
+    }, [themeState]);
+
+    // Function to toggle dark mode (you can add more functions to modify other parts of the theme)
+    const toggleTheme = () => {
+        setThemeState((prevState) => ({
+            ...prevState,
+            darkMode: !prevState.darkMode,
+        }));
+    };
+
     return (
-        <ThemeContext.Provider
-            value={{
-                darkMode,
-                setDarkMode,
-            }}
-        >
+        <ThemeContext.Provider value={{ ...themeState, toggleTheme }}>
             {children}
         </ThemeContext.Provider>
     );
 };
+
+export { ThemeContextProvider, ThemeContext };
