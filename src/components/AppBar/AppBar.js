@@ -4,36 +4,34 @@
 import * as React from "react";
 
 // Material UI
-import { styled, alpha } from "@mui/material/styles";
+import { alpha, useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import Button from "@mui/material/Button";
-import { useTheme } from "@mui/material/styles";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 
 // Local Components
-import DialogComponent from "../app/(home)/Dialog";
+import DialogComponent from "../../app/(home)/Dialog";
+import DarkModeToggle from "@/components/AppBar/DarkModeToggle";
 
 // Material UI: Icons
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
-import Divider from "@mui/material/Divider";
 
 // Amplify
-import { Amplify } from "aws-amplify";
-import { Authenticator } from "@aws-amplify/ui-react";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import SignUpPage from "../app/(auth)/signup/page";
+
+// Next
+import { useRouter } from "next/navigation";
 
 /**
  * AppBarComponent renders an AppBar with various interactive elements.
@@ -47,24 +45,24 @@ import SignUpPage from "../app/(auth)/signup/page";
  * @returns {ReactElement} The React Element created by this function.
  */
 export default function AppBarComponent({
-    drawerWidth,
-    open,
-    handleDrawerOpen,
-    isLandingPage,
-}) {
+                                            drawerWidth,
+                                            open,
+                                            handleDrawerOpen,
+                                            isLandingPage,
+                                        }) {
     // React Vars and Hooks
     const theme = useTheme();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-    const [openDialog, setOpenDialog] = React.useState(false);
+    const router = useRouter();
 
     //Amplify hooks
     const { authenticated, authStatus, user, signOut } = useAuthenticator(
-        (context) => [context.user]
+        (context) => [context.user],
     );
+    const [openDialog, setOpenDialog] = React.useState(false);
 
     //click handlers
     const trigger = useScrollTrigger({
@@ -75,6 +73,11 @@ export default function AppBarComponent({
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
+    };
+
+    const handleSignOut = () => {
+        signOut();
+        handleMenuClose();
     };
 
     const handleMobileMenuClose = () => {
@@ -95,6 +98,14 @@ export default function AppBarComponent({
     };
     const handleDialogClose = () => {
         setOpenDialog(false);
+    };
+
+    const handleLoginClick = () => {
+        router.replace("/login");
+    };
+
+    const handleAboutClick = () => {
+        router.replace("/about");
     };
 
     // Button redirect click handler
@@ -118,7 +129,7 @@ export default function AppBarComponent({
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-            <MenuItem onClick={signOut}>Sign out</MenuItem>
+            <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
         </Menu>
     );
 
@@ -148,6 +159,9 @@ export default function AppBarComponent({
                     aria-haspopup="true"
                     color="inherit"
                 >
+                    <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+                    <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+                    <MenuItem onClick={signOut}>Sign out</MenuItem>
                     <AccountCircle />
                 </IconButton>
                 <p>My Account</p>
@@ -183,7 +197,7 @@ export default function AppBarComponent({
                     color: "text.primary",
                     borderBottom: (theme) =>
                         `1px solid ${theme.palette.divider}`,
-                    // backdropFilter: 'blur(12px)', // trying to copy the appbar blur from the mui.com docs
+                    // backdropFilter: 'blur(12px)', // trying to copy the AppBar blur from the mui.com docs
                 }}
             >
                 <Toolbar>
@@ -274,32 +288,31 @@ export default function AppBarComponent({
                     <Box sx={{ flexGrow: 1 }} />
 
                     {/* Right */}
+
                     <Box sx={{ display: { xs: "none", md: "flex" } }}>
                         {isLandingPage ? (
-                            <Button color="inherit" href="/home">
+                            // change this to ref about page once its been written
+                            <Button color="inherit" onClick={handleAboutClick} href={"/about"}>
                                 About
                             </Button>
                         ) : (
                             <></>
                         )}
+
+                        <DarkModeToggle />
                         {
                             /* Logged out UI, sign up button showed */
                             authStatus === "unauthenticated" ? (
                                 /* Sign Up Button */
                                 <>
-                                    <Button variant="outlined" href={"/signin"}>
+                                    <Button variant="outlined" onClick={handleLoginClick}>
                                         Login
                                     </Button>
                                 </>
-                            ) : (
-                                <></>
-                            )
-                        }
-                        {
-                            /* Logged in UI, with IconButton instead of Sign Up Button */
-                            authStatus === "authenticated" ? (
+                            ) : authStatus ===
+                            "authenticated" /* Logged in UI, with IconButton instead of Sign Up
+                        Button */ ? (
                                 <Box>
-                                    <Typography>{user.username}</Typography>
                                     <IconButton
                                         size="large"
                                         edge="end"

@@ -1,33 +1,32 @@
-
 // React
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation'
+import React, { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 // Material UI
-import Drawer from '@mui/material/SwipeableDrawer';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import Drawer from "@mui/material/SwipeableDrawer";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 // Material UI: Icons
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import SettingsIcon from '@mui/icons-material/Settings';
-import SupportIcon from '@mui/icons-material/LiveHelp';
-import PathIcon from '@mui/icons-material/Map'; // Placeholder for 'Pathways' icon
-import TaskIcon from '@mui/icons-material/CheckCircleOutline'; // Placeholder for 'Tasks' icon
-import HomeIcon from '@mui/icons-material/Home';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import SettingsIcon from "@mui/icons-material/Settings";
+import SupportIcon from "@mui/icons-material/LiveHelp";
+import PathIcon from "@mui/icons-material/Map"; // Placeholder for 'Pathways' icon
+import TaskIcon from "@mui/icons-material/CheckCircleOutline"; // Placeholder for 'Tasks' icon
+import HomeIcon from "@mui/icons-material/Home";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 
 
 /**
@@ -45,18 +44,20 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
  */export default function DrawerComponent({ drawerWidth, open, handleDrawerClose, handleDrawerOpen }) {
 
     // NextJS: Get current URL pathname
-    const pathname = usePathname()
+    const pathname = usePathname();
+
 
     // React Vars and Hooks
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'));   // Using a media query to determine screen size
-    const drawerVariant = isMobile ? 'temporary' : 'permanent'; // Determine drawer variant based on screen size
+    const isMobile = useMediaQuery(theme.breakpoints.down("md"));   // Using a media query to determine screen size
+    const drawerVariant = isMobile ? "temporary" : "permanent"; // Determine drawer variant based on screen size
+
     const [pathwaysOpen, setPathwaysOpen] = useState(true);
     const [tasksOpen, setTasksOpen] = useState(true);
-
     const [settingsOpen, setSettingsOpen] = useState(true);
     const [supportOpen, setSupportOpen] = useState(true);
-  
+    const [homeOpen, setHomeOpen] = useState(true);
+
     const handlePathwaysClick = () => {
         setPathwaysOpen(!pathwaysOpen);
     };
@@ -73,6 +74,11 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
         setSupportOpen(!supportOpen);
     };
 
+    const handleHomeClick = () => {
+        setHomeOpen(!homeOpen);
+    };
+
+
     return (
         <Drawer
             variant={drawerVariant}
@@ -82,12 +88,12 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
             sx={{
                 width: drawerWidth,
                 flexShrink: 0,
-                whiteSpace: 'nowrap',
-                boxSizing: 'border-box',
-                '& .MuiDrawer-paper': {
+                whiteSpace: "nowrap",
+                boxSizing: "border-box",
+                "& .MuiDrawer-paper": {
                     width: drawerWidth,
-                    boxSizing: 'border-box',
-                    transition: (theme) => theme.transitions.create('width', {
+                    boxSizing: "border-box",
+                    transition: (theme) => theme.transitions.create("width", {
                         easing: theme.transitions.easing.sharp,
                         duration: theme.transitions.duration.enteringScreen,
                     }),
@@ -97,28 +103,31 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
                 }),
                 ...(!open && {
                     width: `calc(${theme.spacing(7)} + 1px)`,
-                    [theme.breakpoints.up('sm')]: {
+                    [theme.breakpoints.up("sm")]: {
                         width: `calc(${theme.spacing(8)} + 1px)`,
                     },
-                    '& .MuiDrawer-paper': {
+                    "& .MuiDrawer-paper": {
                         width: `calc(${theme.spacing(7)} + 1px)`,
-                        [theme.breakpoints.up('sm')]: {
+                        [theme.breakpoints.up("sm")]: {
                             width: `calc(${theme.spacing(8)} + 1px)`,
                         },
-                        overflow: 'hidden',
+                        overflow: "hidden",
                     },
                 }),
             }}
         >
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', ...theme.mixins.toolbar }}>
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end", ...theme.mixins.toolbar }}>
                 <IconButton onClick={handleDrawerClose}>
-                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                    {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                 </IconButton>
             </Box>
             <List>
 
                 {/* Pathways */}
-                <ListItemButton onClick={handlePathwaysClick} href='/pathways' selected={pathname === '/pathways'}>
+                <ListItemButton
+                    href="/pathways"
+                    onClick={handlePathwaysClick}
+                    selected={pathname === "/pathways"}>
                     <ListItemIcon>
                         <PathIcon />
                     </ListItemIcon>
@@ -130,7 +139,10 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
                 </Collapse> */}
 
                 {/* Tasks */}
-                <ListItemButton onClick={handleTasksClick} href='/tasks' selected={pathname === '/tasks'}>
+                <ListItemButton
+                    href="/tasks"
+                    onClick={handleTasksClick}
+                    selected={pathname === "/tasks"}>
                     <ListItemIcon>
                         <TaskIcon />
                     </ListItemIcon>
@@ -148,19 +160,29 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
             <Divider />
 
             <List>
-                <ListItemButton onClick={handleSupportClick} href='/support' selected={pathname === '/support'}>
+                <ListItemButton
+                    href={"/support"}
+                    onClick={handleSupportClick}
+                    selected={pathname === "/support"}>
                     <ListItemIcon>
                         <SupportIcon />
                     </ListItemIcon>
                     <ListItemText primary="Support" />
                 </ListItemButton>
-                <ListItemButton>
+                <ListItemButton
+                    href="/home"
+                    onClick={handleHomeClick}
+                    selected={pathname === "/home"}
+                >
                     <ListItemIcon>
                         <HomeIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Home Page" href='/#' />
+                    <ListItemText primary="Home Page" />
                 </ListItemButton>
-                <ListItemButton onClick={handleSettingsClick} href='/settings' selected={pathname === '/settings'}>
+                <ListItemButton
+                    href={"/settings"}
+                    onClick={handleSettingsClick}
+                    selected={pathname === "/settings"}>
                     <ListItemIcon>
                         <SettingsIcon />
                     </ListItemIcon>
