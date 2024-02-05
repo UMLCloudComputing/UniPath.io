@@ -39,7 +39,7 @@ export default function RootLayout({ children }) {
             </head>
             <body>
                 <ThemeRegistry>
-                    <ConfigureAmplifyClientSide />
+                    {/* <ConfigureAmplifyClientSide /> */}
                     <Box component="main" sx={{ p: 1,  }}>
                         <Authenticator.Provider>
                             <View>

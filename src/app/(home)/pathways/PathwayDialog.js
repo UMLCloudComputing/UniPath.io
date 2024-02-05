@@ -70,6 +70,7 @@ export default function PathwayDialog({ open, handleClose, handleAddPathwayCard 
             fullWidth
             variant="standard"
           />
+          
           <TextField
             autoFocus
             required

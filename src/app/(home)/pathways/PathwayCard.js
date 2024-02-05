@@ -21,7 +21,7 @@ const PathwayCard = ({ title, subtitle, handlePathwayClick, handlePathwayDelete 
       >
         <Box
           sx={{
-            display: 'flex',
+            display: 'flex',  
           }}
         >
           <RouteIcon

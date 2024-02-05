@@ -12,23 +12,23 @@ export const auth = defineAuth({
         email: true,
 
         // Social providers
-        externalProviders: {
+        // externalProviders: {
 
-            // Google
-            google: {
-                clientId: secret('GOOGLE_CLIENT_ID'),
-                clientSecret: secret('GOOGLE_CLIENT_SECRET')
-            },
+        //     // Google
+        //     google: {
+        //         clientId: secret('GOOGLE_CLIENT_ID'),
+        //         clientSecret: secret('GOOGLE_CLIENT_SECRET')
+        //     },
 
-            callbackUrls: [
-                'http://localhost:3000/home',
-                'https://main.d3c5lsis3camij.amplifyapp.com/home'
-            ],
-            logoutUrls: [
-                'http://localhost:3000/', 
-                'https://main.d3c5lsis3camij.amplifyapp.com'
-            ],
-        },
+        //     callbackUrls: [
+        //         'http://localhost:3000/home',
+        //         'https://main.d3c5lsis3camij.amplifyapp.com/home'
+        //     ],
+        //     logoutUrls: [
+        //         'http://localhost:3000/', 
+        //         'https://main.d3c5lsis3camij.amplifyapp.com'
+        //     ],
+        // },
     },
 
     // Specify user pool settings

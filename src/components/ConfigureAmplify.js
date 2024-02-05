@@ -1,11 +1,11 @@
-// components/ConfigureAmplify.tsx
-"use client";
+// // components/ConfigureAmplify.tsx
+// "use client";
 
-import config from "MAIN/amplifyconfiguration.json";
-import { Amplify } from "aws-amplify";
+// // import config from "MAIN/amplifyconfiguration.json";
+// import { Amplify } from "aws-amplify";
 
-Amplify.configure(config, { ssr: true });
+// // Amplify.configure(config, { ssr: true });
 
-export default function ConfigureAmplifyClientSide() {
-    return null;
-}
+// export default function ConfigureAmplifyClientSide() {
+//     return null;
+// }

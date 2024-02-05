@@ -36,7 +36,7 @@ export default function PathwaysPage() {
 
   const { user, authStatus } = useAuthenticator();
 
-  const client = generateClient({ authMode: 'userPool'});
+  const client = generateClient({ authMode: 'userPool' });
 
   //fetches pathways from backend if authenticated, else uses mock data (for now)
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function PathwaysPage() {
         .catch((error) => {
           console.log(error);
         });
-    } else if (authStatus === 'unauthenticated'){
+    } else if (authStatus === 'unauthenticated') {
       // TODO: change to use local storage
       mockPathwayApiCall()
         .then((data) => {
@@ -82,12 +82,12 @@ export default function PathwaysPage() {
     switch (authStatus) {
       case 'authenticated':
         const { errors, data } = await client.models.Pathway.create(
-          { 
+          {
             title: pathway.title,
             degree: pathway.degree,
           },
         );
-        
+
         if (errors) {
           console.error(errors);
         }
@@ -148,7 +148,7 @@ export default function PathwaysPage() {
                 title={pathway.title}
                 subtitle={pathway.degree}
               />
-            )
+            );
           })
         }
       </Box>
