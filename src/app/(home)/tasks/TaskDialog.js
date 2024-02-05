@@ -71,7 +71,7 @@ export default function TaskDialog({ open, handleClose, handleAddTaskCard }) {
                         <IconButton
                             onClick={handleCalendarIconClick}
                         >
-                            <CalendarMonthIcon></CalendarMonthIcon>
+                            <CalendarMonthIcon></CalendarMonthIcon> {/* Should be able to select a date on click. */}
                         </IconButton>
                     </div>
 
