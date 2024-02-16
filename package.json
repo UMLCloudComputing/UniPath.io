@@ -18,7 +18,7 @@
     "@mui/material": "^5.14.18",
     "@mui/material-nextjs": "^5.15.7",
     "aws-amplify": "^6.0.13",
-    "next": "latest",
+    "next": "^14.1.1-canary.56",
     "react": "latest",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "latest"
