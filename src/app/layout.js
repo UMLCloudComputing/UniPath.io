@@ -10,6 +10,7 @@ import "@aws-amplify/ui-react/styles.css"; // Amplify component styles
 // Material UI
 import { ThemeProvider } from '@mui/material/styles';
 import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
 
 // Local
 import ConfigureAmplifyClientSide from "@/components/ConfigureAmplify";
@@ -25,6 +26,7 @@ const MainApp = ({ children }) => {
         <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
             <Authenticator.Provider>
                 <View>
+                    <CssBaseline/>
                     <Box>
                         {children}
                     </Box>

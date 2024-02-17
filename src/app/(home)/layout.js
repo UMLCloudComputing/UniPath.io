@@ -49,8 +49,6 @@ export default function Layout({children}) {
                 minHeight: "100vh",
             }}
         >
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline/>
 
             {/* AppBar */}
             <AppBar
