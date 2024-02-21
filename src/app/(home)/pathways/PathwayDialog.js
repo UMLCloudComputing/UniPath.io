@@ -51,8 +51,8 @@ export default function PathwayDialog({ open, handleClose, handleAddPathwayCard 
 
             //this method below is subject to change (when adding backend)
             handleAddPathwayCard({
-              title: pathwayTitle,
-              degree: degree,
+              degreeTitle: pathwayTitle,
+              degreeMajor: degree,
             });
           },
         }}
