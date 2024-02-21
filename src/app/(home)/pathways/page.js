@@ -18,10 +18,10 @@ import { useTheme } from '@mui/material/styles';
 import LinearProgress from '@mui/material/LinearProgress';
 
 // Local
-import Accordion from './Accordion';
-import PathwayDialog from './PathwayDialog';
+import Accordion from './components/Accordion';
+import PathwayDialog from './components/PathwayDialog';
 import { accordionData, mockPathwayApiCall } from './mockData';
-import PathwayCard from './PathwayCard';
+import PathwayCard from './components/PathwayCard';
 
 
 // Component: PathwaysPage
@@ -41,31 +41,39 @@ export default function PathwaysPage() {
   //fetches pathways from backend if authenticated, else uses mock data (for now)
   useEffect(() => {
     setLoading(true);
-    if (authStatus === 'authenticated') {
-      client.models.Pathway.list()
-        .then((data) => {
-          setPathways(data.data.map((item) => {  // transforms request data to required format
-            return {
-              title: item.title,
-              degree: item.degree,
-            }
-          }));
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else if (authStatus === 'unauthenticated'){
-      // TODO: change to use local storage
-      mockPathwayApiCall()
-        .then((data) => {
-          setPathways(data.pathways);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    // if (authStatus === 'authenticated') {
+    //   client.models.Pathway.list()
+    //     .then((data) => {
+    //       setPathways(data.data.map((item) => {  // transforms request data to required format
+    //         return {
+    //           title: item.title,
+    //           degree: item.degree,
+    //         }
+    //       }));
+    //       setLoading(false);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // } else if (authStatus === 'unauthenticated'){
+    //   // TODO: change to use local storage
+    //   mockPathwayApiCall()
+    //     .then((data) => {
+    //       setPathways(data.pathways);
+    //       setLoading(false);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
+      if (localStorage.getItem('pathways')) {
+        setPathways(JSON.parse(localStorage.getItem('pathways')));
+        console.log('pathways', pathways);
+        setLoading(false);
+      } else {
+          setPathways(null);
+          setLoading(false)
+      }
   }, [authStatus])
 
   const handlePlusClick = () => {
@@ -77,97 +85,120 @@ export default function PathwaysPage() {
   }
 
   const handleAddPathwayCard = async (pathway) => {
-    const new_pathways = [...pathways, pathway];
+    const new_pathways = pathways ? [...pathways, pathway] : [pathway];
 
-    switch (authStatus) {
-      case 'authenticated':
-        const { errors, data } = await client.models.Pathway.create(
-          { 
-            title: pathway.title,
-            degree: pathway.degree,
-          },
-        );
-        
-        if (errors) {
-          console.error(errors);
-        }
-
-        break;
-
-      default:
-        break;
-    }
+    // switch (authStatus) {
+    //   case 'authenticated':
+    //     const { errors, data } = await client.models.Pathway.create(
+    //       {
+    //         title: pathway.title,
+    //         degree: pathway.degree,
+    //       },
+    //     );
+    //
+    //     if (errors) {
+    //       console.error(errors);
+    //     }
+    //
+    //     break;
+    //
+    //   default:
+    //     break;
+    // }
+    localStorage.setItem('pathways', JSON.stringify(new_pathways));
 
     setPathways(new_pathways);
   }
 
-  return (
-    <Box>
-      {/*Popup Dialog*/}
-      <PathwayDialog
-        open={open}
-        handleClose={handleDialogClose}
-        handleAddPathwayCard={handleAddPathwayCard}
-      />
 
-      {/*Heading*/}
-      <Box
-        component="header"
-        sx={{
-          mb: 2,
-        }}
-      >
-        <Typography variant="h4">Pathways</Typography>
+          return <Box>
+
+
+  {/*Popup Dialog*/}
+  <PathwayDialog
+    open={open}
+    handleClose={handleDialogClose}
+    handleAddPathwayCard={handleAddPathwayCard}
+  />
+              {pathways ? <Box>
+
+  {/*Heading*/}
+  <Box
+    component="header"
+    sx={{
+      mb: 2,
+    }}
+  >
+    <Typography variant="h4">My Pathways</Typography>
+  </Box>
+
+  {/*Loading state (below heading)*/}
+  {
+    loading ? (
+      <Box sx={{ width: '100%' }}>
+        <LinearProgress />
       </Box>
+    ) : (
+      <></>
+    )
+  }
 
-      {/*Loading state (below heading)*/}
-      {
-        loading ? (
-          <Box sx={{ width: '100%' }}>
-            <LinearProgress />
-          </Box>
-        ) : (
-          <></>
+  {/*Pathway Cards*/}
+  <Box
+    sx={{
+      display: 'flex',
+      flexWrap: 'wrap',
+      width: '100%',
+      gap: 4,
+    }}
+  >
+    {
+      pathways.map((pathway, index) => {
+        return (
+          <PathwayCard
+            key={index}
+            degreeTitle={pathway.degreeTitle}
+            degreeMajor={pathway.degreeMajor}
+            school={pathway.school}
+            degreeType={pathway.degreeType}
+            yearOfGrad={pathway.yearOfGrad}
+          />
         )
-      }
+      })
+    }
+  </Box>
 
-      {/*Pathway Cards*/}
-      <Box
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          width: '100%',
-          gap: 4,
-        }}
-      >
-        {
-          pathways.map((pathway, index) => {
-            return (
-              <PathwayCard
-                key={index}
-                title={pathway.title}
-                subtitle={pathway.degree}
+
+</Box> : <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100vh',
+            }}
+        >
+            <Typography variant="h4">Pathways</Typography>
+            <Typography variant="body1">No pathways found.</Typography>
+
+
+
+        </Box>
+}
+            {/*Bottom right corner*/}
+            <IconButton
+                onClick={() => handlePlusClick()}
+            >
+              <AddCircleOutlineIcon
+                  sx={{
+                    position: 'fixed',
+                    bottom: '4%',
+                    right: '4%',
+                    fontSize: '40px',
+                    color: theme.palette.primary.main,
+                  }}
               />
-            )
-          })
-        }
-      </Box>
-
-      {/*Bottom right corner*/}
-      <IconButton
-        onClick={() => handlePlusClick()}
-      >
-        <AddCircleOutlineIcon
-          sx={{
-            position: 'fixed',
-            bottom: '4%',
-            right: '4%',
-            fontSize: '40px',
-            color: theme.palette.primary.main,
-          }}
-        />
-      </IconButton>
-    </Box>
-  );
+            </IconButton>
+</Box>
 }
 

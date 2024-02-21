@@ -8,8 +8,9 @@ import RouteIcon from '@mui/icons-material/Route';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SchoolIcon from '@mui/icons-material/School';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import PathIcon from "@mui/icons-material/Map";
 
-const PathwayCard = ({ title, subtitle, handlePathwayClick, handlePathwayDelete }) => {
+const PathwayCard = ({ degreeTitle, school, degreeType, yearOfGrad, degreeMajor, handlePathwayClick, handlePathwayDelete }) => {
   const theme = useTheme();
   return (
     <>
@@ -17,36 +18,64 @@ const PathwayCard = ({ title, subtitle, handlePathwayClick, handlePathwayDelete 
         sx={{
           width: '35%',
           p: 2,
+            borderRadius: 3,
         }}
       >
+          <Box
+          sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 0.5,
+          }}>
         <Box
           sx={{
             display: 'flex',
+              alignItems: 'center'
           }}
         >
-          <RouteIcon
+          <PathIcon
             sx={{
               color: theme.palette.grey[500],
             }} />
+
+
           <Typography
-            variant="h6"
+            variant="h5"
             sx={{
-              ml: 1,
+              ml: 1
             }}
           >
-            {title}
+            {degreeTitle}
           </Typography>
+
+
           <MoreVertIcon
             sx={{
               ml: 'auto',
             }} />
-        </Box>
+      </Box>
+          <Typography
+              variant={"h6"}
+              sx={{
+                  color: theme.palette.grey[500],
+                  fontSize: 14,
+              }}>
+              {degreeType}, {degreeMajor}
+          </Typography>
+          </Box>
         <Box
           sx={{
             display: 'flex',
             mt: 4,
           }}
         >
+            <Box
+            sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 0.5,
+
+            }}>
           <SchoolIcon
             sx={{
               color: theme.palette.grey[500],
@@ -58,7 +87,8 @@ const PathwayCard = ({ title, subtitle, handlePathwayClick, handlePathwayDelete 
               ml: 1,
               color: theme.palette.grey[700],
             }}
-          >{subtitle}</Typography> {/*degree*/}
+          >{school}, {yearOfGrad}</Typography>
+            </Box>
           <ArrowForwardIcon
             sx={{
               ml: 'auto',
