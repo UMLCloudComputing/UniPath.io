@@ -131,7 +131,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
                     <ListItemIcon>
                         <PathIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Pathways" />
+                    <ListItemText primary="My Pathways" />
                     {/* {pathwaysOpen ? <ExpandLess /> : <ExpandMore />} */}
                 </ListItemButton>
                 {/* <Collapse in={pathwaysOpen} timeout="auto" unmountOnExit>

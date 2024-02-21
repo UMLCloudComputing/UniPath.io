@@ -18,10 +18,10 @@ import { useTheme } from '@mui/material/styles';
 import LinearProgress from '@mui/material/LinearProgress';
 
 // Local
-import Accordion from './Accordion';
-import PathwayDialog from './PathwayDialog';
+import Accordion from './components/Accordion';
+import PathwayDialog from './components/PathwayDialog';
 import { accordionData, mockPathwayApiCall } from './mockData';
-import PathwayCard from './PathwayCard';
+import PathwayCard from './components/PathwayCard';
 
 
 // Component: PathwaysPage
@@ -129,7 +129,7 @@ export default function PathwaysPage() {
       mb: 2,
     }}
   >
-    <Typography variant="h4">Pathways</Typography>
+    <Typography variant="h4">My Pathways</Typography>
   </Box>
 
   {/*Loading state (below heading)*/}
@@ -157,8 +157,11 @@ export default function PathwaysPage() {
         return (
           <PathwayCard
             key={index}
-            title={pathway.title}
-            subtitle={pathway.degree}
+            degreeTitle={pathway.degreeTitle}
+            degreeMajor={pathway.degreeMajor}
+            school={pathway.school}
+            degreeType={pathway.degreeType}
+            yearOfGrad={pathway.yearOfGrad}
           />
         )
       })
