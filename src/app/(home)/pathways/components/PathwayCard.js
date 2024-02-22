@@ -1,5 +1,6 @@
 "use client";
 
+//MaterialUI
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
@@ -9,11 +10,66 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SchoolIcon from '@mui/icons-material/School';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import PathIcon from "@mui/icons-material/Map";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
 
-const PathwayCard = ({ degreeTitle, school, degreeType, yearOfGrad, degreeMajor, handlePathwayClick, handlePathwayDelete }) => {
+//React
+import React from 'react';
+import MenuItem from "@mui/material/MenuItem";
+
+
+
+const PathwayCard = ({ pathwayId, degreeTitle, school, degreeType, yearOfGrad, degreeMajor, handlePathwayEdit, handlePathwayDelete}) => {
   const theme = useTheme();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const pathwayOptionsOpen = Boolean(anchorEl);
+
+    const handlePathwayClick = () => {
+        console.log('redirect to pathway page');
+    }
+
+    const handlePathwayOptionsOpen = (event) => {
+        console.log('open pathway options')
+        setAnchorEl(event.currentTarget)
+    }
+
+
+
+    const handlePathwayOptionsClose = () => {
+        console.log('close pathway options')
+        setAnchorEl(null)
+    }
+
+
+
+
+  const pathwayOptionsMenu = (
+      <Menu
+          anchorEl={anchorEl}
+          open={pathwayOptionsOpen}
+          onClose={handlePathwayOptionsClose}
+          anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+      }}
+
+          keepMounted
+          transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+      }}>
+        <MenuItem onClick={handlePathwayEdit}>Edit</MenuItem>
+          <MenuItem
+              onClick={() => handlePathwayDelete(pathwayId)}
+              sx={{
+              color: theme.palette.error.main
+          }}
+          >Delete</MenuItem>
+      </Menu>
+  )
+
   return (
-    <>
+
       <Card
         sx={{
           width: '35%',
@@ -47,12 +103,13 @@ const PathwayCard = ({ degreeTitle, school, degreeType, yearOfGrad, degreeMajor,
           >
             {degreeTitle}
           </Typography>
-
-
-          <MoreVertIcon
-            sx={{
-              ml: 'auto',
-            }} />
+            <IconButton
+                sx={{
+                ml:'auto'
+                    }}
+            onClick={handlePathwayOptionsOpen}>
+          <MoreVertIcon/>
+        </IconButton>
       </Box>
           <Typography
               variant={"h6"}
@@ -89,14 +146,22 @@ const PathwayCard = ({ degreeTitle, school, degreeType, yearOfGrad, degreeMajor,
             }}
           >{school}, {yearOfGrad}</Typography>
             </Box>
+            <IconButton
+            sx={{
+                ml: 'auto',
+            }}
+            onClick={handlePathwayClick}>
           <ArrowForwardIcon
             sx={{
-              ml: 'auto',
+
               color: theme.palette.primary.main,
             }} />
+            </IconButton>
         </Box>
+          {pathwayOptionsMenu}
       </Card>
-    </>
+
+
   );
 };
 
