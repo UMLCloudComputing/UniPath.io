@@ -22,6 +22,8 @@ import Accordion from './components/Accordion';
 import PathwayDialog from './components/PathwayDialog';
 import {accordionData, mockPathwayApiCall} from './mockData';
 import PathwayCard from './components/PathwayCard';
+import PathIcon from "@mui/icons-material/Map";
+import CustomAccordion from "./components/Accordion";
 
 
 // Component: PathwaysPage
@@ -30,7 +32,7 @@ import PathwayCard from './components/PathwayCard';
 //TODO: use accordion component in pathway details page
 export default function PathwaysPage() {
     const theme = useTheme();
-    const [open, setOpen] = useState(false);
+    const [addPathwayDialogOpen, setAddPathwayDialogOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [pathways, setPathways] = useState([]);
 
@@ -69,7 +71,11 @@ export default function PathwaysPage() {
         // }
         if (localStorage.getItem('pathways')) {
             const pathways = JSON.parse(localStorage.getItem('pathways'));
-            setPathways([...pathways]);
+            if (pathways !== null) {
+                setPathways([...pathways]);
+            } else {
+                setPathways([])
+            }
             console.log('pathways', pathways);
             setLoading(false);
         } else {
@@ -84,17 +90,18 @@ export default function PathwaysPage() {
 
     const handlePathwayDelete = (pathwayId) => {
         const new_pathways = pathways.filter((pathway) => pathway.id !== pathwayId);
+        setPathways(new_pathways);
         localStorage.removeItem('pathways');
         localStorage.setItem('pathways', JSON.stringify(new_pathways));
         window.location.reload() // reload to refresh local storage
     }
 
-    const handlePlusClick = () => {
-        setOpen(true);
+    const handleAddPathwayClick = () => {
+        setAddPathwayDialogOpen(true);
     }
 
-    const handleDialogClose = () => {
-        setOpen(false);
+    const handlePathwayDialogClose = () => {
+        setAddPathwayDialogOpen(false);
     }
 
     const handleAddPathwayCard = async (pathway) => {
@@ -130,33 +137,78 @@ export default function PathwaysPage() {
 
         {/*Popup Dialog*/}
         <PathwayDialog
-            open={open}
-            handleClose={handleDialogClose}
+            open={addPathwayDialogOpen}
+            handleClose={handlePathwayDialogClose}
             handleAddPathwayCard={handleAddPathwayCard}
         />
-        {pathways !== null || pathways !== [] ?
+        {/*Heading*/}
+        <Box
+            component="header"
+            sx={{
+                mb: 2,
+            }}
+        >
+            <Typography variant="h4">My Pathways</Typography>
+        </Box>
+
+        {/*Loading state (below heading)*/}
+        {
+            loading ? (
+                <Box sx={{width: '100%'}}>
+                    <LinearProgress/>
+                </Box>
+            ) : (
+                <></>
+            )
+        }
+
+
+        {
+            pathways.length === 0 ?
+
+                <Box // No pathways found
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '50vh',
+                    }}
+                >
+                    <PathIcon
+                        sx={{
+                            color: theme.palette.grey[500],
+                            fontSize: 100,
+                        }}/>
+                    <Typography variant="h4"
+                                sx={{
+                                    color: theme.palette.grey[500],
+                                }}>No Pathways</Typography>
+                    <Typography variant="body1"
+                                sx={{
+                                    color: theme.palette.grey[500],
+                                }}>You have not created any pathways yet</Typography>
+
+                    <Typography variant="body1"
+                                sx={{
+                                    color: theme.palette.grey[500],
+                                }}>Click the
+
+                        <AddCircleOutlineIcon
+                            sx={{
+                                color: theme.palette.primary.main,
+                                mr: 1,
+                                ml: 1,
+                                mb: -0.75
+                            }}/>
+
+                        to create a new pathway</Typography>
+
+
+                </Box>
+                :
                 <Box>
 
-                    {/*Heading*/}
-                    <Box
-                        component="header"
-                        sx={{
-                            mb: 2,
-                        }}
-                    >
-                        <Typography variant="h4">My Pathways</Typography>
-                    </Box>
-
-                    {/*Loading state (below heading)*/}
-                    {
-                        loading ? (
-                            <Box sx={{width: '100%'}}>
-                                <LinearProgress/>
-                            </Box>
-                        ) : (
-                            <></>
-                        )
-                    }
 
                     {/*Pathway Cards*/}
                     <Box
@@ -187,24 +239,11 @@ export default function PathwaysPage() {
                     </Box>
 
 
-                </Box> : <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '100vh',
-                    }}
-                >
-                    <Typography variant="h4">Pathways</Typography>
-                    <Typography variant="body1">No pathways found.</Typography>
-
-
                 </Box>
         }
         {/*Bottom right corner*/}
         <IconButton
-            onClick={() => handlePlusClick()}
+            onClick={handleAddPathwayClick}
         >
             <AddCircleOutlineIcon
                 sx={{
@@ -218,4 +257,5 @@ export default function PathwaysPage() {
         </IconButton>
     </Box>
 }
+
 
