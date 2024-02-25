@@ -24,6 +24,8 @@ import {accordionData, mockPathwayApiCall} from './mockData';
 import PathwayCard from './components/PathwayCard';
 import PathIcon from "@mui/icons-material/Map";
 import CustomAccordion from "./components/Accordion";
+import EditPathwayDialog from "@/app/(home)/pathways/components/EditPathwayDialog";
+
 
 
 // Component: PathwaysPage
@@ -35,6 +37,8 @@ export default function PathwaysPage() {
     const [addPathwayDialogOpen, setAddPathwayDialogOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [pathways, setPathways] = useState([]);
+    const [editPathwayDialogOpen, setEditPathwayDialogOpen] = useState(false);
+    const [editPathwayFields, setEditPathwayFields] = useState({});
 
 
     // const { user, authStatus } = useAuthenticator();
@@ -76,7 +80,7 @@ export default function PathwaysPage() {
             } else {
                 setPathways([])
             }
-            console.log('pathways', pathways);
+
             setLoading(false);
         } else {
             setPathways(null);
@@ -84,12 +88,45 @@ export default function PathwaysPage() {
         }
     }, [/*authStatus*/])
 
-    const handlePathwayEdit = () => {
-        console.log('edit pathway');
+    const handleEditPathwayCard = (pathwayId) => {
+
+        setEditPathwayDialogOpen(true);
+
+        pathways.find((pathway) => {
+            if (pathway.id === pathwayId) {
+
+                setEditPathwayFields({
+                    id: pathway.id,
+                    pathwayTitle: pathway.pathwayTitle,
+                    degreeMajor: pathway.degreeMajor,
+                    school: pathway.school,
+                    degreeType: pathway.degreeType,
+                    yearOfGrad: pathway.yearOfGrad,
+                });
+            }
+        })
+
+
+    }
+
+    const handleEditPathway = (pathwayId, newPathwayFields) => {
+
+        pathways.find((pathway) => {
+            if (pathway.id === pathwayId) {
+                pathway.pathwayTitle = newPathwayFields.newPathwayTitle;
+                pathway.degreeMajor = newPathwayFields.newDegreeMajor;
+                pathway.school = newPathwayFields.newSchool;
+                pathway.yearOfGrad = newPathwayFields.newYearOfGrad;
+                pathway.degreeType = newPathwayFields.newDegreeType;
+            }
+        }
+    )
+        localStorage.setItem('pathways', JSON.stringify(pathways));
     }
 
     const handlePathwayDelete = (pathwayId) => {
         const new_pathways = pathways.filter((pathway) => pathway.id !== pathwayId);
+
         setPathways(new_pathways);
         localStorage.removeItem('pathways');
         localStorage.setItem('pathways', JSON.stringify(new_pathways));
@@ -102,6 +139,10 @@ export default function PathwaysPage() {
 
     const handlePathwayDialogClose = () => {
         setAddPathwayDialogOpen(false);
+    }
+
+    const handleEditPathwayDialogClose = () => {
+        setEditPathwayDialogOpen(false);
     }
 
     const handleAddPathwayCard = async (pathway) => {
@@ -132,7 +173,7 @@ export default function PathwaysPage() {
     }
 
 
-    return <Box>
+    return (<Box>
 
 
         {/*Popup Dialog*/}
@@ -141,6 +182,12 @@ export default function PathwaysPage() {
             handleClose={handlePathwayDialogClose}
             handleAddPathwayCard={handleAddPathwayCard}
         />
+            <EditPathwayDialog
+            open={editPathwayDialogOpen}
+            handleClose={handleEditPathwayDialogClose}
+            handleEditPathway={handleEditPathway}
+            pathwayFields={editPathwayFields}
+            />
         {/*Heading*/}
         <Box
             component="header"
@@ -225,12 +272,12 @@ export default function PathwaysPage() {
                                     <PathwayCard
                                         key={index}
                                         pathwayId={pathway.id}
-                                        degreeTitle={pathway.degreeTitle}
+                                        pathwayTitle={pathway.pathwayTitle}
                                         degreeMajor={pathway.degreeMajor}
                                         school={pathway.school}
                                         degreeType={pathway.degreeType}
                                         yearOfGrad={pathway.yearOfGrad}
-                                        handlePathwayEdit={handlePathwayEdit}
+                                        handlePathwayEdit={handleEditPathwayCard}
                                         handlePathwayDelete={handlePathwayDelete}
                                     />
                                 )
@@ -256,6 +303,8 @@ export default function PathwaysPage() {
             />
         </IconButton>
     </Box>
+
+    )
 }
 
 

@@ -58,8 +58,9 @@ export default function PathwayDialog({ open, handleClose, handleAddPathwayCard 
             //this method below is subject to change (when adding backend)
             handleAddPathwayCard({
                 id: uuid(),
-              degreeTitle: pathwayTitle,
+              pathwayTitle: pathwayTitle,
               degreeMajor: degree,
+
             });
           },
         }}

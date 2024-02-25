@@ -19,24 +19,22 @@ import MenuItem from "@mui/material/MenuItem";
 
 
 
-const PathwayCard = ({ pathwayId, degreeTitle, school, degreeType, yearOfGrad, degreeMajor, handlePathwayEdit, handlePathwayDelete}) => {
+const PathwayCard = ({ pathwayId, pathwayTitle, school, degreeType, yearOfGrad, degreeMajor, handlePathwayEdit, handlePathwayDelete}) => {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const pathwayOptionsOpen = Boolean(anchorEl);
 
-    const handlePathwayClick = () => {
+    const handlePathwayClick = () => { //to be implemented
         console.log('redirect to pathway page');
     }
 
     const handlePathwayOptionsOpen = (event) => {
-        console.log('open pathway options')
+
         setAnchorEl(event.currentTarget)
     }
 
-
-
     const handlePathwayOptionsClose = () => {
-        console.log('close pathway options')
+
         setAnchorEl(null)
     }
 
@@ -58,13 +56,17 @@ const PathwayCard = ({ pathwayId, degreeTitle, school, degreeType, yearOfGrad, d
           vertical: "top",
           horizontal: "left",
       }}>
-        <MenuItem onClick={handlePathwayEdit}>Edit</MenuItem>
+          <MenuItem onClick={() => {
+              handlePathwayEdit(pathwayId)
+              handlePathwayOptionsClose()
+          }}>Edit</MenuItem>
           <MenuItem
               onClick={() => handlePathwayDelete(pathwayId)}
               sx={{
-              color: theme.palette.error.main
-          }}
+                  color: theme.palette.error.main
+              }}
           >Delete</MenuItem>
+
       </Menu>
   )
 
@@ -101,7 +103,7 @@ const PathwayCard = ({ pathwayId, degreeTitle, school, degreeType, yearOfGrad, d
               ml: 1
             }}
           >
-            {degreeTitle}
+            {pathwayTitle}
           </Typography>
             <IconButton
                 sx={{
