@@ -1,6 +1,8 @@
 "use client";
 
+
 //MaterialUI
+
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
@@ -10,6 +12,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SchoolIcon from '@mui/icons-material/School';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import PathIcon from "@mui/icons-material/Map";
+
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 
@@ -72,6 +75,13 @@ const PathwayCard = ({ pathwayId, pathwayTitle, school, degreeType, yearOfGrad, 
 
   return (
 
+
+
+const PathwayCard = ({ degreeTitle, school, degreeType, yearOfGrad, degreeMajor, handlePathwayClick, handlePathwayDelete }) => {
+  const theme = useTheme();
+  return (
+    <>
+
       <Card
         sx={{
           width: '35%',
@@ -112,6 +122,13 @@ const PathwayCard = ({ pathwayId, pathwayTitle, school, degreeType, yearOfGrad, 
             onClick={handlePathwayOptionsOpen}>
           <MoreVertIcon/>
         </IconButton>
+
+            {degreeTitle}
+          </Typography>
+
+
+          
+
       </Box>
           <Typography
               variant={"h6"}
@@ -148,6 +165,7 @@ const PathwayCard = ({ pathwayId, pathwayTitle, school, degreeType, yearOfGrad, 
             }}
           >{school}, {yearOfGrad}</Typography>
             </Box>
+
             <IconButton
             sx={{
                 ml: 'auto',
@@ -162,8 +180,6 @@ const PathwayCard = ({ pathwayId, pathwayTitle, school, degreeType, yearOfGrad, 
         </Box>
           {pathwayOptionsMenu}
       </Card>
-
-
   );
 };
 

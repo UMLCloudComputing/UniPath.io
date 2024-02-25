@@ -20,11 +20,13 @@ import LinearProgress from '@mui/material/LinearProgress';
 // Local
 import Accordion from './components/Accordion';
 import PathwayDialog from './components/PathwayDialog';
+
 import {accordionData, mockPathwayApiCall} from './mockData';
 import PathwayCard from './components/PathwayCard';
 import PathIcon from "@mui/icons-material/Map";
 import CustomAccordion from "./components/Accordion";
 import EditPathwayDialog from "@/app/(home)/pathways/components/EditPathwayDialog";
+
 
 
 
@@ -43,6 +45,7 @@ export default function PathwaysPage() {
 
     // const { user, authStatus } = useAuthenticator();
     //
+
     // const client = generateClient({ authMode: 'userPool'});
 
     //fetches pathways from backend if authenticated, else uses mock data (for now)
@@ -143,6 +146,7 @@ export default function PathwaysPage() {
 
     const handleEditPathwayDialogClose = () => {
         setEditPathwayDialogOpen(false);
+
     }
 
     const handleAddPathwayCard = async (pathway) => {

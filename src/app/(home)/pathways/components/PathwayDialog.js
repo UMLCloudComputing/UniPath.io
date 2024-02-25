@@ -1,7 +1,9 @@
+
 //React
 import * as React from 'react';
 
 //Material UI
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -19,8 +21,10 @@ import IconButton from '@mui/material/IconButton';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Chip from '@mui/material/Chip';
 
+
 //UUID
 import { v4 as uuid } from 'uuid';
+
 
 //TODO: function to add course requirements to pathway
 export default function PathwayDialog({ open, handleClose, handleAddPathwayCard }) {
@@ -57,6 +61,7 @@ export default function PathwayDialog({ open, handleClose, handleAddPathwayCard 
 
             //this method below is subject to change (when adding backend)
             handleAddPathwayCard({
+
                 id: uuid(),
               pathwayTitle: pathwayTitle,
               degreeMajor: degree,
