@@ -17,7 +17,8 @@ import Button from "@mui/material/Button";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 
 // Local Components
-import DialogComponent from "../../app/(home)/Dialog";
+import DialogComponent from "@/components/Dialogs/LoginDialog";
+
 import DarkModeToggle from "@/components/AppBar/DarkModeToggle";
 
 // Material UI: Icons
@@ -45,11 +46,11 @@ import { useRouter } from "next/navigation";
  * @returns {ReactElement} The React Element created by this function.
  */
 export default function AppBarComponent({
-                                            drawerWidth,
-                                            open,
-                                            handleDrawerOpen,
-                                            isLandingPage,
-                                        }) {
+    drawerWidth,
+    open,
+    handleDrawerOpen,
+    isLandingPage,
+}) {
     // React Vars and Hooks
     const theme = useTheme();
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -310,24 +311,24 @@ export default function AppBarComponent({
                                     </Button>
                                 </>
                             ) : authStatus ===
-                            "authenticated" /* Logged in UI, with IconButton instead of Sign Up
+                                "authenticated" /* Logged in UI, with IconButton instead of Sign Up
                         Button */ ? (
-                                <Box>
-                                    <IconButton
-                                        size="large"
-                                        edge="end"
-                                        aria-label="account of current user"
-                                        aria-controls={menuId}
-                                        aria-haspopup="true"
-                                        onClick={handleProfileMenuOpen}
-                                        color="inherit"
-                                    >
-                                        <AccountCircle />
-                                    </IconButton>
-                                </Box>
-                            ) : (
-                                <></>
-                            )
+                                    <Box>
+                                        <IconButton
+                                            size="large"
+                                            edge="end"
+                                            aria-label="account of current user"
+                                            aria-controls={menuId}
+                                            aria-haspopup="true"
+                                            onClick={handleProfileMenuOpen}
+                                            color="inherit"
+                                        >
+                                            <AccountCircle />
+                                        </IconButton>
+                                    </Box>
+                                ) : (
+                                    <></>
+                                )
                         }
                     </Box>
 
@@ -337,7 +338,7 @@ export default function AppBarComponent({
                         {
                             /* Sign Up Button */
                             authStatus === "unauthenticated" &&
-                            authStatus != "configuring" ? (
+                                authStatus != "configuring" ? (
                                 <>
                                     <PersonAddAltRoundedIcon
                                         onClick={handleDialogOpen}

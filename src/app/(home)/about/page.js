@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Copyright from "@/components/Copyright";
+import Copyright from "@/components/Layouts/Copyright";
 
 
 export default function AboutPage() {

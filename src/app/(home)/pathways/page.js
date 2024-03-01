@@ -18,14 +18,16 @@ import { useTheme } from '@mui/material/styles';
 import LinearProgress from '@mui/material/LinearProgress';
 
 // Local
-import Accordion from './components/Accordion';
-import PathwayDialog from './components/PathwayDialog';
+import Accordion from '@/components/Accordions/SemesterAccordion';
+// src/components/Accordions/SemesterAccordion.js 
+import PathwayDialog from '@/components/Dialogs/PathwayDialog.js';
+// is this the right pathway dialog - Rohan M?
 
-import { accordionData, mockPathwayApiCall } from './mockData';
-import PathwayCard from './components/PathwayCard';
+import { accordionData, mockPathwayApiCall } from '@/components/Data/mockData';
+import PathwayCard from '@/components/Cards/PathwayCard';
 import PathIcon from "@mui/icons-material/Map";
-import CustomAccordion from "./components/Accordion";
-import EditPathwayDialog from "@/app/(home)/pathways/components/EditPathwayDialog";
+import SemesterAccordion from "@/components/Accordions/SemesterAccordion";
+import EditPathwayDialog from "@/components/Dialogs/EditPathwayDialog";
 
 
 
@@ -34,8 +36,7 @@ import EditPathwayDialog from "@/app/(home)/pathways/components/EditPathwayDialo
 //TODO: transition between: grid <--> list view
 //TODO: blue arrow button to --> pathway details page (/pathways/{id})
 //TODO: use accordion component in pathway details page
-export default function PathwaysPage ()
-{
+export default function PathwaysPage() {
     const theme = useTheme();
     const [addPathwayDialogOpen, setAddPathwayDialogOpen] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -50,8 +51,7 @@ export default function PathwaysPage ()
     // const client = generateClient({ authMode: 'userPool'});
 
     //fetches pathways from backend if authenticated, else uses mock data (for now)
-    useEffect(() =>
-    {
+    useEffect(() => {
         setLoading(true);
         // if (authStatus === 'authenticated') {
         //   client.models.Pathway.list()
@@ -92,13 +92,11 @@ export default function PathwaysPage ()
         }
     }, [/*authStatus*/])
 
-    const handleEditPathwayCard = (pathwayId) =>
-    {
+    const handleEditPathwayCard = (pathwayId) => {
 
         setEditPathwayDialogOpen(true);
 
-        pathways.find((pathway) =>
-        {
+        pathways.find((pathway) => {
             if (pathway.id === pathwayId) {
 
                 setEditPathwayFields({
@@ -115,11 +113,9 @@ export default function PathwaysPage ()
 
     }
 
-    const handleEditPathway = (pathwayId, newPathwayFields) =>
-    {
+    const handleEditPathway = (pathwayId, newPathwayFields) => {
 
-        pathways.find((pathway) =>
-        {
+        pathways.find((pathway) => {
             if (pathway.id === pathwayId) {
                 pathway.pathwayTitle = newPathwayFields.newPathwayTitle;
                 pathway.degreeMajor = newPathwayFields.newDegreeMajor;
@@ -132,8 +128,7 @@ export default function PathwaysPage ()
         localStorage.setItem('pathways', JSON.stringify(pathways));
     }
 
-    const handlePathwayDelete = (pathwayId) =>
-    {
+    const handlePathwayDelete = (pathwayId) => {
         const new_pathways = pathways.filter((pathway) => pathway.id !== pathwayId);
 
         setPathways(new_pathways);
@@ -142,24 +137,20 @@ export default function PathwaysPage ()
         window.location.reload() // reload to refresh local storage
     }
 
-    const handleAddPathwayClick = () =>
-    {
+    const handleAddPathwayClick = () => {
         setAddPathwayDialogOpen(true);
     }
 
-    const handlePathwayDialogClose = () =>
-    {
+    const handlePathwayDialogClose = () => {
         setAddPathwayDialogOpen(false);
     }
 
-    const handleEditPathwayDialogClose = () =>
-    {
+    const handleEditPathwayDialogClose = () => {
         setEditPathwayDialogOpen(false);
 
     }
 
-    const handleAddPathwayCard = async (pathway) =>
-    {
+    const handleAddPathwayCard = async (pathway) => {
         const new_pathways = pathways ? [...pathways, pathway] : [pathway];
 
         // switch (authStatus) {
@@ -281,8 +272,7 @@ export default function PathwaysPage ()
                         }}
                     >
                         {
-                            pathways.map((pathway, index) =>
-                            {
+                            pathways.map((pathway, index) => {
                                 return (
                                     <PathwayCard
                                         key={index}
