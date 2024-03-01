@@ -29,7 +29,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
 // Component: Custom Accordion
-export default function CustomAccordion({ title, rows }) {
+export default function SemesterAccordion({ title, rows }) {
 
     // State to manage the expanded/collapsed state of the accordion
     const [expanded, setExpanded] = React.useState(true);

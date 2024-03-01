@@ -4,11 +4,11 @@
 import useState from 'react';
 
 // Component Imports
-import Column from './Column';
-import TaskDialog from './TaskDialog';
+import Column from '../../../components/Layouts/TasksColumn';
+import TaskDialog from '@/components/Dialogs/TaskDialog';
 
 // Data Imports
-import { initialData } from './initialData';
+import { initialData } from '@/components/Data/initialData';
 
 // DND
 // Not used yet
@@ -21,13 +21,12 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import {useTheme} from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
 
 
-export default function Lists ()
-{
+export default function Lists() {
     //   const [checked, setChecked] = React.useState([1]);
     //   const [impChecked, setImpChecked] = React.useState([1]);
 
@@ -35,21 +34,18 @@ export default function Lists ()
     const theme = useTheme();
 
     return (
-        data.columnOrder.map(columnId =>
-        {
+        data.columnOrder.map(columnId => {
             const column = data.columns[columnId];
             const tasks = column.tasksIds.map(taskId => data.tasks[taskId]);
             const title = column.title;
 
             const [open, setOpen] = React.useState(false);
 
-            function handlePlusClick ()
-            {
+            function handlePlusClick() {
                 setOpen(true);
             }
 
-            function handleTaskDialogClose ()
-            {
+            function handleTaskDialogClose() {
                 setOpen(false);
             }
 

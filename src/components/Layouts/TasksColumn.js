@@ -18,7 +18,7 @@ import { Typography } from '@mui/material';
 // NOT DEVICE AGNOSTIC
 // NOT MOBILE FIRST (YET)
 // Column Component
-export default function Column(tasks) {
+export default function TasksColumn(tasks) {
     const checkedInit = [];
     const importantInit = [];
 
@@ -30,7 +30,7 @@ export default function Column(tasks) {
             importantInit.push(value);
         }
     });
-    
+
     // States for animation
     const [checked, setChecked] = React.useState(checkedInit);
     const [impChecked, setImpChecked] = React.useState(importantInit);

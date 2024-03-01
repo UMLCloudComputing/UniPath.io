@@ -1,15 +1,14 @@
-import * as React from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 export default function SupportPage() {
   return (
     <div>
-        <Box
+      <Box
         component="header"
         sx={{
           mb: 2,
@@ -62,7 +61,7 @@ export default function SupportPage() {
           </Typography>
         </AccordionDetails>
       </Accordion>
-          <Accordion>
+      <Accordion>
         <AccordionSummary
           expandIcon={<ArrowDropDownIcon />}
           aria-controls="panel4-content"
@@ -78,9 +77,9 @@ export default function SupportPage() {
         </AccordionDetails>
       </Accordion>
       <Accordion>
-        <AccordionSummary expandIcon={<ArrowDropDownIcon/>} 
-        aria-controls="panel5-content" 
-        id="panel4-header">
+        <AccordionSummary expandIcon={<ArrowDropDownIcon />}
+          aria-controls="panel5-content"
+          id="panel4-header">
           <Typography>How can I contribute to the UniPath.io project?</Typography>
         </AccordionSummary>
         <AccordionDetails>
