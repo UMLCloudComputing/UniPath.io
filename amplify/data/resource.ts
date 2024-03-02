@@ -10,10 +10,24 @@ authenticated via an API key, can only "read" records.
 const schema = a.schema({
     Pathway: a
         .model({
-            title: a.string(),
+            name: a.string(),
             degree: a.string(),
-        })
-        .authorization([a.allow.owner(), a.allow.public().to(['read'])]),
+            yog: a.string(),
+            institution: a.string(),
+            degreeLevel: a.string(),
+            semesters: a.hasMany('Semester')
+        }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
+    Semester: a.model({
+        name: a.string(),
+        courses: a.hasMany('Course')
+    }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
+    Course: a.model({
+        name: a.string(),
+        code: a.string(),
+        credits: a.integer(),
+        grade: a.string()
+    }).authorization([a.allow.owner(), a.allow.public().to(['read'])])
+
 });
 
 export type Schema = ClientSchema<typeof schema>;
