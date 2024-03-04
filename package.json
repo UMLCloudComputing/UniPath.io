@@ -18,6 +18,7 @@
     "@mui/material": "^5.14.18",
     "@mui/material-nextjs": "^5.15.7",
     "aws-amplify": "^6.0.13",
+    "json-rules-engine": "^6.5.0",
     "next": "latest",
     "react": "latest",
     "react-beautiful-dnd": "^13.1.1",

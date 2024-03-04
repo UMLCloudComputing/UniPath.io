@@ -12,8 +12,21 @@ const schema = a.schema({
         .model({
             title: a.string(),
             degree: a.string(),
+            courseList: a.json(),
+            
         })
         .authorization([a.allow.owner(), a.allow.public().to(['read'])]),
+    Course: a
+        .model({
+            course_name: a.string(),
+            professor_name: a.string(),
+            meeting_location: a.string(),
+            course_description: a.string(),
+            course_status: a.boolean(),
+            course_gpa: a.float(),
+            
+        })
+        .authorization([a.allow.owner(), a.allow.public().to(['sync'])]),
 });
 
 export type Schema = ClientSchema<typeof schema>;

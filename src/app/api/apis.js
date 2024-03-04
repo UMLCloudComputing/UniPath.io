@@ -5,6 +5,6 @@ export default function handler(req, res) {
 }
 
 
-export default function handler(req: NextApiRequest, res: NextApiRequest){
+export default function handler(req: NextApiRequest, res: NextApiRequest) {
     
 }
