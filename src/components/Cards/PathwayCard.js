@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import {useTheme} from '@mui/material/styles';
 import Card from '@mui/material/Card';
-import RouteIcon from '@mui/icons-material/Route';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SchoolIcon from '@mui/icons-material/School';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -21,16 +20,12 @@ import React from 'react';
 import MenuItem from "@mui/material/MenuItem";
 
 
-export default function PathwayCard ({
-                         pathwayId,
-                         pathwayTitle,
-                         school,
-                         degreeType,
-                         yearOfGrad,
-                         degreeMajor,
-                         handlePathwayEdit,
-                         handlePathwayDelete
-                     }) {
+export default function PathwayCard({
+                                        pathway,
+                                        handleEditDialogOpen,
+                                        handlePathwayDelete,
+    handleSetEditingPathway
+                                    }) {
     const theme = useTheme();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const pathwayOptionsOpen = Boolean(anchorEl);
@@ -40,15 +35,22 @@ export default function PathwayCard ({
     }
 
     const handlePathwayOptionsOpen = (event) => {
-
         setAnchorEl(event.currentTarget)
     }
 
     const handlePathwayOptionsClose = () => {
-
         setAnchorEl(null)
     }
 
+    const handleEditClick = () => {
+        handleEditDialogOpen()
+        handleSetEditingPathway(pathway)
+        handlePathwayOptionsClose()
+    }
+
+    const handleDeleteClick = () => {
+        handlePathwayDelete(pathway.id)
+    }
 
     const pathwayOptionsMenu = (
         <Menu
@@ -65,12 +67,11 @@ export default function PathwayCard ({
                 vertical: "top",
                 horizontal: "left",
             }}>
-            <MenuItem onClick={() => {
-                handlePathwayEdit(pathwayId)
-                handlePathwayOptionsClose()
-            }}>Edit</MenuItem>
+            <MenuItem onClick={
+                handleEditClick
+            }>Edit</MenuItem>
             <MenuItem
-                onClick={() => handlePathwayDelete(pathwayId)}
+                onClick={handleDeleteClick}
                 sx={{
                     color: theme.palette.error.main
                 }}
@@ -114,7 +115,7 @@ export default function PathwayCard ({
                                 ml: 1
                             }}
                         >
-                            {pathwayTitle}
+                            {pathway.name}
                         </Typography>
                         <IconButton
                             sx={{
@@ -132,7 +133,7 @@ export default function PathwayCard ({
                             color: theme.palette.grey[500],
                             fontSize: 14,
                         }}>
-                        {degreeType}, {degreeMajor}
+                        {pathway.degreeLevel}, {pathway.degree}
                     </Typography>
                 </Box>
                 <Box
@@ -159,7 +160,7 @@ export default function PathwayCard ({
                                 ml: 1,
                                 color: theme.palette.grey[700],
                             }}
-                        >{school}, {yearOfGrad}</Typography>
+                        >{pathway.institution}, {pathway.yog}</Typography>
                     </Box>
 
                     <IconButton
@@ -176,6 +177,6 @@ export default function PathwayCard ({
                 </Box>
                 {pathwayOptionsMenu}
             </Card>
-            </>
-)
-            }
+        </>
+    )
+}
