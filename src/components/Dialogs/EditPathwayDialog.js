@@ -15,16 +15,8 @@ import Chip from "@mui/material/Chip";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 
-export default function EditPathwayDialog({open, handleClose, handleEditPathway, pathwayFields}) {
+export default function EditPathwayDialog({open, handleClose, handleEditPathway, pathway}) {
 
-    const fields = {
-        id: pathwayFields.id,
-        pathwayTitle: pathwayFields.pathwayTitle,
-        degreeMajor: pathwayFields.degreeMajor,
-        school: pathwayFields.school,
-        yearOfGrad: pathwayFields.yearOfGrad,
-        degreeType: pathwayFields.degreeType
-    }
 
     return (
         <>
@@ -37,19 +29,19 @@ export default function EditPathwayDialog({open, handleClose, handleEditPathway,
                     e.preventDefault();
                     const formData = new FormData(e.currentTarget);
                     const formJson = Object.fromEntries(formData.entries());
-                    const newPathwayTitle = formJson.pathwayTitle;
-                    const newDegreeMajor = formJson.degreeMajor;
-                    const newSchool = formJson.school;
-                    const newYearOfGrad = formJson.yearOfGrad;
-                    const newDegreeType = formJson.degreeType;
+                    const newName = formJson.pathwayTitle;
+                    const newDegree = formJson.degreeMajor;
+                    const newInstitution = formJson.school;
+                    const newYOG = formJson.yearOfGrad;
+                    const newDegreeLevel = formJson.degreeType;
 
-                    handleEditPathway(fields.id, {newPathwayTitle, newDegreeMajor, newSchool, newYearOfGrad, newDegreeType});
+                    handleEditPathway(pathway.id, {newName, newDegree, newInstitution, newYOG, newDegreeLevel})
                     handleClose();
                 }
 
             }}
         >
-            <DialogTitle>Edit Pathway: {fields.id}</DialogTitle>
+            <DialogTitle>Edit Pathway: {pathway.name}</DialogTitle>
             <DialogContent>
                 <TextField
                     autoFocus
@@ -61,7 +53,7 @@ export default function EditPathwayDialog({open, handleClose, handleEditPathway,
                     type="text"
                     fullWidth
                     variant="standard"
-                    defaultValue={fields.pathwayTitle}
+                    defaultValue={pathway.name}
                 />
                 <TextField
                     autoFocus
@@ -73,7 +65,7 @@ export default function EditPathwayDialog({open, handleClose, handleEditPathway,
                     type="text"
                     fullWidth
                     variant="standard"
-                    defaultValue={fields.degreeMajor}
+                    defaultValue={pathway.degree}
                 />
                 <TextField
                     autoFocus
@@ -85,7 +77,7 @@ export default function EditPathwayDialog({open, handleClose, handleEditPathway,
                     type="text"
                     fullWidth
                     variant="standard"
-                    defaultValue={fields.school}
+                    defaultValue={pathway.institution}
                 />
                 <TextField
                     autoFocus
@@ -97,7 +89,7 @@ export default function EditPathwayDialog({open, handleClose, handleEditPathway,
                     type="text"
                     fullWidth
                     variant="standard"
-                    defaultValue={fields.yearOfGrad}
+                    defaultValue={pathway.yog}
                 />
                 <TextField
                     autoFocus
@@ -109,7 +101,7 @@ export default function EditPathwayDialog({open, handleClose, handleEditPathway,
                     type="text"
                     fullWidth
                     variant="standard"
-                    defaultValue={fields.degreeType}
+                    defaultValue={pathway.degreeLevel}
                 />
 
 

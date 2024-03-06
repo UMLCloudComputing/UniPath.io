@@ -22,12 +22,9 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Chip from '@mui/material/Chip';
 
 
-//UUID
-import { v4 as uuid } from 'uuid';
-
 
 //TODO: function to add course requirements to pathway
-export default function PathwayDialog({ open, handleClose, handleAddPathwayCard }) {
+export default function PathwayDialog({ open, handleClose, handleCreate}) {
 
   // State to manage the expanded/collapsed state of the accordion
   const [expanded, setExpanded] = React.useState(true);
@@ -60,13 +57,11 @@ export default function PathwayDialog({ open, handleClose, handleAddPathwayCard 
             handleClose();
 
             //this method below is subject to change (when adding backend)
-            handleAddPathwayCard({
-
-                id: uuid(),
-              pathwayTitle: pathwayTitle,
-              degreeMajor: degree,
-
+            handleCreate({
+                name: pathwayTitle,
+                degree: degree
             });
+
           },
         }}
       >
