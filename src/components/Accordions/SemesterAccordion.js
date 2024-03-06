@@ -42,7 +42,7 @@ export default function SemesterAccordion ({ title, rows })
     };
 
     return (
-        <Accordion expanded={expanded} onChange={handleToggle} sx={{ p: 1, overflow: 'hidden', width: '90%' }}>
+        <Accordion expanded={expanded} onChange={handleToggle} sx={{ p: 1, overflow: 'hidden', width: '70%' }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
                 <Typography variant="h5">{title}</Typography>
             </AccordionSummary>

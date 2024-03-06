@@ -3,12 +3,12 @@
 // React stuff
 import { useState, useEffect } from "react";
 
-// React
+// MUI
 import { Box } from "@mui/material";
 
-// Local 
+// Local
 import SemesterAccordion from "@/components/Accordions/SemesterAccordion";
-import { mockAccordionApiCall, mockPathwayApiCall } from "@/components/Data/mockData";
+import { mockAccordionApiCall } from "@/components/Data/mockData";
 
 export default function degreePathwayPage ()
 {
@@ -25,8 +25,7 @@ export default function degreePathwayPage ()
     }, []);
 
     return (
-
-        <Box sx={{ display: 'flex', flexDirection: 'column', position: 'absolute', top: '50%', left: '50%' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: '2%' }}>
             {
                 semesters.map((semester) =>
                 {
