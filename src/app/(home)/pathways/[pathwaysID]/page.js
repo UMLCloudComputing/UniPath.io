@@ -3,6 +3,9 @@
 // React stuff
 import { useState, useEffect } from "react";
 
+// React
+import { Box } from "@mui/material";
+
 // Local 
 import SemesterAccordion from "@/components/Accordions/SemesterAccordion";
 import { mockAccordionApiCall, mockPathwayApiCall } from "@/components/Data/mockData";
@@ -22,18 +25,20 @@ export default function degreePathwayPage ()
     }, []);
 
     return (
-        <>
-        {
-            semesters.map((semester) =>
+
+        <Box sx={{ display: 'flex', flexDirection: 'column', position: 'absolute', top: '50%', left: '50%' }}>
             {
-                return (
-                    <SemesterAccordion
-                        title={semester.title}
-                        rows={semester.rows}
-                    />
-                )
-            })
-        }
-        </>
+                semesters.map((semester) =>
+                {
+                    return (
+                        <SemesterAccordion
+                            title={semester.title}
+                            rows={semester.rows}
+                        />
+                    )
+                })
+            }
+        </Box>
+
     );
 }

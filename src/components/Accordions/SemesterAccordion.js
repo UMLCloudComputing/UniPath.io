@@ -29,18 +29,20 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
 // Component: Custom Accordion
-export default function SemesterAccordion({ title, rows }) {
+export default function SemesterAccordion ({ title, rows })
+{
 
     // State to manage the expanded/collapsed state of the accordion
-    const [expanded, setExpanded] = React.useState(true);
+    const [expanded, setExpanded] = React.useState(false);
 
     // Function to handle toggle of accordion
-    const handleToggle = () => {
+    const handleToggle = () =>
+    {
         setExpanded(!expanded);
     };
 
     return (
-        <Accordion expanded={expanded} onChange={handleToggle} sx={{ p: 1, overflow: 'hidden' }}>
+        <Accordion expanded={expanded} onChange={handleToggle} sx={{ p: 1, overflow: 'hidden', width: '90%' }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
                 <Typography variant="h5">{title}</Typography>
             </AccordionSummary>
