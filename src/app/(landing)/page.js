@@ -1,5 +1,6 @@
 // React
 import * as React from "react";
+import Image from 'next/image'
 
 // Material UI
 import AppBar from "@mui/material/AppBar";
@@ -287,7 +288,7 @@ export default function LandingPage() {
                                 <Typography variant="body1">
                                     Engage with a community of students
                                     navigating their own academic paths, share
-                                    insights, and gain inspiration from others'
+                                    insights, and gain inspiration from others&apos;
                                     progress.
                                 </Typography>
                             </CardContent>
