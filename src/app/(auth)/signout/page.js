@@ -8,7 +8,7 @@ import React from 'react';
 export default function SignOutPage() {
     return (
         <div>
-            You signed out of your account. It's a good idea to close all browser windows. 
+            You signed out of your account. It&apos;s a good idea to close all browser windows. 
         </div>
     );
 }

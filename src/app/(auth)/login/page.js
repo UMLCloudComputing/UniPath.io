@@ -17,7 +17,7 @@ export default function SignInPage() {
         if (route === "authenticated") {
             router.replace("/home");
         }
-    }, [route]);
+    }, [route, router]);
 
     return <Authenticator
         socialProviders={["google"]}

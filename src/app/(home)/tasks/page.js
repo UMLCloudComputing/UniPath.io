@@ -1,7 +1,14 @@
 "use client";
 
-// React use state
-import useState from 'react';
+// React imports
+import React, { useState, useMemo } from 'react';
+
+// Material UI imports
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
 
 // Component Imports
 import Column from '../../../components/Layouts/TasksColumn';
@@ -10,77 +17,48 @@ import TaskDialog from '@/components/Dialogs/TaskDialog';
 // Data Imports
 import { initialData } from '@/components/Data/initialData';
 
-// DND
-// Not used yet
+// Assuming DragDropContext will be used later
 import { DragDropContext } from 'react-beautiful-dnd';
 
-// React
-import * as React from 'react';
-
-// MUI
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-
-
-
 export default function Lists() {
-    //   const [checked, setChecked] = React.useState([1]);
-    //   const [impChecked, setImpChecked] = React.useState([1]);
+    // State management
+    const [open, setOpen] = useState(false);
+    const handlePlusClick = () => setOpen(true);
+    const handleTaskDialogClose = () => setOpen(false);
 
-    const data = initialData;
+    // Use theme from Material UI
     const theme = useTheme();
 
+    // Memoize data to avoid recomputation on every render
+    const data = useMemo(() => initialData, []);
+
     return (
-        data.columnOrder.map(columnId => {
-            const column = data.columns[columnId];
-            const tasks = column.tasksIds.map(taskId => data.tasks[taskId]);
-            const title = column.title;
+        <>
+            {data.columnOrder.map((columnId) => {
+                const column = data.columns[columnId];
+                const tasks = column.tasksIds.map((taskId) => data.tasks[taskId]);
+                const title = column.title;
 
-            const [open, setOpen] = React.useState(false);
-
-            function handlePlusClick() {
-                setOpen(true);
-            }
-
-            function handleTaskDialogClose() {
-                setOpen(false);
-            }
-
-            return (
-                <>
-                    <Box>
-                        <TaskDialog
-                            open={open}
-                            handleClose={handleTaskDialogClose}
-                        >
-                        </TaskDialog>
-                    </Box>
-                    <div style={{ display: 'inline-flex', flexDirection: 'row', rowGap: '20px' }}>
-                        <div style={{ display: 'inline-flex', flexDirection: 'column', columnGap: '20px' }}>
-                            <Typography variant='h4'>{title}</Typography>
-                            <Column tasks={tasks} title={title} />
-                        </div>
-                    </div>
-                    <div>
+                return (
+                    <Box key={columnId} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                        <TaskDialog open={open} handleClose={handleTaskDialogClose} />
+                        <Typography variant="h4">{title}</Typography>
+                        <Column tasks={tasks} title={title} />
                         <IconButton
-                            onClick={() => handlePlusClick()}
+                            onClick={handlePlusClick}
+                            sx={{
+                                position: 'fixed',
+                                bottom: '4%',
+                                right: '4%',
+                                fontSize: '40px',
+                                color: theme.palette.primary.main,
+                            }}
                         >
-                            <AddCircleOutlineIcon
-                                sx={{
-                                    position: 'fixed',
-                                    bottom: '4%',
-                                    right: '4%',
-                                    fontSize: '40px',
-                                    color: theme.palette.primary.main
-                                }}
-                            >
-                            </AddCircleOutlineIcon>
+                            <AddCircleOutlineIcon />
                         </IconButton>
-                    </div>
-                </>
-            );
-        }));
-};
+                    </Box>
+                );
+            })}
+        </>
+    );
+}
