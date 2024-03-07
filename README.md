@@ -18,7 +18,7 @@
         Plan, Create, and Share Your Academic Journey!
         <br />
         <br />
-        <a href="https://unipath.io">View Demo</a>
+        <a href="https://www.unipath.io">View Demo</a>
         ·
         <a href="https://github.com/UMLCloudComputing/UniPath.io/issues">Report Bug</a>
         ·
