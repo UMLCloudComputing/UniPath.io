@@ -1,8 +1,5 @@
 "use client";
 
-// Ensuring client-side execution in Next.js
-import { useClient } from 'next/client';
-
 // React imports
 import React, { useState, useMemo } from 'react';
 
