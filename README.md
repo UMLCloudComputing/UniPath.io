@@ -1,5 +1,5 @@
 
-<div style="text-align: center;">
+<div align="center">
 
 [![Contributors](https://img.shields.io/github/contributors/UMLCloudComputing/UniPath.io.svg?style=for-the-badge)](https://github.com/UMLCloudComputing/UniPath.io/graphs/contributors)
 [![Forks](https://img.shields.io/github/forks/UMLCloudComputing/UniPath.io.svg?style=for-the-badge)](https://github.com/UMLCloudComputing/UniPath.io/network/members)
