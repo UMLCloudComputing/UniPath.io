@@ -1,12 +1,15 @@
 let { Engine } = require('json-rules-engine');
 let engine = new Engine();
 
-engine.addRule({
+let ComputingII = {
     conditions: {
         any: [{
             all: [{
-                fact: 
+                fact: 'pre-reqs',
+                operator: '',
+                value: 'Course',
+                path: '$.company'
             }]
         }]
     }
-})
+}
