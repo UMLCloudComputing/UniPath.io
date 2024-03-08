@@ -8,7 +8,7 @@ import { useAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css"; // Amplify component styles
 
 // Material UI
-import { ThemeProvider } from '@mui/material/styles';
+//import { ThemeProvider } from '@mui/material/styles';
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -16,14 +16,13 @@ import CssBaseline from "@mui/material/CssBaseline";
 import ConfigureAmplifyClientSide from "@/components/ConfigureAmplify";
 import { darkTheme, lightTheme } from "@/components/theme";
 import { ThemeContext, ThemeContextProvider } from "@/contexts/ThemeContext";
-
+import {Providers} from "@/components/AppBar/Providers";
 
 // MainApp is the main high-level layout component that wraps around other components in this application.
 const MainApp = ({ children }) => {
-    const { darkMode } = React.useContext(ThemeContext);
+   // const { darkMode } = React.useContext(ThemeContext);
 
     return (
-        <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
             <Authenticator.Provider>
                 <View>
                     <CssBaseline/>
@@ -32,7 +31,7 @@ const MainApp = ({ children }) => {
                     </Box>
                 </View>
             </Authenticator.Provider>
-        </ThemeProvider>
+
     );
 };
 
@@ -40,11 +39,12 @@ const MainApp = ({ children }) => {
 // It provides them with theme and authentication contexts.
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <head>
                 <link rel="icon" href="/favicon.png" />
             </head>
             <body>
+                <Providers>
                 <AppRouterCacheProvider>
                     <ConfigureAmplifyClientSide />
                     <ThemeContextProvider>
@@ -53,6 +53,7 @@ export default function RootLayout({ children }) {
                         </MainApp>
                     </ThemeContextProvider>
                 </AppRouterCacheProvider>
+                </Providers>
             </body>
         </html>
     );
