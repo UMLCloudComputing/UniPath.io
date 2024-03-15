@@ -26,8 +26,19 @@ const schema = a.schema({
         code: a.string(),
         credits: a.integer(),
         grade: a.string()
-    }).authorization([a.allow.owner(), a.allow.public().to(['read'])])
-
+    }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
+    Section: a.model({
+        id: a.id(),
+        name: a.string(),
+        tasks: a.hasMany('Task'),
+    }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
+    Task: a.model({
+        id: a.id(),
+        name: a.string(),
+        date: a.date(),
+        check: a.boolean(),
+        favorite: a.boolean()
+    }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
