@@ -214,7 +214,7 @@ export default function AppBarComponent({
                         <MenuIcon />
                     </IconButton>
                     : <></>
-                }
+                    }
                     <img
                         src="/favicon.png"
                         alt="UniPath.io Logo"
