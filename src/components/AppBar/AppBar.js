@@ -203,7 +203,7 @@ export default function AppBarComponent({
             >
                 <Toolbar>
                     {/* Left Group */}
-                    <IconButton
+                    {!isLandingPage ? <IconButton
                         size="large"
                         edge="start"
                         color="inherit"
@@ -213,6 +213,8 @@ export default function AppBarComponent({
                     >
                         <MenuIcon />
                     </IconButton>
+                    : <></>
+                }
                     <img
                         src="/favicon.png"
                         alt="UniPath.io Logo"
