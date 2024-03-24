@@ -27,7 +27,6 @@ const schema = a.schema({
         credits: a.integer(),
         grade: a.string()
     }).authorization([a.allow.owner(), a.allow.public().to(['read'])])
-
 });
 
 export type Schema = ClientSchema<typeof schema>;

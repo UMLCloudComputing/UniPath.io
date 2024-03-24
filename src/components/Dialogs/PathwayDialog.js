@@ -1,4 +1,4 @@
-
+"use client"
 //React
 import * as React from 'react';
 
@@ -24,7 +24,7 @@ import Chip from '@mui/material/Chip';
 
 
 //TODO: function to add course requirements to pathway
-export default function PathwayDialog({ open, handleClose, handleCreate}) {
+export default function PathwayDialog({open, handleClose, handleCreate}) {
 
   // State to manage the expanded/collapsed state of the accordion
   const [expanded, setExpanded] = React.useState(true);

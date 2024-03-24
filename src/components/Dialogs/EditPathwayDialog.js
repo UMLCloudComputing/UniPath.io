@@ -1,3 +1,4 @@
+
 import React from "react";
 import Dialog from "@mui/material/Dialog";
 import {v4 as uuid} from "uuid";
@@ -14,8 +15,24 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Chip from "@mui/material/Chip";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
+import {generateClient} from "aws-amplify/data";
 
 export default function EditPathwayDialog({open, handleClose, handleEditPathway, pathway}) {
+    // const client = generateClient({authMode: 'userPool'});
+    //
+    // async function handleEdit(formData) {
+    //     "use server"
+    //     const rawFormData = {
+    //         id: formData.id,
+    //         name: formData.name,
+    //         degree: formData.degree,
+    //         institution: formData.institution,
+    //         yog: formData.yog,
+    //         degreeLevel: formData.degreeLevel
+    //     }
+    //
+    //     await client.models.Pathway.update(rawFormData);
+    // }
 
 
     return (
@@ -23,6 +40,7 @@ export default function EditPathwayDialog({open, handleClose, handleEditPathway,
         <Dialog
             open={open}
             onClose={handleClose}
+            // action={handleEdit}
             PaperProps={{
                 component: 'form',
                 onSubmit: (e) => {
@@ -35,7 +53,7 @@ export default function EditPathwayDialog({open, handleClose, handleEditPathway,
                     const newYOG = formJson.yearOfGrad;
                     const newDegreeLevel = formJson.degreeType;
 
-                    handleEditPathway(pathway.id, {newName, newDegree, newInstitution, newYOG, newDegreeLevel})
+                    handleEditPathway({id: pathway.id, name: newName, degree: newDegree, institution: newInstitution, yog: newYOG, degreeLevel: newDegreeLevel});
                     handleClose();
                 }
 
@@ -103,9 +121,6 @@ export default function EditPathwayDialog({open, handleClose, handleEditPathway,
                     variant="standard"
                     defaultValue={pathway.degreeLevel}
                 />
-
-
-
 
             </DialogContent>
             <DialogActions>
