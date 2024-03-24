@@ -26,7 +26,7 @@ export async function middleware(request) {
     }
     else if (!authenticated && !request.nextUrl.pathname.startsWith('/login')) {
         console.log('Not authenticated');
-        return NextResponse.redirect(new URL(`/login?next=${redirectPage}`, request.url))
+        return NextResponse.redirect(new URL(`/auth-redirect?next=${redirectPage}`, request.url))
     }
 }
 
