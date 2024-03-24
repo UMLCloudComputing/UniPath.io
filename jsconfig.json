@@ -3,6 +3,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "MAIN/*": ["./*"]
-    }
+    },
+    "resolveJsonModule": true
   }
 }

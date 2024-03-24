@@ -26,42 +26,6 @@ export default function LandingPage() {
         <Box>
             {/* AppBar */}
             <AppBarComponent isLandingPage={true}/>
-            {/*<AppBar position="static" color="transparent" elevation={0}>*/}
-            {/*    <Toolbar>*/}
-            {/*        /!* Logo *!/*/}
-            {/*        <img*/}
-            {/*            src="/favicon.png"*/}
-            {/*            alt="UniPath.io Logo"*/}
-            {/*            style={{ height: "50px", marginRight: "10px" }}*/}
-            {/*        />*/}
-            {/*        <Typography*/}
-            {/*            variant="h6"*/}
-            {/*            noWrap*/}
-            {/*            sx={{*/}
-            {/*                mr: 2,*/}
-            {/*                display: { xs: "none", md: "flex" },*/}
-            {/*            }}*/}
-            {/*        >*/}
-            {/*            UniPath.io*/}
-            {/*        </Typography>*/}
-
-            {/*        /!* This pushes everything after it to the right *!/*/}
-            {/*        <Box sx={{ flexGrow: 1 }} />*/}
-
-            {/*        /!* Buttons *!/*/}
-            {/*        <Box>*/}
-            {/*            <Button color="inherit" href="/home">*/}
-            {/*                About*/}
-            {/*            </Button>*/}
-            {/*            <Button color="inherit" href="/signin">*/}
-            {/*                Login*/}
-            {/*            </Button>*/}
-            {/*            <Button color="inherit" href="/signup">*/}
-            {/*                Sign Up*/}
-            {/*            </Button>*/}
-            {/*        </Box>*/}
-            {/*    </Toolbar>*/}
-            {/*</AppBar>*/}
 
             {/* Hero Section */}
             <Box sx={{p: {xs: 3, sm: 5, md: 10}}}>

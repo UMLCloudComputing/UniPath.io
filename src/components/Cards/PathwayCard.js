@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import {useTheme} from '@mui/material/styles';
 import Card from '@mui/material/Card';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SchoolIcon from '@mui/icons-material/School';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import PathIcon from "@mui/icons-material/Map";
@@ -18,13 +17,14 @@ import Menu from "@mui/material/Menu";
 //React
 import React from 'react';
 import MenuItem from "@mui/material/MenuItem";
+import {GoToPathwayButton} from "@/components/Buttons/GoToPathwayButton";
 
 
 export default function PathwayCard({
                                         pathway,
                                         handleEditDialogOpen,
                                         handlePathwayDelete,
-    handleSetEditingPathway
+                                        handleSetEditingPathway
                                     }) {
     const theme = useTheme();
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -117,13 +117,7 @@ export default function PathwayCard({
                         >
                             {pathway.name}
                         </Typography>
-                        <IconButton
-                            sx={{
-                                ml: 'auto'
-                            }}
-                            onClick={handlePathwayOptionsOpen}>
-                            <MoreVertIcon/>
-                        </IconButton>
+                        <GoToPathwayButton handlePathwayOptionsOpen={handlePathwayOptionsOpen}/>
 
 
                     </Box>
