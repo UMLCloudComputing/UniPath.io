@@ -135,13 +135,15 @@ export default function PathwayDialog({open, handleClose, handleCreate}) {
                 variant="standard"
                 inputRef={tagFieldRef}
               />
-              <IconButton>
-                <AddCircleOutlineIcon
+              <IconButton
                   onClick={() => {
-                    handleTagAdd({ name: tagFieldRef.current.value });
-                    console.log("tag add clicked");
-                    console.log(tagFieldRef.current.value);
+                      handleTagAdd({ name: tagFieldRef.current.value });
+                      console.log("tag add clicked");
+                      console.log(tagFieldRef.current.value);
                   }}
+              >
+                <AddCircleOutlineIcon
+
                 />
               </IconButton>
             </Box>

@@ -10,9 +10,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 // Local
-import AppBar from "@/components/AppBar/AppBar"; // Import AppBar component
+import NavBar from "@/components/NavBar/NavBar"; // Import NavBar component
 import Drawer from "../../components/Drawers/Drawer"; // Import Drawer component
 import BottomNavigation from "../../components/Layouts/BottomNavigation";
+import {checkIsMobile} from "@/utils/checkIsMobile";
 
 // Global Variables
 const drawerWidth = 240;
@@ -20,7 +21,7 @@ const drawerWidthClosed = 100;
 
 /**
  * The main layout of the application.
- * It includes an AppBar at the top, a responsive Drawer that opens from the left, the main content area, and a BottomNavigation.
+ * It includes an NavBar at the top, a responsive Drawer that opens from the left, the main content area, and a BottomNavigation.
  *
  * @param {Object} props - The properties passed to this component.
  * @param {ReactNode} props.children - The child components to be rendered in the main content area.
@@ -29,8 +30,7 @@ const drawerWidthClosed = 100;
  */
 export default function Layout({ children }) {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("md")); // Using a media query to determine screen size
-    const [open, setOpen] = useState(!isMobile);
+    const [open, setOpen] = useState(true);
 
     const handleDrawerOpen = () => {
         setOpen(!open);
@@ -47,11 +47,12 @@ export default function Layout({ children }) {
                 display: "flex",
                 backgroundColor: theme.palette.action.hover,
                 minHeight: "100vh",
+                overflow: "auto !important"
             }}
         >
 
-            {/* AppBar */}
-            <AppBar
+            {/* NavBar */}
+            <NavBar
                 drawerWidth={drawerWidth}
                 open={open}
                 handleDrawerOpen={handleDrawerOpen}
@@ -63,7 +64,7 @@ export default function Layout({ children }) {
                 component="main"
                 sx={{
                     flexGrow: 1,
-                    p: 3,
+                    p: 2,
                     width: {
                         xs: "100%",
                         md: `calc(100% - ${open ? drawerWidth : drawerWidthClosed
@@ -89,19 +90,18 @@ export default function Layout({ children }) {
                 }}
             >
                 {/* Sidebar Drawer */}
+
                 <Drawer
                     drawerWidth={drawerWidth}
                     open={open}
                     handleDrawerClose={handleDrawerClose}
-                    handleDrawerOpen={handleDrawerOpen}
+                    handleDrawerOpen={handleDrawerOpen}s
                 />
 
                 {/* Children */}
-                <Box sx={{ mt: 7 }}>{children}</Box>
-
-                {/* Bottom Navigation */}
-                <BottomNavigation />
+                <Box sx={{mt: "3.5em", mb: "3em", overflow: "auto !important"}}>{children}</Box>
             </Box>
+            <BottomNavigation />
         </Box>
     );
 }

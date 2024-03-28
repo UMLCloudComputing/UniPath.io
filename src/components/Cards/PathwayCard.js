@@ -86,7 +86,8 @@ export default function PathwayCard({
 
             <Card
                 sx={{
-                    width: '35%',
+                    width: '100%',
+                    maxWidth: '25em',
                     p: 2,
                     borderRadius: 3,
                 }}

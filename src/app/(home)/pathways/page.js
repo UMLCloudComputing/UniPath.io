@@ -30,6 +30,10 @@ import SemesterAccordion from "@/components/Accordions/SemesterAccordion";
 import EditPathwayDialog from "@/components/Dialogs/EditPathwayDialog";
 import {useRouter} from 'next/navigation'
 import NoPathways from "@/components/Layouts/NoPathways";
+import {Fab, SpeedDial, SpeedDialAction, SpeedDialIcon} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import MapIcon from "@mui/icons-material/Map";
+import Tooltip from "@mui/material/Tooltip";
 
 
 
@@ -96,13 +100,16 @@ export default function PathwaysPage() {
     }
 
 
-    return (<Box>
-
-
+    return (
+        <Box
+            style={{
+                overflow: "auto !important"
+            }}
+        >
             {/*Popup Dialog*/}
             <PathwayDialog
                 open={createDialogOpen}
-                handleClose={handleCreateDialogClose}
+                handleClose={handleCreateDialogClose}b
                 handleCreate={handleCreate}
             />
             <EditPathwayDialog
@@ -138,23 +145,22 @@ export default function PathwaysPage() {
 
                     <NoPathways/>
                     :
-                    <Box>
-
-
-                        {/*Pathway Cards*/}
+                        /*Pathway Cards*/
                         <Box
                             sx={{
-                                display: 'flex',
-                                flexWrap: 'wrap',
-                                width: '100%',
-                                gap: 4,
+                                overflow: "visible !important",
+                                display: "grid",
+                                alignItems: "center",
+                                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                                gap: 6,
+
                             }}
                         >
                             {
-                                pathways.map((pathway, index) => {
+                                pathways.map((pathway) => {
                                     return (
                                         <PathwayCard
-                                            key={index}
+                                            key={pathway.id}
                                             pathway={pathway}
                                             handleEditDialogOpen={handleEditDialogOpen}
                                             handlePathwayDelete={handleDelete}
@@ -164,24 +170,23 @@ export default function PathwaysPage() {
                                 })
                             }
                         </Box>
-
-
-                    </Box>
             }
             {/*Bottom right corner*/}
-            <IconButton
-                onClick={handleCreateDialogOpen}
-            >
-                <AddCircleOutlineIcon
-                    sx={{
-                        position: 'fixed',
-                        bottom: '4%',
-                        right: '4%',
-                        fontSize: '40px',
-                        color: theme.palette.primary.main,
-                    }}
-                />
-            </IconButton>
+            <Tooltip title={"Create Pathway"} placement="left">
+            <SpeedDial
+                ariaLabel={"Create Pathway"}
+            icon={<SpeedDialIcon openIcon={<MapIcon/>} />}
+
+
+            sx={{
+                position: 'fixed',
+                bottom: '4%',
+                right: '4%',
+                transform: 'translateZ(0px)',
+                mb: {"xs": 4, "md": 0}
+            }}>
+            </SpeedDial>
+            </Tooltip>
         </Box>
 
     )

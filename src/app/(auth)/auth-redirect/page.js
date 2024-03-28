@@ -11,7 +11,7 @@ export default function AuthRedirectPage() {
 
     setTimeout(() => {
         router.replace(`/login?next=${redirectPage}`)
-    }, 3000
+    }, 2000
     )
     return (
         <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "75vh"}}
