@@ -7,6 +7,11 @@ import {useRouter, useSearchParams} from "next/navigation";
 
 // AWS
 import {Authenticator, useAuthenticator, withAuthenticator} from "@aws-amplify/ui-react";
+import {useTheme} from "@mui/material/styles";
+import Image from "next/image";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Copyright from "@/components/Layouts/Copyright";
 
 // Page: SignInPage;
 function SignInPage({user, signOut}) {
@@ -21,10 +26,52 @@ function SignInPage({user, signOut}) {
         }
     }, [route, router, redirectPage]);
 
-    return <Authenticator
-        socialProviders={["google"]}
-        initialState={"signIn"} />;
+    //Custom Authenticator Styling
+    const components = {
+        Header() {
+            const theme = useTheme();
+            return (
+                <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: theme.spacing(2),
+                }}
+                >
+                    <Image
+                        src={"/logo.png"}
+                        width={200}
+                        height={50}
+                        alt={"logo"}
+                    />
+                </Box>
+            )
+        },
+        Footer() {
+            return (
+                <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: 2,
 
+                }}
+                >
+                    <Copyright/>
+                </Box>
+            )
+        }
+    }
+
+    return (
+        <Authenticator
+        socialProviders={["google"]}
+        initialState={"signIn"}
+        components={components}
+        />
+    )
 }
 
 export default SignInPage

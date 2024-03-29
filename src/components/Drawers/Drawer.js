@@ -87,6 +87,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
             onOpen={handleDrawerOpen}
             sx={{
                 width: drawerWidth,
+                display: {xs: "none", md: "block"},
                 flexShrink: 0,
                 whiteSpace: "nowrap",
                 boxSizing: "border-box",
@@ -116,7 +117,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
                 }),
             }}
         >
-            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end", ...theme.mixins.toolbar }}>
+            <Box sx={{ display: {xs: "none", md: "flex"}, alignItems: "center", justifyContent: "flex-end", ...theme.mixins.toolbar }}>
                 <IconButton onClick={handleDrawerClose}>
                     {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                 </IconButton>
@@ -147,7 +148,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
                         <TaskIcon />
                     </ListItemIcon>
                     <ListItemText primary="Tasks" />
-                    {/* {tasksOpen ? <ExpandLess /> : <ExpandMore />} */}
+                     {/*{tasksOpen ? <ExpandLess /> : <ExpandMore />}*/}
                 </ListItemButton>
                 {/* <Collapse in={tasksOpen} timeout="auto" unmountOnExit>
                     Sub-items for Tasks can go here
