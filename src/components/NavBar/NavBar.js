@@ -36,7 +36,6 @@ import {usePathname, useRouter} from "next/navigation";
 import SearchBar from "@/components/Inputs/SearchBar";
 import AppBarMenu from "@/components/Menus/AppBarMenu";
 import {useState} from "react";
-import {checkIsMobile} from "@/utils/checkIsMobile";
 import Image from "next/image";
 
 /**

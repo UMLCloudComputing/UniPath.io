@@ -13,7 +13,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import NavBar from "@/components/NavBar/NavBar"; // Import NavBar component
 import Drawer from "../../components/Drawers/Drawer"; // Import Drawer component
 import BottomNavigation from "../../components/Layouts/BottomNavigation";
-import {checkIsMobile} from "@/utils/checkIsMobile";
 
 // Global Variables
 const drawerWidth = 240;

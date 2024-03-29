@@ -16,7 +16,7 @@ import Container from "@mui/material/Container";
 import SchoolIcon from "@mui/icons-material/School";
 import AppBarComponent from "@/components/NavBar/NavBar";
 import NavBar from "@/components/NavBar/NavBar";
-import {checkIsMobile} from "@/utils/checkIsMobile";
+
 import Landing from "@/components/Pages/Landing";
 import MobileLanding from "@/components/Pages/MobileLanding";
 
