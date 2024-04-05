@@ -1,3 +1,5 @@
+import { Science } from "@mui/icons-material";
+
 // Sample data for the tables in each accordion
 export const accordionData = [
   { 
@@ -90,6 +92,77 @@ export const pathwayData = {
     }
   ]
 }
+
+export const homeData = [
+  {
+   id: 0,
+   major: 'Computer Science',
+   type: 'Bachelor of Science',
+   school: 'Kennedy College of Sciences'
+  },
+   {
+   id: 1,
+   major: 'Mechanical Engineering',
+   type: 'Bachelor of Engineering',
+   school: 'Francis College of Engineering'
+   },
+   {   
+   id: 2,
+   major: 'International Business',
+   type: 'Bachelor of Business Administration',
+   school: 'Manning School of Business'
+   },{id: 3,
+   major: 'Biology',
+   type: 'Bachelor of Science',
+   school: 'Kennedy College of Sciences'}
+];
+
+export const sharedData = [
+  {
+   id: 0,
+   major: 'English',
+   type: 'Bachelor of Arts',
+   school: 'Fine Arts, Humanities & Social Sciences',
+   createdby:'Siran Arax'
+  },
+   {
+   id: 1,
+   major: 'Electrical Engineering',
+   type: 'Bachelor of Engineering',
+   school: 'Francis College of Engineering',
+   createdby:'Irnerius Vester'
+   },
+   {   
+   id: 2,
+   major: 'Applied Medical Sciences - MLS Option',
+   type: 'Bachelor of Health Science',
+   school: 'Zuckerberg College of Health Sciences',
+   createdby:'Alexandra Kalyna-Rivera'
+   },{id: 3,
+   major: 'Biology',
+   type: 'Bachelor of Science',
+   school: 'Kennedy College of Sciences',
+   createdby: 'Rachel Elisabet'}
+];
+
+export const resourceData = [
+  {
+   id: 0,
+   resource: 'Blackboard'
+  },
+   {
+   id: 1,
+   resource: 'SiS'
+   },
+   {   
+   id: 2,
+   resource: 'Health Resources'
+   },
+   {id: 3,
+   resource: 'CLASS'
+   }
+];
+
 
 export const mockPathwayApiCall = () => {
   return new Promise((resolve) => {
