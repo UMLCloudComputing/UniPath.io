@@ -49,7 +49,7 @@ export default function HomePage() {
         component="header"
         sx={{
           mb: 2,
-        }}
+        }} 
       >
         <Typography variant="h4">My Pathways</Typography>
       </Box>
