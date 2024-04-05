@@ -26,6 +26,8 @@ export default function HomePage() {
     const client = generateClient({ authMode: 'userPool'})
 
     const router = useRouter();
+
+    {/*Authentication not fully working*/}
     /*
      useEffect(() => {
         if (authStatus === 'authenticated') {
