@@ -1,4 +1,5 @@
 import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
+import { Favorite } from '@mui/icons-material';
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -8,18 +9,16 @@ specify that owners, authenticated via your Auth resource can "create",
 authenticated via an API key, can only "read" records.
 =========================================================================*/
 const schema = a.schema({
-    Pathway: a
-        .model({
-            name: a.string(),
-            degree: a.string(),
-            yog: a.string(),
-            institution: a.string(),
-            degreeLevel: a.string(),
-            semesters: a.hasMany('Semester')
-        }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
-    Semester: a.model({
+    Organization: a.model({
         name: a.string(),
-        courses: a.hasMany('Course')
+        courses: a.hasMany('Course'),
+        pathways: a.hasMany('Pathway'),
+        admins: a.hasMany('User')
+    }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
+    User: a.model({
+        name: a.string(),
+        courses: a.hasMany('Course'),
+        pathways: a.hasMany('Pathway')
     }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
     Course: a.model({
         name: a.string(),
@@ -27,19 +26,32 @@ const schema = a.schema({
         credits: a.integer(),
         grade: a.string()
     }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
-    Section: a.model({
+    Pathway: a.model({
+        name: a.string(),
+        degree: a.string(),
+        yog: a.string(),
+        institution: a.string(),
+        degreeLevel: a.string(),
+        semesters: a.hasMany('Semester')
+    }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
+    Semester: a.model({
+        name: a.string(),
+        courses: a.hasMany('Course')
+    }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
+    Container: a.model({
         id: a.id(),
         name: a.string(),
-        tasks: a.hasMany('Task'),
+        tasks: a.hasMany('Task')
     }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
     Task: a.model({
         id: a.id(),
         name: a.string(),
         date: a.date(),
-        check: a.boolean(),
+        status: a.boolean(),
         favorite: a.boolean()
     }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
 });
+
 
 export type Schema = ClientSchema<typeof schema>;
 

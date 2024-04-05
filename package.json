@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dev-https": "next dev --experimental-https"
   },
   "dependencies": {
+    "@aws-amplify/adapter-nextjs": "^1.0.21",
     "@aws-amplify/cli": "^12.7.1",
     "@aws-amplify/ui-react": "^6.0.3",
     "@emotion/cache": "^11.11.0",

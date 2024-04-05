@@ -33,9 +33,6 @@ export const auth = defineAuth({
 
     // Specify user pool settings
     userAttributes: {
-        // profilePicture: {
-        //   mutable: true,
-        //   required: false,
-        // },
+
     },
 });
