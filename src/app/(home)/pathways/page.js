@@ -24,13 +24,13 @@ import PathwayDialog from '@/components/Dialogs/PathwayDialog.js';
 // is this the right pathway dialog - Rohan M?
 
 import { accordionData, mockPathwayApiCall } from '@/components/Data/mockData';
-import PathwayCard from '@/components/Cards/PathwayCard';
+import PathwayCard from '../../../components/Cards/PathwayCard';
 import PathIcon from "@mui/icons-material/Map";
 import SemesterAccordion from "@/components/Accordions/SemesterAccordion";
 import EditPathwayDialog from "@/components/Dialogs/EditPathwayDialog";
-import {useRouter} from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import NoPathways from "@/components/Layouts/NoPathways";
-import {Fab, SpeedDial, SpeedDialAction, SpeedDialIcon} from "@mui/material";
+import { Fab, SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import MapIcon from "@mui/icons-material/Map";
 import Tooltip from "@mui/material/Tooltip";
@@ -50,13 +50,13 @@ export default function PathwaysPage() {
     const [editingPathway, setEditingPathway] = useState({});
 
 
-    const client = generateClient({ authMode: 'userPool'})
+    const client = generateClient({ authMode: 'userPool' })
 
     const router = useRouter();
 
     const fetchPathways = () => {
         setLoading(true)
-        client.models.Pathway.list().then(({ data, errors}) => {
+        client.models.Pathway.list().then(({ data, errors }) => {
             errors ? console.error(errors) : // retrieving data from DynamoDB and checking for errors
                 setPathways(data);
             setLoading(false);
@@ -74,7 +74,7 @@ export default function PathwaysPage() {
 
     }
     const handleDelete = async (id) => {
-        await client.models.Pathway.delete({id: id});
+        await client.models.Pathway.delete({ id: id });
         fetchPathways()
     }
 
@@ -109,7 +109,7 @@ export default function PathwaysPage() {
             {/*Popup Dialog*/}
             <PathwayDialog
                 open={createDialogOpen}
-                handleClose={handleCreateDialogClose}b
+                handleClose={handleCreateDialogClose} b
                 handleCreate={handleCreate}
             />
             <EditPathwayDialog
@@ -143,49 +143,49 @@ export default function PathwaysPage() {
             {
                 pathways.length === 0 ?
 
-                    <NoPathways/>
+                    <NoPathways />
                     :
-                        /*Pathway Cards*/
-                        <Box
-                            sx={{
-                                overflow: "visible !important",
-                                display: "grid",
-                                alignItems: "center",
-                                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                                gap: 6,
+                    /*Pathway Cards*/
+                    <Box
+                        sx={{
+                            overflow: "visible !important",
+                            display: "grid",
+                            alignItems: "center",
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                            gap: 6,
 
-                            }}
-                        >
-                            {
-                                pathways.map((pathway) => {
-                                    return (
-                                        <PathwayCard
-                                            key={pathway.id}
-                                            pathway={pathway}
-                                            handleEditDialogOpen={handleEditDialogOpen}
-                                            handlePathwayDelete={handleDelete}
-                                            handleSetEditingPathway={setEditingPathway}
-                                        />
-                                    )
-                                })
-                            }
-                        </Box>
+                        }}
+                    >
+                        {
+                            pathways.map((pathway) => {
+                                return (
+                                    <PathwayCard
+                                        key={pathway.id}
+                                        pathway={pathway}
+                                        handleEditDialogOpen={handleEditDialogOpen}
+                                        handlePathwayDelete={handleDelete}
+                                        handleSetEditingPathway={setEditingPathway}
+                                    />
+                                )
+                            })
+                        }
+                    </Box>
             }
             {/*Bottom right corner*/}
             <Tooltip title={"Create Pathway"} placement="left">
-            <SpeedDial
-                ariaLabel={"Create Pathway"}
-            icon={<SpeedDialIcon openIcon={<MapIcon/>} />}
+                <SpeedDial
+                    ariaLabel={"Create Pathway"}
+                    icon={<SpeedDialIcon openIcon={<MapIcon />} />}
 
 
-            sx={{
-                position: 'fixed',
-                bottom: '4%',
-                right: '4%',
-                transform: 'translateZ(0px)',
-                mb: {"xs": 4, "md": 0}
-            }}>
-            </SpeedDial>
+                    sx={{
+                        position: 'fixed',
+                        bottom: '4%',
+                        right: '4%',
+                        transform: 'translateZ(0px)',
+                        mb: { "xs": 4, "md": 0 }
+                    }}>
+                </SpeedDial>
             </Tooltip>
         </Box>
 
