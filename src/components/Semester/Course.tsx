@@ -1,9 +1,11 @@
 import { MoreVert } from "@mui/icons-material"
-import { TableRow, TableCell, useTheme } from "@mui/material"
+import { TableRow, TableCell, useTheme, Tooltip, IconButton } from "@mui/material"
 import React from "react"
 
-export const Course = ({ num, name, credits }: { num: string, name: string, credits: number }) => {
+export const Course = ({ num, name, credits, handleOptionMenuOpen }: { num: string, name: string, credits: number, handleOptionMenuOpen: (e: any) => void }) => {
     const theme = useTheme()
+
+
     return (
         <TableRow
             sx={{
@@ -27,7 +29,13 @@ export const Course = ({ num, name, credits }: { num: string, name: string, cred
             <TableCell
                 sx={{
                     textAlign: "center"
-                }}><MoreVert /></TableCell>
+                }}>
+                <Tooltip title="Course Options">
+                    <IconButton onClick={handleOptionMenuOpen}>
+                        <MoreVert sx={{ color: theme.palette.common.black }} />
+                    </IconButton>
+                </Tooltip>
+            </TableCell>
         </TableRow>
     )
 }

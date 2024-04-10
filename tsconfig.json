@@ -16,6 +16,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "rootDir": "./**",
     "plugins": [
       {
         "name": "next"
@@ -27,8 +28,8 @@
       ],
       "MAIN/*": [
         "./*"
-      ],
-    },
+      ]
+    }
   },
   "include": [
     "next-env.d.ts",

@@ -176,8 +176,7 @@ export default function PathwaysPage() {
                 <SpeedDial
                     ariaLabel={"Create Pathway"}
                     icon={<SpeedDialIcon openIcon={<MapIcon />} />}
-
-
+                    onClick={handleCreateDialogOpen}
                     sx={{
                         position: 'fixed',
                         bottom: '4%',
