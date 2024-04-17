@@ -16,6 +16,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Tooltip from "@mui/material/Tooltip";
 
 // Material UI: Icons
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -27,7 +28,6 @@ import TaskIcon from "@mui/icons-material/CheckCircleOutline"; // Placeholder fo
 import HomeIcon from "@mui/icons-material/Home";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { Tooltip } from "@mui/material";
 
 
 /**
