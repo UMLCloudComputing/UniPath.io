@@ -8,7 +8,7 @@ export default function DarkModeToggle() {
     const { darkMode, toggleTheme } = React.useContext(ThemeContext);
 
     return (
-        <Tooltip title="Dark Mode" placement="bottom" arrow>
+        <Tooltip title="Toggle Theme" placement="bottom" arrow>
             <IconButton onClick={toggleTheme}>
                 {darkMode ? (
                     <DarkMode color={"inherit"} />
