@@ -27,6 +27,9 @@ import TaskIcon from "@mui/icons-material/CheckCircleOutline"; // Placeholder fo
 import HomeIcon from "@mui/icons-material/Home";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import { Tooltip } from "@mui/material";
+import { PanToolTwoTone } from "@mui/icons-material";
+import SupportPage from "@/app/(home)/support/page";
 
 
 /**
@@ -41,7 +44,8 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
  * @param {Function} props.handleDrawerOpen - The function to handle the opening of the drawer.
  *
  * @returns {ReactElement} The React Element created by this function.
- */export default function DrawerComponent({ drawerWidth, open, handleDrawerClose, handleDrawerOpen }) {
+ */export default function DrawerComponent ({ drawerWidth, open, handleDrawerClose, handleDrawerOpen })
+{
 
     // NextJS: Get current URL pathname
     const pathname = usePathname();
@@ -58,23 +62,28 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
     const [supportOpen, setSupportOpen] = useState(true);
     const [homeOpen, setHomeOpen] = useState(true);
 
-    const handlePathwaysClick = () => {
+    const handlePathwaysClick = () =>
+    {
         setPathwaysOpen(!pathwaysOpen);
     };
 
-    const handleTasksClick = () => {
+    const handleTasksClick = () =>
+    {
         setTasksOpen(!tasksOpen);
     };
 
-    const handleSettingsClick = () => {
+    const handleSettingsClick = () =>
+    {
         setSettingsOpen(!settingsOpen);
     };
 
-    const handleSupportClick = () => {
+    const handleSupportClick = () =>
+    {
         setSupportOpen(!supportOpen);
     };
 
-    const handleHomeClick = () => {
+    const handleHomeClick = () =>
+    {
         setHomeOpen(!homeOpen);
     };
 
@@ -129,7 +138,12 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
                     onClick={handlePathwaysClick}
                     selected={pathname === "/pathways"}>
                     <ListItemIcon>
-                        <PathIcon />
+                        {open ? <PathIcon /> :
+                            <Tooltip title="My pathways" placement="right" arrow>
+                                <PathIcon />
+                            </Tooltip>
+                        }
+
                     </ListItemIcon>
                     <ListItemText primary="My Pathways" />
                     {/* {pathwaysOpen ? <ExpandLess /> : <ExpandMore />} */}
@@ -144,7 +158,12 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
                     onClick={handleTasksClick}
                     selected={pathname === "/tasks"}>
                     <ListItemIcon>
-                        <TaskIcon />
+                        {open ? <TaskIcon />
+                            :
+                            <Tooltip title="Tasks" placement="right" arrow>
+                                <TaskIcon />
+                            </Tooltip>
+                        }
                     </ListItemIcon>
                     <ListItemText primary="Tasks" />
                     {/* {tasksOpen ? <ExpandLess /> : <ExpandMore />} */}
@@ -165,7 +184,11 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
                     onClick={handleSupportClick}
                     selected={pathname === "/support"}>
                     <ListItemIcon>
-                        <SupportIcon />
+                        {open ? <SupportIcon /> : 
+                            <Tooltip placement="right" title="Support">
+                                <SupportIcon />
+                            </Tooltip>
+                        }
                     </ListItemIcon>
                     <ListItemText primary="Support" />
                 </ListItemButton>
@@ -175,7 +198,11 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
                     selected={pathname === "/home"}
                 >
                     <ListItemIcon>
-                        <HomeIcon />
+                        {open ? <HomeIcon /> :
+                            <Tooltip title="Home" placement="right" arrow>
+                                <HomeIcon />
+                            </Tooltip>
+                        }
                     </ListItemIcon>
                     <ListItemText primary="Home Page" />
                 </ListItemButton>
@@ -184,7 +211,11 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
                     onClick={handleSettingsClick}
                     selected={pathname === "/settings"}>
                     <ListItemIcon>
-                        <SettingsIcon />
+                    {open ? <SettingsIcon /> : 
+                            <Tooltip placement="right" title="Settings" arrow>
+                                <SettingsIcon />
+                            </Tooltip>
+                        }
                     </ListItemIcon>
                     <ListItemText primary="Settings" />
                 </ListItemButton>
