@@ -5,50 +5,56 @@
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import {useTheme} from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SchoolIcon from '@mui/icons-material/School';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import PathIcon from "@mui/icons-material/Map";
-
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 
 //React
 import React from 'react';
-import MenuItem from "@mui/material/MenuItem";
 
 
-export default function PathwayCard({
-                                        pathway,
-                                        handleEditDialogOpen,
-                                        handlePathwayDelete,
+export default function PathwayCard ({
+    pathway,
+    handleEditDialogOpen,
+    handlePathwayDelete,
     handleSetEditingPathway
-                                    }) {
+})
+{
     const theme = useTheme();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const pathwayOptionsOpen = Boolean(anchorEl);
 
-    const handlePathwayClick = () => { //to be implemented
+    const handlePathwayClick = () =>
+    { //to be implemented
         console.log('redirect to pathway page');
     }
 
-    const handlePathwayOptionsOpen = (event) => {
+    const handlePathwayOptionsOpen = (event) =>
+    {
         setAnchorEl(event.currentTarget)
     }
 
-    const handlePathwayOptionsClose = () => {
+    const handlePathwayOptionsClose = () =>
+    {
         setAnchorEl(null)
     }
 
-    const handleEditClick = () => {
+    const handleEditClick = () =>
+    {
         handleEditDialogOpen()
         handleSetEditingPathway(pathway)
         handlePathwayOptionsClose()
     }
 
-    const handleDeleteClick = () => {
+    const handleDeleteClick = () =>
+    {
         handlePathwayDelete(pathway.id)
     }
 
@@ -106,7 +112,7 @@ export default function PathwayCard({
                         <PathIcon
                             sx={{
                                 color: theme.palette.grey[500],
-                            }}/>
+                            }} />
 
 
                         <Typography
@@ -122,7 +128,9 @@ export default function PathwayCard({
                                 ml: 'auto'
                             }}
                             onClick={handlePathwayOptionsOpen}>
-                            <MoreVertIcon/>
+                            <Tooltip title="Edit" placement="right" arrow>
+                                <MoreVertIcon />
+                            </Tooltip>
                         </IconButton>
 
 
@@ -152,7 +160,7 @@ export default function PathwayCard({
                         <SchoolIcon
                             sx={{
                                 color: theme.palette.grey[500],
-                            }}/>
+                            }} />
                         <Typography
                             variant="subtitle2"
                             fontWeight="regular"
@@ -172,11 +180,11 @@ export default function PathwayCard({
                             sx={{
 
                                 color: theme.palette.primary.main,
-                            }}/>
+                            }} />
                     </IconButton>
                 </Box>
                 {pathwayOptionsMenu}
-            </Card>
+            </Card >
         </>
     )
 }
