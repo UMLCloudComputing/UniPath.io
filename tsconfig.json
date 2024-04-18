@@ -16,7 +16,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "rootDir": "./**",
+    // "rootDir": "./**",
     "plugins": [
       {
         "name": "next"
@@ -39,5 +39,13 @@
   ],
   "exclude": [
     "node_modules"
+  ],
+  "references": [
+    {
+      "path": "./amplify/tsconfig.json"
+    },
+    {
+      "path": "./src/tsconfig.json"
+    }
   ]
 }

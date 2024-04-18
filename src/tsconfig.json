@@ -7,6 +7,7 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "composite": true
     }
 }

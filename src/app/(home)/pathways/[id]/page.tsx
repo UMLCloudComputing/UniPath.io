@@ -16,10 +16,10 @@ const Pathway = ({ params }: { params: { id: string } }) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const testingSemesters = [
+    const testingSemesters: SemesterInput[] = [
         {
             id: 1,
-            semesterTitle: 'Fall 2019',
+            title: 'Fall 2019',
             courses: [
                 { id: 1, num: "COMP.1020", name: "Introduction to Computer Science", credits: 3 },
                 { id: 2, num: "MATH.1310", name: "Calculus I", credits: 3 },
@@ -30,7 +30,7 @@ const Pathway = ({ params }: { params: { id: string } }) => {
         },
         {
             id: 2,
-            semesterTitle: 'Spring 2020',
+            title: 'Spring 2020',
             courses: [
                 { id: 6, num: "MATH.1320", name: "Calculus II", credits: 3 },
                 { id: 7, num: "PHYS.1440", name: "Physics II", credits: 3 },
@@ -42,7 +42,7 @@ const Pathway = ({ params }: { params: { id: string } }) => {
         },
         {
             id: 3,
-            semesterTitle: 'Fall 2020',
+            title: 'Fall 2020',
             courses: [
                 { id: 12, num: "COMP.1020", name: "Introduction to Computer Science", credits: 3 },
                 { id: 13, num: "MATH.1310", name: "Calculus I", credits: 3 },
@@ -53,7 +53,7 @@ const Pathway = ({ params }: { params: { id: string } }) => {
         },
         {
             id: 4,
-            semesterTitle: 'Spring 2021',
+            title: 'Spring 2021',
             courses: [
                 { id: 17, num: "MATH.1320", name: "Calculus II", credits: 3 },
                 { id: 18, num: "PHYS.1440", name: "Physics II", credits: 3 },
@@ -78,10 +78,23 @@ const Pathway = ({ params }: { params: { id: string } }) => {
                 flexWrap: "nowrap"
             }}>
                 {
-                    semesters.map((semester: { id: number, semesterTitle: string, courses: { id: number, num: string, name: string, credits: number }[] }, index: number) => {
-                        return <Grid md={6} sx={{ minWidth: "45%" }} key={index}>
-                            <Semester title={semester.semesterTitle} _courses={semester.courses} otherSemesters={semesters.filter((s) => s !== semester)} />
-                        </Grid>
+                    semesters.map((semester: SemesterInput, index: number) => {
+                        const convertedSemester: Semester = {
+                            id: semester.id,
+                            title: semester.title,
+                            _courses: semester.courses,
+                            otherSemesters: semesters.filter((s) => s !== semester).map((s) => ({
+                                id: s.id,
+                                title: s.title,
+                                _courses: s.courses,
+                                otherSemesters: []
+                            }))
+                        };
+                        return (
+                            <Grid md={6} sx={{ minWidth: "45%" }} key={index}>
+                                <Semester key={convertedSemester.id} id={convertedSemester.id} title={convertedSemester.title} _courses={convertedSemester._courses} otherSemesters={convertedSemester.otherSemesters} />
+                            </Grid>
+                        );
                     })
                 }
                 {/* <Grid md={6} sx={{ minWidth: "45%" }}>

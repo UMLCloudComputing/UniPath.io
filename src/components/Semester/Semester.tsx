@@ -1,14 +1,14 @@
 import { Add, CalendarViewDay, CalendarViewDayOutlined, Delete, MoreVert } from "@mui/icons-material"
 import { Box, Typography, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, useTheme, Icon, IconButton, Tooltip, MenuItem, Collapse, Menu } from "@mui/material"
-import React, { ReactNode, SetStateAction, useState } from "react"
+import React, { ReactNode, SetStateAction, useRef, useState } from "react"
 import { Course } from "./Course"
 import { OptionsMenu } from "../Menus/OptionsMenu"
 import { IconMenuItem, NestedMenuItem } from "mui-nested-menu"
 
-export const Semester = ({ title, _courses, otherSemesters }: { title: string, _courses: Array<{ num: string, name: string, credits: number }>, otherSemesters: Array<any> }) => {
+export const Semester = (s: Semester) => {
     const theme = useTheme()
 
-    const [courses, setCourses] = React.useState(_courses)
+    const [courses, setCourses] = React.useState(s._courses)
     const [semesterAnchorEl, setSemesterAnchorEl] = useState(null)
     const semesterOptionsOpen = Boolean(semesterAnchorEl)
     const [courseAnchorEl, setCourseAnchorEl] = useState(null)
@@ -17,7 +17,7 @@ export const Semester = ({ title, _courses, otherSemesters }: { title: string, _
     const [courseMoveToAnchorEl, setCourseMoveToAnchorEl] = useState(null)
     const courseMoveToOpen = Boolean(courseMoveToAnchorEl)
 
-    console.log(otherSemesters)
+
 
     // Semester Options Menu
     const handleSemesterOptionsMenuClick = (e: any) => {
@@ -57,6 +57,10 @@ export const Semester = ({ title, _courses, otherSemesters }: { title: string, _
         setExpanded(!expanded)
     }
 
+    const moveCourse = (source: Semester, dest: Semester) => {
+        console.log(source, dest);
+    }
+
     return (
         <Box //main container
             sx={{
@@ -92,7 +96,7 @@ export const Semester = ({ title, _courses, otherSemesters }: { title: string, _
                 <Typography
                     sx={{
                         fontSize: "1.5em",
-                    }}>{title}</Typography>
+                    }}>{s.title}</Typography>
                 <Tooltip title="Semester Options">
                     <IconButton onClick={handleSemesterOptionsMenuClick}>
                         <MoreVert
@@ -137,8 +141,8 @@ export const Semester = ({ title, _courses, otherSemesters }: { title: string, _
                                 overflowY: "auto",
                             }}>
                             {
-                                courses.map((course: { num: string, name: string, credits: number }, index: number) => {
-                                    return <Course key={index} num={course.num} name={course.name} credits={course.credits} handleOptionMenuOpen={handleCourseOptionsMenuClick} />
+                                courses.map((course: Course, index: number) => {
+                                    return <Course key={index} data={course} handleOptionMenuOpen={handleCourseOptionsMenuClick} />
                                 })
                             }
                             <TableRow>
@@ -197,13 +201,13 @@ export const Semester = ({ title, _courses, otherSemesters }: { title: string, _
             >
                 <NestedMenuItem label="Move to" parentMenuOpen={courseOptionsOpen}>
                     {
-                        otherSemesters.map((semester: { semesterTitle: string }, index: number) => {
-                            return <MenuItem key={index}>{semester.semesterTitle}</MenuItem>
+                        s.otherSemesters.map((semester: Semester, index: number) => {
+                            return <MenuItem key={index}>{semester.title}</MenuItem>
                         })
                     }
                 </NestedMenuItem>
                 <IconMenuItem sx={{ color: theme.palette.error.main }} label="Delete" rightIcon={<Delete />} />
             </Menu>
-        </Box>
+        </Box >
     )
 }

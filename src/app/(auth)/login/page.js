@@ -3,18 +3,18 @@
 import * as React from "react";
 
 // Next.js
-import {useRouter, useSearchParams} from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 // AWS
-import {Authenticator, useAuthenticator, withAuthenticator} from "@aws-amplify/ui-react";
-import {useTheme} from "@mui/material/styles";
+import { Authenticator, useAuthenticator, withAuthenticator } from "@aws-amplify/ui-react";
+import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Copyright from "@/components/Layouts/Copyright";
 
 // Page: SignInPage;
-function SignInPage({user, signOut}) {
+function SignInPage() {
     const router = useRouter();
     const nextQuery = useSearchParams()
     const redirectPage = nextQuery.get("next")
@@ -32,12 +32,12 @@ function SignInPage({user, signOut}) {
             const theme = useTheme();
             return (
                 <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    padding: theme.spacing(2),
-                }}
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: theme.spacing(2),
+                    }}
                 >
                     <Image
                         src={"/logo.png"}
@@ -51,15 +51,15 @@ function SignInPage({user, signOut}) {
         Footer() {
             return (
                 <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    padding: 2,
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: 2,
 
-                }}
+                    }}
                 >
-                    <Copyright/>
+                    <Copyright />
                 </Box>
             )
         }
@@ -67,9 +67,9 @@ function SignInPage({user, signOut}) {
 
     return (
         <Authenticator
-        socialProviders={["google"]}
-        initialState={"signIn"}
-        components={components}
+            socialProviders={["google"]}
+            initialState={"signIn"}
+            components={components}
         />
     )
 }
