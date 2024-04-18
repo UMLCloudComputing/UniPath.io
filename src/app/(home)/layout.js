@@ -94,11 +94,11 @@ export default function Layout({ children }) {
                     drawerWidth={drawerWidth}
                     open={open}
                     handleDrawerClose={handleDrawerClose}
-                    handleDrawerOpen={handleDrawerOpen}s
+                    handleDrawerOpen={handleDrawerOpen} s
                 />
 
                 {/* Children */}
-                <Box sx={{mt: "3.5em", mb: "3em", overflow: "auto !important"}}>{children}</Box>
+                <Box sx={{ mt: "3.5em", mb: "3em", overflow: "auto !important", height: "94%", width: "100%" }}>{children}</Box>
             </Box>
             <BottomNavigation />
         </Box>

@@ -5,7 +5,7 @@
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import {useTheme} from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import SchoolIcon from '@mui/icons-material/School';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -17,22 +17,25 @@ import Menu from "@mui/material/Menu";
 //React
 import React from 'react';
 import MenuItem from "@mui/material/MenuItem";
-import {GoToPathwayButton} from "@/components/Buttons/GoToPathwayButton";
+import { GoToPathwayButton } from "@/components/Buttons/GoToPathwayButton";
+import { useRouter } from "next/navigation";
 
 
 export default function PathwayCard({
-                                        pathway,
-                                        handleEditDialogOpen,
-                                        handlePathwayDelete,
-                                        handleSetEditingPathway
-                                    }) {
+    pathway,
+    handleEditDialogOpen,
+    handlePathwayDelete,
+    handleSetEditingPathway,
+}) {
     const theme = useTheme();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const pathwayOptionsOpen = Boolean(anchorEl);
+    const router = useRouter()
 
-    const handlePathwayClick = () => { //to be implemented
-        console.log('redirect to pathway page');
+    const handlePathwayClick = () => {
+        router.replace(`/pathways/${pathway.id}`)
     }
+
 
     const handlePathwayOptionsOpen = (event) => {
         setAnchorEl(event.currentTarget)
@@ -107,7 +110,7 @@ export default function PathwayCard({
                         <PathIcon
                             sx={{
                                 color: theme.palette.grey[500],
-                            }}/>
+                            }} />
 
 
                         <Typography
@@ -118,7 +121,7 @@ export default function PathwayCard({
                         >
                             {pathway.name}
                         </Typography>
-                        <GoToPathwayButton handlePathwayOptionsOpen={handlePathwayOptionsOpen}/>
+                        <GoToPathwayButton handlePathwayOptionsOpen={handlePathwayOptionsOpen} />
 
 
                     </Box>
@@ -147,7 +150,7 @@ export default function PathwayCard({
                         <SchoolIcon
                             sx={{
                                 color: theme.palette.grey[500],
-                            }}/>
+                            }} />
                         <Typography
                             variant="subtitle2"
                             fontWeight="regular"
@@ -167,7 +170,7 @@ export default function PathwayCard({
                             sx={{
 
                                 color: theme.palette.primary.main,
-                            }}/>
+                            }} />
                     </IconButton>
                 </Box>
                 {pathwayOptionsMenu}
