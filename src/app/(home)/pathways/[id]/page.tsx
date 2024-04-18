@@ -6,7 +6,6 @@ import React, { useEffect } from 'react'
 import { Course } from '../../../../components/Semester/Course'
 import { Semester } from '../../../../components/Semester/Semester'
 import Grid from '@mui/material/Unstable_Grid2'
-import testingSemesters from '../../../../components/data/testingSemesters.json'
 
 const Pathway = ({ params }: { params: { id: string } }) => {
     const theme = useTheme()
