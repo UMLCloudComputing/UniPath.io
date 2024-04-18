@@ -33,6 +33,24 @@ export const auth = defineAuth({
 
     // Specify user pool settings
     userAttributes: {
-        
-        }
-    })
+            birthdate: {
+                required: false,
+                mutable: true,
+            },
+            email : {
+                required: true,
+                mutable: true,
+            },
+            preferredUsername: {
+                required: false,
+                mutable: true,
+            },
+            nickname: {
+                required: false,
+                mutable: true,
+            },
+    
+            
+
+    },
+});
