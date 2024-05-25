@@ -102,9 +102,6 @@ export default function PathwaysPage() {
 
     return (
         <Box
-            style={{
-                overflow: "auto !important"
-            }}
         >
             {/*Popup Dialog*/}
             <PathwayDialog

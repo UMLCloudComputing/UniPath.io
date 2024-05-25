@@ -98,7 +98,7 @@ export default function Layout({ children }) {
                 />
 
                 {/* Children */}
-                <Box sx={{ mt: "3.5em", mb: "3em", overflow: "auto !important", height: "94%", width: "100%" }}>{children}</Box>
+                <Box sx={{ mt: "3.5em", mb: "3em", height: "94%", width: "100%" }}>{children}</Box>
             </Box>
             <BottomNavigation />
         </Box>

@@ -1,5 +1,6 @@
 import { MoreVert } from "@mui/icons-material"
-import { TableRow, TableCell, useTheme, Tooltip, IconButton } from "@mui/material"
+import { TableRow, TableCell, useTheme, Tooltip, IconButton, Box, Divider } from "@mui/material"
+import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import React from "react"
 
 export const Course = ({ data, handleOptionMenuOpen }: { data: Course, handleOptionMenuOpen: (e: any) => void }) => {
@@ -7,35 +8,56 @@ export const Course = ({ data, handleOptionMenuOpen }: { data: Course, handleOpt
 
 
     return (
-        <TableRow
-            sx={{
-                bgcolor: theme.palette.grey[100]
+        <Box sx={{ pb: 2 }}>
+            <Grid container spacing={1} sx={{
+                minWidth: "100%",
+                bgcolor: theme.palette.grey[100],
+                pt: 1,
+                pb: 1,
+                alignItems: "center"
             }}>
-            <TableCell
-                sx={{
-                    textAlign: "center",
-                    fontSize: "1.2em"
-                }}>{data.num}</TableCell>
-            <TableCell
-                sx={{
-                    textAlign: "center",
-                    fontSize: "1.2em"
-                }}>{data.name}</TableCell>
-            <TableCell
-                sx={{
-                    textAlign: "center",
-                    fontSize: "1.2em"
-                }}>{data.credits}</TableCell>
-            <TableCell
-                sx={{
-                    textAlign: "center"
+                <Grid md={3} >
+                    <Box
+                        sx={{
+                            textAlign: "center",
+                            fontSize: "1.2em"
+                        }}>{data.num}</Box>
+                </Grid>
+                <Grid md={5} sx={{
+                    flexBasis: "fit-content",
                 }}>
-                <Tooltip title="Course Options">
-                    <IconButton onClick={handleOptionMenuOpen}>
-                        <MoreVert sx={{ color: theme.palette.common.black }} />
-                    </IconButton>
-                </Tooltip>
-            </TableCell>
-        </TableRow>
+                    <Box
+                        sx={{
+                            maxWidth: "90%",
+                            textAlign: "center",
+                            fontSize: "1.2em"
+                        }}>{data.name}</Box>
+                </Grid>
+                <Grid md={2} sx={{
+                    flexBasis: "fit-content"
+                }}>
+                    <Box
+                        sx={{
+                            textAlign: "center",
+                            fontSize: "1.2em"
+                        }}>{data.credits}</Box>
+                </Grid>
+                <Grid md={2} sx={{ flexBasis: "fit-content" }}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "flex-start"
+                        }}>
+                        <Tooltip title="Course Options">
+                            <IconButton onClick={handleOptionMenuOpen}>
+                                <MoreVert sx={{ color: theme.palette.common.black }} />
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
+                </Grid>
+            </Grid>
+
+        </Box>
     )
 }

@@ -1,12 +1,12 @@
 "use client"
-import { CalendarViewDay, CalendarViewDayOutlined, MoreVert } from '@mui/icons-material'
-import { Box, Container, Paper, SpeedDial, SpeedDialIcon, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, Typography, useTheme } from '@mui/material'
-import MapIcon from '@mui/icons-material/Map'
-import React, { useEffect } from 'react'
-import { Course } from '../../../../components/Semester/Course'
-import { Semester } from '../../../../components/Semester/Semester'
+import { CalendarViewDayOutlined } from '@mui/icons-material'
+import { Box, SpeedDial, SpeedDialIcon, Tooltip, useTheme } from '@mui/material'
+import React, { createContext } from 'react'
 import Grid from '@mui/material/Unstable_Grid2'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { DraggableSemester } from '../../../../components/Semester/DraggableSemester'
 
+export const SemesterContext = createContext([] as Semester[]);
 const Pathway = ({ params }: { params: { id: string } }) => {
     const theme = useTheme()
 
@@ -14,114 +14,158 @@ const Pathway = ({ params }: { params: { id: string } }) => {
         console.log("Create Semester Clicked")
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const testingSemesters: SemesterInput[] = [
+
+    const handleDragAndDrop = (results: any) => {
+        const { source, destination, type } = results
+        console.log(results)
+
+        if (!destination) return;
+
+        if (
+            source.droppableId === destination.droppableId &&
+            source.index === destination.index
+        )
+            return;
+
+        if (type === "semester") {
+            const reorderedSemesters = [...semesters]
+            const semesterSourceIndex = source.index
+            const semesterDestinationIndex = destination.index
+            const [removedSemester] = reorderedSemesters.splice(semesterSourceIndex, 1)
+            reorderedSemesters.splice(semesterDestinationIndex, 0, removedSemester)
+
+            return setSemesters(reorderedSemesters)
+        }
+        const courseSourceIndex = source.index
+        const courseDestinationIndex = destination.index
+
+        const semesterSourceIndex = semesters.findIndex((s) => s.id === source.droppableId)
+        const semesterDestinationIndex = semesters.findIndex((s) => s.id === destination.droppableId)
+
+
+        const newSourceCourses = [...semesters[semesterSourceIndex].courses]
+        const newDestinationCourse = source.droppableId !== destination.droppableId ? [...semesters[semesterDestinationIndex].courses] : newSourceCourses
+
+        const [deletedItem] = newSourceCourses.splice(courseSourceIndex, 1)
+        newDestinationCourse.splice(courseDestinationIndex, 0, deletedItem)
+
+        const newSemesters = [...semesters]
+
+        newSemesters[semesterSourceIndex] = {
+            ...semesters[semesterSourceIndex],
+            courses: newSourceCourses
+        }
+        newSemesters[semesterDestinationIndex] = {
+            ...semesters[semesterDestinationIndex],
+            courses: newDestinationCourse
+        }
+
+        setSemesters(newSemesters)
+    }
+
+    const testingSemesters: Semester[] = [
         {
-            id: 1,
+            id: "21",
             title: 'Fall 2019',
             courses: [
-                { id: 1, num: "COMP.1020", name: "Introduction to Computer Science", credits: 3 },
-                { id: 2, num: "MATH.1310", name: "Calculus I", credits: 3 },
-                { id: 3, num: "PHYS.1410", name: "Physics I", credits: 3 },
-                { id: 4, num: "PHYS.1410L", name: "Physics I Lab", credits: 1 },
-                { id: 5, num: "HONR.1100", name: "Honors Seminar", credits: 3 }
+                { id: "1", num: "COMP.1020", name: "Introduction to Computer Science", credits: 3 },
+                { id: "2", num: "MATH.1310", name: "Calculus I", credits: 3 },
+                { id: "3", num: "PHYS.1410", name: "Physics I", credits: 3 },
+                { id: "4", num: "PHYS.1410L", name: "Physics I Lab", credits: 1 },
+                { id: "5", num: "HONR.1100", name: "Honors Seminar", credits: 3 }
             ]
         },
         {
-            id: 2,
+            id: "22",
             title: 'Spring 2020',
             courses: [
-                { id: 6, num: "MATH.1320", name: "Calculus II", credits: 3 },
-                { id: 7, num: "PHYS.1440", name: "Physics II", credits: 3 },
-                { id: 8, num: "PHYS.1440L", name: "Physics II Lab", credits: 1 },
-                { id: 9, num: "ENGL.1020", name: "English Composition", credits: 3 },
-                { id: 10, num: "CHEM.1210", name: "General Chemistry", credits: 3 },
-                { id: 11, num: "CHEM.1230L", name: "General Chemistry Lab", credits: 1 }
+                { id: "6", num: "MATH.1320", name: "Calculus II", credits: 3 },
+                { id: "7", num: "PHYS.1440", name: "Physics II", credits: 3 },
+                { id: "8", num: "PHYS.1440L", name: "Physics II Lab", credits: 1 },
+                { id: "9", num: "ENGL.1020", name: "English Composition", credits: 3 },
+                { id: "10", num: "CHEM.1210", name: "General Chemistry", credits: 3 },
+                { id: "11", num: "CHEM.1230L", name: "General Chemistry Lab", credits: 1 }
             ]
         },
         {
-            id: 3,
+            id: "23",
             title: 'Fall 2020',
             courses: [
-                { id: 12, num: "COMP.1020", name: "Introduction to Computer Science", credits: 3 },
-                { id: 13, num: "MATH.1310", name: "Calculus I", credits: 3 },
-                { id: 14, num: "PHYS.1410", name: "Physics I", credits: 3 },
-                { id: 15, num: "PHYS.1410L", name: "Physics I Lab", credits: 1 },
-                { id: 16, num: "HONR.1100", name: "Honors Seminar", credits: 3 }
+                { id: "12", num: "COMP.1020", name: "Introduction to Computer Science", credits: 3 },
+                { id: "13", num: "MATH.1310", name: "Calculus I", credits: 3 },
+                { id: "14", num: "PHYS.1410", name: "Physics I", credits: 3 },
+                { id: "15", num: "PHYS.1410L", name: "Physics I Lab", credits: 1 },
+                { id: "16", num: "HONR.1100", name: "Honors Seminar", credits: 3 }
             ]
         },
         {
-            id: 4,
+            id: "24",
             title: 'Spring 2021',
             courses: [
-                { id: 17, num: "MATH.1320", name: "Calculus II", credits: 3 },
-                { id: 18, num: "PHYS.1440", name: "Physics II", credits: 3 },
-                { id: 19, num: "PHYS.1440L", name: "Physics II Lab", credits: 1 },
-                { id: 20, num: "ENGL.1020", name: "English Composition", credits: 3 },
+                { id: "17", num: "MATH.1320", name: "Calculus II", credits: 3 },
+                { id: "18", num: "PHYS.1440", name: "Physics II", credits: 3 },
+                { id: "19", num: "PHYS.1440L", name: "Physics II Lab", credits: 1 },
+                { id: "20", num: "ENGL.1020", name: "English Composition", credits: 3 },
 
+            ]
+        },
+        {
+            id: "25",
+            title: 'Fall 2021',
+            courses: [
+                { id: "21", num: "COMP.1020", name: "Introduction to Computer Science", credits: 3 },
+                { id: "22", num: "MATH.1310", name: "Calculus I", credits: 3 },
+                { id: "23", num: "PHYS.1410", name: "Physics I", credits: 3 },
+                { id: "24", num: "PHYS.1410L", name: "Physics I Lab", credits: 1 },
+                { id: "25", num: "HONR.1100", name: "Honors Seminar", credits: 3 }
+            ]
+        },
+        {
+            id: "26",
+            title: 'Spring 2022',
+            courses: [
+                { id: "26", num: "MATH.1320", name: "Calculus II", credits: 3 },
+                { id: "27", num: "PHYS.1440", name: "Physics II", credits: 3 },
+                { id: "28", num: "PHYS.1440L", name: "Physics II Lab", credits: 1 },
+                { id: "29", num: "ENGL.1020", name: "English Composition", credits: 3 },
+                { id: "30", num: "CHEM.1210", name: "General Chemistry", credits: 3 },
+                { id: "31", num: "CHEM.1230L", name: "General Chemistry Lab", credits: 1 }
             ]
         }
     ]
 
     const [semesters, setSemesters] = React.useState(testingSemesters)
 
-    // useEffect(() => {
-    //     setSemesters(() => { testingSemesters })
-    // }, [testingSemesters])
-
     return (
+
         <Box>
+
             <Grid container spacing={4} sx={{
                 "--Grid-columnSpacing": "2em",
                 "--Grid-rowSpacing": "0.5em",
                 flexWrap: "nowrap"
             }}>
-                {
-                    semesters.map((semester: SemesterInput, index: number) => {
-                        const convertedSemester: Semester = {
-                            id: semester.id,
-                            title: semester.title,
-                            _courses: semester.courses,
-                            otherSemesters: semesters.filter((s) => s !== semester).map((s) => ({
-                                id: s.id,
-                                title: s.title,
-                                _courses: s.courses,
-                                otherSemesters: []
-                            }))
-                        };
-                        return (
-                            <Grid md={6} sx={{ minWidth: "45%" }} key={index}>
-                                <Semester key={convertedSemester.id} id={convertedSemester.id} title={convertedSemester.title} _courses={convertedSemester._courses} otherSemesters={convertedSemester.otherSemesters} />
-                            </Grid>
-                        );
-                    })
-                }
-                {/* <Grid md={6} sx={{ minWidth: "45%" }}>
-                    <Semester title="Fall 2023" _courses={[
-                        { num: "COMP.1010", name: "Computing I", credits: 3 },
-                        { num: "MATH.1230", name: "Precalculus II", credits: 4 },
-                        { num: "HONR.1100", name: "FYSH", credits: 3 },
-                        { num: "COMP.1040L", name: "Computing I Lab", credits: 1 },
-                        { num: "MUTH.1100", name: "Basic Music Theory", credits: 3 },
-                    ]}
-                        otherSemesters={}
-                    />
-                </Grid>
-                <Grid md={6} sx={{ minWidth: "45%" }}>
-                    <Semester title="Fall 2021" _courses={[
-                        { num: "CSC.101", name: "Intro to Computer Science", credits: 3 },
-                        { num: "MAT.101", name: "Calculus I", credits: 4 },
-                        { num: "ENG.101", name: "English Composition I", credits: 3 },
-                    ]} />
-                </Grid>
-                <Grid md={6} sx={{ minWidth: "45%" }}>
-                    <Semester title="Fall 2021" _courses={[
-                        { num: "CSC.101", name: "Intro to Computer Science", credits: 3 },
-                        { num: "MAT.101", name: "Calculus I", credits: 4 },
-                        { num: "ENG.101", name: "English Composition I", credits: 3 },
-                    ]} />
-                </Grid> */}
+                <DragDropContext onDragEnd={handleDragAndDrop}>
+                    <Droppable droppableId="root" type="semester" direction="horizontal">
+                        {
+                            (provided) => (
+                                <Box ref={provided.innerRef} {...provided.droppableProps} sx={{ display: "flex", minWidth: "100%" }}>
+                                    {
+                                        semesters.map((s, i) => (
+                                            <Grid key={s.id} md={6} sx={{ minWidth: "45%" }}>
+                                                <DraggableSemester title={s.title} courses={s.courses} index={i} />
+                                            </Grid>
+
+                                        ))
+                                    }
+                                    {provided.placeholder}
+                                </Box>
+                            )
+                        }
+                    </Droppable>
+                </DragDropContext>
             </Grid>
+
             <Tooltip title={"Add Semester"} placement="left">
                 <SpeedDial
                     ariaLabel={"Add Semester"}
@@ -137,7 +181,9 @@ const Pathway = ({ params }: { params: { id: string } }) => {
                 </SpeedDial>
             </Tooltip>
         </Box>
+
     )
+
 }
 
 export default Pathway
