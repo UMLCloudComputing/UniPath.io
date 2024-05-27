@@ -11,6 +11,7 @@ import { useSortable } from "@dnd-kit/sortable"
 import Grid from "@mui/material/Unstable_Grid2"
 import { SemesterHeader } from "./SemesterHeader"
 import { SemesterFooter } from "./SemesterFooter"
+import { DraggableCourse } from "./DraggableCourse"
 
 export const Semester = ({ title, _courses }: { title: string, _courses: Course[] }) => {
     const theme = useTheme()
@@ -62,7 +63,7 @@ export const Semester = ({ title, _courses }: { title: string, _courses: Course[
                 bgcolor: theme.palette.background.default,
                 borderRadius: '10px',
                 minWidth: "45%",
-                padding: "0.5em",
+                padding: "1em",
             }}>
             <Box //title container
                 sx={{
@@ -111,11 +112,24 @@ export const Semester = ({ title, _courses }: { title: string, _courses: Course[
                     <Box sx={{ //courses container
                         minWidth: "100%",
                     }}>
-                        {//map over provided courses prop
-                            courses.map((course, index) => {
-                                return <Course key={index} data={course} handleOptionMenuOpen={handleCourseOptionsMenuClick} />
-                            })
-                        }
+                        <Droppable droppableId={title} type="course">
+                            {
+                                (provided) => (
+                                    <Box
+                                        ref={provided.innerRef}
+                                        {...provided.droppableProps}
+                                    >
+                                        {
+                                            courses.map((c, i) => (
+                                                <DraggableCourse key={c.id} data={c} handleOptionMenuOpen={handleCourseOptionsMenuClick} index={i} />
+                                            ))
+                                        }
+                                        {provided.placeholder}
+                                    </Box>
+                                )
+                            }
+
+                        </Droppable>
                     </Box>
                     <SemesterFooter totalCreds={courses.reduce((acc, course) => acc + course.credits, 0)} />
                 </Box>
@@ -135,13 +149,6 @@ export const Semester = ({ title, _courses }: { title: string, _courses: Course[
                 anchorEl={courseAnchorEl}
                 onClose={handleCourseOptionsMenuClose}
             >
-                <NestedMenuItem label="Move to" parentMenuOpen={courseOptionsOpen}>
-                    {
-                        otherSemesters.map((semester: Semester, index: number) => {
-                            return <MenuItem key={index}>{semester.title}</MenuItem>
-                        })
-                    }
-                </NestedMenuItem>
                 <IconMenuItem sx={{ color: theme.palette.error.main }} label="Delete" rightIcon={<Delete />} />
             </Menu>
         </Box >

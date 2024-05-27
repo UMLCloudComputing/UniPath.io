@@ -3,8 +3,10 @@ import { CalendarViewDayOutlined } from '@mui/icons-material'
 import { Box, SpeedDial, SpeedDialIcon, Tooltip, useTheme } from '@mui/material'
 import React, { createContext } from 'react'
 import Grid from '@mui/material/Unstable_Grid2'
-import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { DragDropContext, DropResult, Droppable, OnDragEndResponder } from 'react-beautiful-dnd'
 import { DraggableSemester } from '../../../../components/Semester/DraggableSemester'
+import { DragEndEvent } from '@dnd-kit/core'
+import { Semester } from '../../../../components/Semester/Semester'
 
 export const SemesterContext = createContext([] as Semester[]);
 const Pathway = ({ params }: { params: { id: string } }) => {
@@ -14,8 +16,8 @@ const Pathway = ({ params }: { params: { id: string } }) => {
         console.log("Create Semester Clicked")
     }
 
-
-    const handleDragAndDrop = (results: any) => {
+    // this function is called when a drag and drop event occurs and handles the logic of reordering semesters and courses
+    const handleDragAndDrop = (results: DropResult) => {
         const { source, destination, type } = results
         console.log(results)
 
@@ -36,19 +38,23 @@ const Pathway = ({ params }: { params: { id: string } }) => {
 
             return setSemesters(reorderedSemesters)
         }
+
+
         const courseSourceIndex = source.index
         const courseDestinationIndex = destination.index
 
-        const semesterSourceIndex = semesters.findIndex((s) => s.id === source.droppableId)
-        const semesterDestinationIndex = semesters.findIndex((s) => s.id === destination.droppableId)
-
+        const semesterSourceIndex = semesters.findIndex((s) => s.title === source.droppableId)
+        const semesterDestinationIndex = semesters.findIndex((s) => s.title === destination.droppableId)
 
         const newSourceCourses = [...semesters[semesterSourceIndex].courses]
-        const newDestinationCourse = source.droppableId !== destination.droppableId ? [...semesters[semesterDestinationIndex].courses] : newSourceCourses
+        const newDestinationCourses = source.droppableId !== destination.droppableId ? [...semesters[semesterDestinationIndex].courses] : newSourceCourses
+        console.log(courseSourceIndex, courseDestinationIndex)
 
         const [deletedItem] = newSourceCourses.splice(courseSourceIndex, 1)
-        newDestinationCourse.splice(courseDestinationIndex, 0, deletedItem)
+        console.log(deletedItem, newSourceCourses)
+        newDestinationCourses.splice(courseDestinationIndex, 0, deletedItem)
 
+        console.log(newSourceCourses, newDestinationCourses)
         const newSemesters = [...semesters]
 
         newSemesters[semesterSourceIndex] = {
@@ -57,9 +63,9 @@ const Pathway = ({ params }: { params: { id: string } }) => {
         }
         newSemesters[semesterDestinationIndex] = {
             ...semesters[semesterDestinationIndex],
-            courses: newDestinationCourse
+            courses: newDestinationCourses
         }
-
+        console.log(newSemesters)
         setSemesters(newSemesters)
     }
 
@@ -146,14 +152,16 @@ const Pathway = ({ params }: { params: { id: string } }) => {
                 flexWrap: "nowrap"
             }}>
                 <DragDropContext onDragEnd={handleDragAndDrop}>
+
                     <Droppable droppableId="root" type="semester" direction="horizontal">
                         {
                             (provided) => (
                                 <Box ref={provided.innerRef} {...provided.droppableProps} sx={{ display: "flex", minWidth: "100%" }}>
                                     {
                                         semesters.map((s, i) => (
-                                            <Grid key={s.id} md={6} sx={{ minWidth: "45%" }}>
+                                            <Grid key={s.id} md={6} sx={{ minWidth: "40%" }}>
                                                 <DraggableSemester title={s.title} courses={s.courses} index={i} />
+                                                {/* <Semester title={s.title} _courses={s.courses} /> */}
                                             </Grid>
 
                                         ))
@@ -163,6 +171,15 @@ const Pathway = ({ params }: { params: { id: string } }) => {
                             )
                         }
                     </Droppable>
+                    {/* {
+                        semesters.map((s, i) => (
+                            <Grid key={s.id} md={6} sx={{ minWidth: "45%" }}>
+                                <DraggableSemester title={s.title} courses={s.courses} index={i} />
+                                <Semester title={s.title} _courses={s.courses} />
+                            </Grid>
+                        ))
+                    } */}
+
                 </DragDropContext>
             </Grid>
 

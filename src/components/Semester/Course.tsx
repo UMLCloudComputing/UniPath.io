@@ -12,9 +12,9 @@ export const Course = ({ data, handleOptionMenuOpen }: { data: Course, handleOpt
             <Grid container spacing={1} sx={{
                 minWidth: "100%",
                 bgcolor: theme.palette.grey[100],
-                pt: 1,
-                pb: 1,
-                alignItems: "center"
+                p: "0.5em",
+                alignItems: "center",
+                borderRadius: theme.shape.borderRadius
             }}>
                 <Grid md={3} >
                     <Box
