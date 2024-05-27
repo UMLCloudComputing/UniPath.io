@@ -9,7 +9,6 @@ export const DraggableSemester = ({ title, courses, index }: { title: string, co
         <Draggable
             draggableId={title}
             index={index}
-
         >
             {
                 (provided) => (

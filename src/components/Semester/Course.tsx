@@ -11,7 +11,7 @@ export const Course = ({ data, handleOptionMenuOpen }: { data: Course, handleOpt
         <Box sx={{ pb: 2 }}>
             <Grid container spacing={1} sx={{
                 minWidth: "100%",
-                bgcolor: theme.palette.grey[100],
+                bgcolor: theme.palette.mode === "light" ? theme.palette.grey[100] : theme.palette.grey[800],
                 p: "0.5em",
                 alignItems: "center",
                 borderRadius: theme.shape.borderRadius
@@ -51,7 +51,7 @@ export const Course = ({ data, handleOptionMenuOpen }: { data: Course, handleOpt
                         }}>
                         <Tooltip title="Course Options">
                             <IconButton onClick={handleOptionMenuOpen}>
-                                <MoreVert sx={{ color: theme.palette.common.black }} />
+                                <MoreVert sx={{ color: theme.palette.mode === "light" ? theme.palette.common.black : theme.palette.common.white }} />
                             </IconButton>
                         </Tooltip>
                     </Box>

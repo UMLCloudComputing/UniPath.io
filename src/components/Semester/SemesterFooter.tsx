@@ -7,7 +7,7 @@ export const SemesterFooter = ({ totalCreds }: { totalCreds: number }) => {
     const theme = useTheme()
     return (
         <Box>
-            <Grid container spacing={1}>
+            <Grid container spacing={1} sx={{ alignItems: "center" }}>
                 <Grid md={2} sx={{ flexBasis: "fit-content" }}>
                     <Box
                         sx={{
@@ -35,7 +35,7 @@ export const SemesterFooter = ({ totalCreds }: { totalCreds: number }) => {
                         </IconButton>
                     </Box>
                 </Grid>
-                <Grid md={2} sx={{ flexBasis: "fit-content" }}>
+                <Grid md={2} sx={{ flexBasis: "flex-end" }}>
                     <Box
                         sx={{
                             textAlign: "center",

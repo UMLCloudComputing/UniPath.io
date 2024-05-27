@@ -81,7 +81,7 @@ export const Semester = ({ title, _courses }: { title: string, _courses: Course[
                     <IconButton onClick={handleExpandClick}>
                         <CalendarViewDayOutlined
                             sx={{
-                                color: theme.palette.common.black
+                                color: theme.palette.mode === "light" ? theme.palette.common.black : theme.palette.common.white
                             }} />
                     </IconButton>
                 </Tooltip>
@@ -96,7 +96,7 @@ export const Semester = ({ title, _courses }: { title: string, _courses: Course[
                     <IconButton onClick={handleSemesterOptionsMenuClick}>
                         <MoreVert
                             sx={{
-                                color: theme.palette.common.black
+                                color: theme.palette.mode === "light" ? theme.palette.common.black : theme.palette.common.white
                             }}
                         />
                     </IconButton>
