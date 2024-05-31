@@ -14,8 +14,8 @@ const testingSemesters: Semester[] = [
         title: 'Fall 2019',
         courses: [
             { id: "1", num: "COMP.1020", name: "Introduction to Computer Science", credits: 3 },
-            { id: "2", num: "MATH.1310", name: "Calculus I", credits: 3 },
             { id: "3", num: "PHYS.1410", name: "Physics I", credits: 3 },
+            { id: "2", num: "MATH.1310", name: "Calculus I", credits: 3 },
             { id: "4", num: "PHYS.1410L", name: "Physics I Lab", credits: 1 },
             { id: "5", num: "HONR.1100", name: "Honors Seminar", credits: 3 }
         ]
@@ -138,7 +138,7 @@ const Pathway = ({ params }: { params: { id: string } }) => {
             ...semesters[semesterDestinationIndex],
             courses: newDestinationCourses
         }
-        console.log(newSemesters)
+        console.log("right before updating state", newSemesters)
         return setSemesters(newSemesters)
     }
 
@@ -157,34 +157,27 @@ const Pathway = ({ params }: { params: { id: string } }) => {
             }}>
                 <DragDropContext onDragEnd={handleDragAndDrop}>
 
-                    <Droppable droppableId="root" type="semester" direction="horizontal">
+                    {/* <Droppable droppableId="root" type="semester" direction="horizontal">
                         {
                             (provided) => (
                                 <Box ref={provided.innerRef} {...provided.droppableProps} sx={{ display: "flex", minWidth: "100%" }}>
                                     {
                                         semesters.map((s, i) => (
-                                            <>{console.log(s)}
-                                                <Grid key={s.id} md={6} sx={{ minWidth: "40%" }}>
-                                                    <DraggableSemester title={s.title} courses={s.courses} index={i} />
-                                                    {/* <Semester title={s.title} _courses={s.courses} /> */}
-                                                </Grid>
-                                            </>
-
+                                            <DraggableSemester key={s.id} title={s.title} courses={s.courses} index={i} />
                                         ))
                                     }
                                     {provided.placeholder}
                                 </Box>
                             )
                         }
-                    </Droppable>
-                    {/* {
+                    </Droppable> */}
+                    {
                         semesters.map((s, i) => (
-                            <Grid key={s.id} md={6} sx={{ minWidth: "45%" }}>
-                                <DraggableSemester title={s.title} courses={s.courses} index={i} />
-                                <Semester title={s.title} _courses={s.courses} />
-                            </Grid>
+
+                            <Semester key={s.id} title={s.title} _courses={s.courses} />
+
                         ))
-                    } */}
+                    }
 
                 </DragDropContext>
             </Grid>
