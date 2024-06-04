@@ -9,6 +9,7 @@ import { DragEndEvent } from '@dnd-kit/core'
 import { Semester } from '../../../../components/Semester/Semester'
 import { generateClient } from 'aws-amplify/data'
 import type { Schema } from '../../../../../amplify/data/resource'
+import { AddCourseToSemesterDialog } from '@/components/Dialogs/AddCourseToSemesterDialog'
 
 const testingSemesters: Semester[] = [
     {
@@ -82,29 +83,27 @@ const testingSemesters: Semester[] = [
 ]
 
 
-export const SemesterContext = createContext([] as Semester[]);
 const Pathway = ({ params }: { params: { id: string } }) => {
 
     const theme = useTheme()
-    type AmplifySemester = Schema['Semester']['type']
     //state
-    const [semesters, setSemesters] = useState<Semester[]>()
+    const [semesters, setSemesters] = useState<Semester[]>(testingSemesters)
     const [loading, setLoading] = useState(false)
 
+
     // data fetching
-    const client = generateClient<Schema>({ authMode: "userPool" })
-    const fetchSemesters = async () => {
-        const { data, errors } = await client.models.Semester.list()
-        if (errors) console.error(errors)
-        setSemesters(data)
-    }
+    // const client = generateClient<Schema>({ authMode: "userPool" })
+    // const fetchSemesters = async () => {
+    //     const { data, errors } = await client.models.Semester.list()
+    //     if (errors) console.error(errors)
+    //     setSemesters(data)
+    // }
     // useEffect(() => {
-    //     setLoading(true);
-    //     client.models.Semester.list().then(({ data, errors }: { data: Semester[], errors: any }) => {
-    //         errors ? console.error(errors) : setSemesters(data)
-    //         setLoading(false)
-    //     })
-    // }, [client])
+    //     setLoading(true)
+    //     fetchSemesters()
+    //     setLoading(false)
+    // }, [])
+
     //interact handlers
     const handleCreateSemesterClick = () => {
         console.log("Create Semester Clicked")

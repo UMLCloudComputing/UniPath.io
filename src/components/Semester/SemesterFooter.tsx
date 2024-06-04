@@ -3,7 +3,7 @@ import React from "react"
 import Grid from "@mui/material/Unstable_Grid2"
 import { Add } from "@mui/icons-material"
 
-export const SemesterFooter = ({ totalCreds }: { totalCreds: number }) => {
+export const SemesterFooter = ({ totalCreds, handleAddCourse }: { totalCreds: number, handleAddCourse: () => any }) => {
     const theme = useTheme()
     return (
         <Box>
@@ -25,7 +25,8 @@ export const SemesterFooter = ({ totalCreds }: { totalCreds: number }) => {
                         <IconButton sx={{
                             display: "flex",
                             alignItems: "flex-start",
-                        }}>
+                        }}
+                            onClick={handleAddCourse}>
                             <Add
                                 sx={{
                                     color: theme.palette.primary.main,
