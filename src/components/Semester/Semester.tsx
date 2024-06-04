@@ -1,29 +1,21 @@
-import { Add, CalendarViewDay, CalendarViewDayOutlined, Delete, MoreVert } from "@mui/icons-material"
-import { Box, Typography, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, useTheme, Icon, IconButton, Tooltip, MenuItem, Collapse, Menu, Tab, Divider, TextField } from "@mui/material"
-import React, { ReactNode, SetStateAction, useContext, useRef, useState } from "react"
-import { Course } from "./Course"
-import { OptionsMenu } from "../Menus/OptionsMenu"
-import { IconMenuItem, NestedMenuItem } from "mui-nested-menu"
-import { SemesterContext } from "../../app/(home)/pathways/[id]/page"
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
-import { useDraggable } from "@dnd-kit/core"
-import { useSortable } from "@dnd-kit/sortable"
+import { Droppable } from "@hello-pangea/dnd"
+import { CalendarViewDayOutlined, Delete, MoreVert } from "@mui/icons-material"
+import { Box, Collapse, IconButton, Menu, MenuItem, Tooltip, Typography, useTheme } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
-import { SemesterHeader } from "./SemesterHeader"
-import { SemesterFooter } from "./SemesterFooter"
+import { IconMenuItem } from "mui-nested-menu"
+import React, { useState } from "react"
 import { DraggableCourse } from "./DraggableCourse"
+import { SemesterFooter } from "./SemesterFooter"
+import { SemesterHeader } from "./SemesterHeader"
 
-export const Semester = ({ title, _courses }: { title: string, _courses: Course[] }) => {
+export const Semester = ({ title, courses, id }: Semester) => {
     const theme = useTheme()
-
-    const [courses, setCourses] = React.useState(_courses)
     const [semesterAnchorEl, setSemesterAnchorEl] = useState(null)
     const semesterOptionsOpen = Boolean(semesterAnchorEl)
     const [courseAnchorEl, setCourseAnchorEl] = useState(null)
     const courseOptionsOpen = Boolean(courseAnchorEl)
     const [expanded, setExpanded] = useState(true)
 
-    const otherSemesters = useContext(SemesterContext).filter((s) => s.title !== title)
 
     // Semester Options Menu
     const handleSemesterOptionsMenuClick = (e: any) => {
@@ -113,7 +105,7 @@ export const Semester = ({ title, _courses }: { title: string, _courses: Course[
                         <Box sx={{ //courses container
                             minWidth: "100%",
                         }}>
-                            <Droppable droppableId={title} >
+                            <Droppable droppableId={id} >
                                 {
                                     (provided) => (
                                         <Box

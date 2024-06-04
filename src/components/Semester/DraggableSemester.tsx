@@ -1,4 +1,4 @@
-import { Draggable } from "react-beautiful-dnd"
+import { Draggable } from "@hello-pangea/dnd"
 import { Semester } from "./Semester"
 import React from "react"
 import { Box } from "@mui/material"

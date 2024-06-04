@@ -1,9 +1,9 @@
 "use client"
 import { CalendarViewDayOutlined } from '@mui/icons-material'
 import { Box, SpeedDial, SpeedDialIcon, Tooltip, useTheme } from '@mui/material'
-import React, { createContext } from 'react'
+import React, { createContext, useState } from 'react'
 import Grid from '@mui/material/Unstable_Grid2'
-import { DragDropContext, DropResult, Droppable, OnDragEndResponder } from 'react-beautiful-dnd'
+import { DragDropContext, DropResult, Droppable, OnDragEndResponder } from '@hello-pangea/dnd'
 import { DraggableSemester } from '../../../../components/Semester/DraggableSemester'
 import { DragEndEvent } from '@dnd-kit/core'
 import { Semester } from '../../../../components/Semester/Semester'
@@ -83,7 +83,7 @@ export const SemesterContext = createContext([] as Semester[]);
 const Pathway = ({ params }: { params: { id: string } }) => {
     const theme = useTheme()
 
-    const [semesters, setSemesters] = React.useState(testingSemesters)
+    const [semesters, setSemesters] = useState(testingSemesters)
 
     const handleCreateSemesterClick = () => {
         console.log("Create Semester Clicked")
@@ -92,7 +92,7 @@ const Pathway = ({ params }: { params: { id: string } }) => {
     // this function is called when a drag and drop event occurs and handles the logic of reordering semesters and courses
     const handleDragAndDrop = (results: DropResult) => {
         const { source, destination, type } = results
-        console.log(results)
+
 
         if (!destination) return;
 
@@ -109,25 +109,25 @@ const Pathway = ({ params }: { params: { id: string } }) => {
             const [removedSemester] = reorderedSemesters.splice(semesterSourceIndex, 1)
             reorderedSemesters.splice(semesterDestinationIndex, 0, removedSemester)
 
-            return setSemesters(reorderedSemesters)
+            setSemesters(reorderedSemesters)
         }
 
 
         const courseSourceIndex = source.index
         const courseDestinationIndex = destination.index
 
-        const semesterSourceIndex = semesters.findIndex((s) => s.title === source.droppableId)
-        const semesterDestinationIndex = semesters.findIndex((s) => s.title === destination.droppableId)
+        const semesterSourceIndex = semesters.findIndex((s) => s.id === source.droppableId)
+        const semesterDestinationIndex = semesters.findIndex((s) => s.id === destination.droppableId)
 
         const newSourceCourses = [...semesters[semesterSourceIndex].courses]
         const newDestinationCourses = source.droppableId !== destination.droppableId ? [...semesters[semesterDestinationIndex].courses] : newSourceCourses
-        console.log(courseSourceIndex, courseDestinationIndex)
+
 
         const [deletedItem] = newSourceCourses.splice(courseSourceIndex, 1)
-        console.log(deletedItem, newSourceCourses)
+
         newDestinationCourses.splice(courseDestinationIndex, 0, deletedItem)
 
-        console.log(newSourceCourses, newDestinationCourses)
+
         const newSemesters = [...semesters]
 
         newSemesters[semesterSourceIndex] = {
@@ -138,8 +138,8 @@ const Pathway = ({ params }: { params: { id: string } }) => {
             ...semesters[semesterDestinationIndex],
             courses: newDestinationCourses
         }
-        console.log("right before updating state", newSemesters)
-        return setSemesters(newSemesters)
+
+        setSemesters(newSemesters)
     }
 
 
@@ -157,7 +157,8 @@ const Pathway = ({ params }: { params: { id: string } }) => {
             }}>
                 <DragDropContext onDragEnd={handleDragAndDrop}>
 
-                    {/* <Droppable droppableId="root" type="semester" direction="horizontal">
+                    {/* code for draggable semesters
+                    <Droppable droppableId="root" type="semester" direction="horizontal">
                         {
                             (provided) => (
                                 <Box ref={provided.innerRef} {...provided.droppableProps} sx={{ display: "flex", minWidth: "100%" }}>
@@ -174,8 +175,7 @@ const Pathway = ({ params }: { params: { id: string } }) => {
                     {
                         semesters.map((s, i) => (
 
-                            <Semester key={s.id} title={s.title} _courses={s.courses} />
-
+                            <Semester key={s.id} title={s.title} courses={s.courses} id={s.id} />
                         ))
                     }
 

@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 import React from "react"
-import { Draggable } from "react-beautiful-dnd"
+import { Draggable } from "@hello-pangea/dnd"
 import { Course } from "./Course"
 
 export const DraggableCourse = ({ data, handleOptionMenuOpen, index }: { data: Course, handleOptionMenuOpen: (e: any) => void, index: number }) => {
@@ -8,16 +8,17 @@ export const DraggableCourse = ({ data, handleOptionMenuOpen, index }: { data: C
         <Draggable
             draggableId={data.id}
             index={index}
+            key={data.id}
         >
             {
                 (provided) => (
-                    <Box
+                    <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                     >
                         <Course data={data} handleOptionMenuOpen={handleOptionMenuOpen} />
-                    </Box>
+                    </div>
                 )
             }
         </Draggable>

@@ -16,6 +16,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import ConfigureAmplifyClientSide from "@/components/ConfigureAmplify";
 import { darkTheme, lightTheme } from "@/components/theme";
 import { ThemeContext, ThemeContextProvider } from "@/contexts/ThemeContext";
+import { DragDropContext } from "@hello-pangea/dnd";
 
 
 // MainApp is the main high-level layout component that wraps around other components in this application.
@@ -26,7 +27,7 @@ const MainApp = ({ children }) => {
         <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
             <Authenticator.Provider>
                 <View>
-                    <CssBaseline/>
+                    <CssBaseline />
                     <Box
                     >
                         {children}
@@ -51,9 +52,11 @@ export default function RootLayout({ children }) {
                 <AppRouterCacheProvider>
                     <ConfigureAmplifyClientSide />
                     <ThemeContextProvider>
+
                         <MainApp>
                             {children}
                         </MainApp>
+
                     </ThemeContextProvider>
                 </AppRouterCacheProvider>
             </body>
