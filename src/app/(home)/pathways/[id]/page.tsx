@@ -1,12 +1,14 @@
 "use client"
 import { CalendarViewDayOutlined } from '@mui/icons-material'
 import { Box, SpeedDial, SpeedDialIcon, Tooltip, useTheme } from '@mui/material'
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import Grid from '@mui/material/Unstable_Grid2'
 import { DragDropContext, DropResult, Droppable, OnDragEndResponder } from '@hello-pangea/dnd'
 import { DraggableSemester } from '../../../../components/Semester/DraggableSemester'
 import { DragEndEvent } from '@dnd-kit/core'
 import { Semester } from '../../../../components/Semester/Semester'
+import { generateClient } from 'aws-amplify/data'
+import type { Schema } from '../../../../../amplify/data/resource'
 
 const testingSemesters: Semester[] = [
     {
@@ -79,12 +81,31 @@ const testingSemesters: Semester[] = [
     }
 ]
 
+
 export const SemesterContext = createContext([] as Semester[]);
 const Pathway = ({ params }: { params: { id: string } }) => {
+
     const theme = useTheme()
+    type AmplifySemester = Schema['Semester']['type']
+    //state
+    const [semesters, setSemesters] = useState<Semester[]>()
+    const [loading, setLoading] = useState(false)
 
-    const [semesters, setSemesters] = useState(testingSemesters)
-
+    // data fetching
+    const client = generateClient<Schema>({ authMode: "userPool" })
+    const fetchSemesters = async () => {
+        const { data, errors } = await client.models.Semester.list()
+        if (errors) console.error(errors)
+        setSemesters(data)
+    }
+    // useEffect(() => {
+    //     setLoading(true);
+    //     client.models.Semester.list().then(({ data, errors }: { data: Semester[], errors: any }) => {
+    //         errors ? console.error(errors) : setSemesters(data)
+    //         setLoading(false)
+    //     })
+    // }, [client])
+    //interact handlers
     const handleCreateSemesterClick = () => {
         console.log("Create Semester Clicked")
     }

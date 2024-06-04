@@ -37,7 +37,6 @@ import Tooltip from "@mui/material/Tooltip";
 
 
 
-
 // Component: PathwaysPage
 //TODO: transition between: grid <--> list view
 //TODO: use accordion component in pathway details page
