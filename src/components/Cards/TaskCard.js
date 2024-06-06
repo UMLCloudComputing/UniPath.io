@@ -17,7 +17,7 @@ export default function TaskCard() {
     const theme = useTheme();
     return (
         <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-            <Card sx={{ width: '50%' }}>
+            <Card sx={{ width: '50%', borderRadius: '20px'}}>
                 <CardActions>
                     <Button>
                         <AddTaskIcon color='blue' />
