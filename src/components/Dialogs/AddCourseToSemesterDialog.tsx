@@ -1,4 +1,5 @@
 import { Box, Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
+import React from "react";
 
 const testingCourses = [
     { id: "1", num: "COMP.1020", name: "Introduction to Computer Science", credits: 3 },

@@ -9,9 +9,11 @@ import { DragEndEvent } from '@dnd-kit/core'
 import { Semester } from '../../../../components/Semester/Semester'
 import { generateClient } from 'aws-amplify/data'
 import type { Schema } from '../../../../../amplify/data/resource'
-import { AddCourseToSemesterDialog } from '@/components/Dialogs/AddCourseToSemesterDialog'
 
-const testingSemesters: Semester[] = [
+import { CreateSemesterDialog } from '../../../../components/Dialogs/CreateSemesterDialog'
+import { SemesterType } from '../../../../types/types'
+
+const testingSemesters: SemesterType[] = [
     {
         id: "21",
         title: 'Fall 2019',
@@ -87,8 +89,9 @@ const Pathway = ({ params }: { params: { id: string } }) => {
 
     const theme = useTheme()
     //state
-    const [semesters, setSemesters] = useState<Semester[]>(testingSemesters)
+    const [semesters, setSemesters] = useState<SemesterType[]>(testingSemesters)
     const [loading, setLoading] = useState(false)
+    const [createSemesterDialogOpen, setCreateSemesterDialogOpen] = useState(false)
 
 
     // data fetching
@@ -105,9 +108,21 @@ const Pathway = ({ params }: { params: { id: string } }) => {
     // }, [])
 
     //interact handlers
-    const handleCreateSemesterClick = () => {
-        console.log("Create Semester Clicked")
+    const openCreateSemesterDialog = () => {
+        setCreateSemesterDialogOpen(true)
     }
+
+    const closeCreateSemesterDialog = () => {
+        setCreateSemesterDialogOpen(false)
+    }
+
+    //crud handlers
+    const createSemester = async (title: string) => {
+        const { data, errors } = await client.models.Semester.create({ input: { title } })
+        if (errors) console.error(errors)
+        setSemesters([...semesters, data])
+    }
+
 
     // this function is called when a drag and drop event occurs and handles the logic of reordering semesters and courses
     const handleDragAndDrop = (results: DropResult) => {
@@ -206,7 +221,7 @@ const Pathway = ({ params }: { params: { id: string } }) => {
                 <SpeedDial
                     ariaLabel={"Add Semester"}
                     icon={<SpeedDialIcon openIcon={<CalendarViewDayOutlined />} />}
-                    onClick={handleCreateSemesterClick}
+                    onClick={openCreateSemesterDialog}
                     sx={{
                         position: 'fixed',
                         bottom: '4%',
@@ -216,6 +231,7 @@ const Pathway = ({ params }: { params: { id: string } }) => {
                     }}>
                 </SpeedDial>
             </Tooltip>
+            <CreateSemesterDialog open={createSemesterDialogOpen} onClose={closeCreateSemesterDialog} create={createSemester} />
         </Box>
 
     )

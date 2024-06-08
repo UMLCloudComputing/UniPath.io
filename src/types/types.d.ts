@@ -1,12 +1,12 @@
-interface Semester {
-    id: string,
-    title: string,
-    courses: Course[],
+export interface SemesterType {
+  id: string;
+  title: string;
+  courses: CourseType[];
 }
 
-interface Course {
-    id: string,
-    name: string,
-    num: string
-    credits: number
+export interface CourseType {
+  id: string;
+  name: string;
+  num: string;
+  credits: number;
 }

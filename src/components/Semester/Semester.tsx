@@ -8,8 +8,9 @@ import { DraggableCourse } from "./DraggableCourse"
 import { SemesterFooter } from "./SemesterFooter"
 import { SemesterHeader } from "./SemesterHeader"
 import { AddCourseToSemesterDialog } from "../Dialogs/AddCourseToSemesterDialog"
+import { SemesterType } from "../../types/types"
 
-export const Semester = ({ title, courses, id }: Semester) => {
+export const Semester = ({ title, courses, id }: SemesterType) => {
     const theme = useTheme()
     const [semesterAnchorEl, setSemesterAnchorEl] = useState(null)
     const semesterOptionsOpen = Boolean(semesterAnchorEl)

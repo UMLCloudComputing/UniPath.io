@@ -10,6 +10,7 @@
         "resolveJsonModule": true,
         "composite": true,
         "rootDir": "../",
+        "typeRoots": ["./types"]
     },
     "include": [
         "../amplify"
