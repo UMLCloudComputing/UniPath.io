@@ -1,6 +1,6 @@
 
 // React
-import React from 'react';
+import React, { Suspense } from 'react';
 
 // Material UI
 import Box from '@mui/material/Box';
@@ -17,7 +17,9 @@ export default function AuthLayout({ children }) {
                 p: 3,
             }}
         >
-            {children}
+            <Suspense>
+                {children}
+            </Suspense>
         </Box>
     );
 }

@@ -18,7 +18,7 @@ import TaskDialog from '@/components/Dialogs/TaskDialog';
 import { initialData } from '@/components/Data/initialData';
 
 // Assuming DragDropContext will be used later
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext } from '@hello-pangea/dnd';
 
 export default function Lists() {
     // State management

@@ -1,19 +1,14 @@
-interface Semester {
-    id: number,
-    title: string,
-    _courses: Course[],
-    otherSemesters: Semester[]
+
+export interface SemesterType {
+  id: string;
+  title: string;
+  courses: CourseType[];
 }
 
-interface Course {
-    id: number,
-    name: string,
-    num: string
-    credits: number
+export interface CourseType {
+  id: string;
+  name: string;
+  num: string;
+  credits: number;
 }
 
-interface SemesterInput {
-    id: number,
-    title: string,
-    courses: Course[]
-}

@@ -8,6 +8,13 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "resolveJsonModule": true,
-        "composite": true
-    }
+
+        "composite": true,
+        "rootDir": "../",
+        "typeRoots": ["./types"]
+    },
+    "include": [
+        "../amplify"
+    ]
+
 }

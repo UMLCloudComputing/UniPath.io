@@ -16,7 +16,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import ConfigureAmplifyClientSide from "@/components/ConfigureAmplify";
 import { darkTheme, lightTheme } from "@/components/theme";
 import { ThemeContext, ThemeContextProvider } from "@/contexts/ThemeContext";
+import { DragDropContext } from "@hello-pangea/dnd";
+import { Amplify } from "aws-amplify";
 
+import outputs from "../../amplifyconfiguration.json";
 
 // MainApp is the main high-level layout component that wraps around other components in this application.
 const MainApp = ({ children }) => {
@@ -26,7 +29,7 @@ const MainApp = ({ children }) => {
         <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
             <Authenticator.Provider>
                 <View>
-                    <CssBaseline/>
+                    <CssBaseline />
                     <Box
                     >
                         {children}
@@ -40,6 +43,7 @@ const MainApp = ({ children }) => {
 // RootLayout is the main high-level layout component that wraps around other components in this application. 
 // It provides them with theme and authentication contexts.
 export default function RootLayout({ children }) {
+    Amplify.configure(outputs)
     return (
         <html lang="en">
             <head>
@@ -51,9 +55,11 @@ export default function RootLayout({ children }) {
                 <AppRouterCacheProvider>
                     <ConfigureAmplifyClientSide />
                     <ThemeContextProvider>
+
                         <MainApp>
                             {children}
                         </MainApp>
+
                     </ThemeContextProvider>
                 </AppRouterCacheProvider>
             </body>

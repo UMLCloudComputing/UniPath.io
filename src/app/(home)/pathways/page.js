@@ -37,7 +37,6 @@ import Tooltip from "@mui/material/Tooltip";
 
 
 
-
 // Component: PathwaysPage
 //TODO: transition between: grid <--> list view
 //TODO: use accordion component in pathway details page
@@ -102,9 +101,6 @@ export default function PathwaysPage() {
 
     return (
         <Box
-            style={{
-                overflow: "auto !important"
-            }}
         >
             {/*Popup Dialog*/}
             <PathwayDialog

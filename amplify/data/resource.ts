@@ -1,4 +1,4 @@
-import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
+import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -8,49 +8,58 @@ specify that owners, authenticated via your Auth resource can "create",
 authenticated via an API key, can only "read" records.
 =========================================================================*/
 const schema = a.schema({
-    Organization: a.model({
-        name: a.string(),
-        courses: a.hasMany('Course'),
-        pathways: a.hasMany('Pathway'),
-        admins: a.hasMany('User')
-    }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
-    User: a.model({
-        name: a.string(),
-        courses: a.hasMany('Course'),
-        pathways: a.hasMany('Pathway')
-    }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
-    Course: a.model({
-        name: a.string(),
-        code: a.string(),
-        credits: a.integer(),
-        grade: a.string()
-    }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
-    Pathway: a.model({
-        name: a.string(),
-        degree: a.string(),
-        yog: a.string(),
-        institution: a.string(),
-        degreeLevel: a.string(),
-        semesters: a.hasMany('Semester')
-    }).authorization([a.allow.owner(), a.allow.public().to(['read'])]),
-    Semester: a.model({
-        name: a.string(),
-        courses: a.hasMany('Course')
-    }).authorization([a.allow.owner(), a.allow.public().to(['read'])])
+  Organization: a
+    .model({
+      name: a.string(),
+      courses: a.hasMany("Course"),
+      pathways: a.hasMany("Pathway"),
+      admins: a.hasMany("User"),
+    })
+    .authorization([a.allow.owner(), a.allow.public().to(["read"])]),
+  User: a
+    .model({
+      name: a.string(),
+      courses: a.hasMany("Course"),
+      pathways: a.hasMany("Pathway"),
+    })
+    .authorization([a.allow.owner(), a.allow.public().to(["read"])]),
+  Course: a
+    .model({
+      name: a.string(),
+      code: a.string(),
+      credits: a.integer(),
+      grade: a.string(),
+    })
+    .authorization([a.allow.owner(), a.allow.public().to(["read"])]),
+  Pathway: a
+    .model({
+      name: a.string(),
+      degree: a.string(),
+      yog: a.string(),
+      institution: a.string(),
+      degreeLevel: a.string(),
+      semesters: a.hasMany("Semester"),
+    })
+    .authorization([a.allow.owner(), a.allow.public().to(["read"])]),
+  Semester: a
+    .model({
+      name: a.string(),
+      courses: a.hasMany("Course"),
+    })
+    .authorization([a.allow.owner(), a.allow.public().to(["read"])]),
 });
-
 
 export type Schema = ClientSchema<typeof schema>;
 
 export const data = defineData({
-    schema,
-    authorizationModes: {
-        defaultAuthorizationMode: 'apiKey',
-        // API Key is used for a.allow.public() rules
-        apiKeyAuthorizationMode: {
-            expiresInDays: 30,
-        },
+  schema,
+  authorizationModes: {
+    defaultAuthorizationMode: "apiKey",
+    // API Key is used for a.allow.public() rules
+    apiKeyAuthorizationMode: {
+      expiresInDays: 30,
     },
+  },
 });
 
 /*== STEP 2 ===============================================================
