@@ -1,3 +1,4 @@
+
 export interface SemesterType {
   id: string;
   title: string;
@@ -10,3 +11,4 @@ export interface CourseType {
   num: string;
   credits: number;
 }
+

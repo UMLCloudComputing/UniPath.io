@@ -1,14 +1,17 @@
 import { MoreVert } from "@mui/icons-material"
+
 import { TableRow, TableCell, useTheme, Tooltip, IconButton, Box, Divider } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import React from "react"
 import { CourseType } from "../../types/types"
 
 export const Course = ({ data, handleOptionMenuOpen }: { data: CourseType, handleOptionMenuOpen: (e: any) => void }) => {
+
     const theme = useTheme()
 
 
     return (
+
         <Box sx={{ pb: 2 }}>
             <Grid container spacing={1} sx={{
                 minWidth: "100%",
@@ -60,5 +63,6 @@ export const Course = ({ data, handleOptionMenuOpen }: { data: CourseType, handl
             </Grid>
 
         </Box>
+
     )
 }

@@ -1,3 +1,4 @@
+
 import { Droppable } from "@hello-pangea/dnd"
 import { CalendarViewDayOutlined, Delete, MoreVert } from "@mui/icons-material"
 import { Box, Collapse, IconButton, Menu, MenuItem, Tooltip, Typography, useTheme } from "@mui/material"
@@ -12,12 +13,15 @@ import { SemesterType } from "../../types/types"
 
 export const Semester = ({ title, courses, id }: SemesterType) => {
     const theme = useTheme()
+
     const [semesterAnchorEl, setSemesterAnchorEl] = useState(null)
     const semesterOptionsOpen = Boolean(semesterAnchorEl)
     const [courseAnchorEl, setCourseAnchorEl] = useState(null)
     const courseOptionsOpen = Boolean(courseAnchorEl)
     const [expanded, setExpanded] = useState(true)
+
     const [addCourseDialogOpen, setAddCourseDialogOpen] = useState(false)
+
 
 
 
@@ -35,6 +39,7 @@ export const Semester = ({ title, courses, id }: SemesterType) => {
         console.log("Add Semester Clicked")
     }
 
+
     const handleAddCourse = () => {
         setAddCourseDialogOpen(true)
     }
@@ -48,10 +53,13 @@ export const Semester = ({ title, courses, id }: SemesterType) => {
         setCourseAnchorEl(null)
     }
 
+
     // toggle expand Semester
+
     const handleExpandClick = () => {
         setExpanded(!expanded)
     }
+
 
     return (
         <>
@@ -157,5 +165,6 @@ export const Semester = ({ title, courses, id }: SemesterType) => {
             </Grid>
             <AddCourseToSemesterDialog open={addCourseDialogOpen} onClose={() => setAddCourseDialogOpen(false)} semester={{ title, id }} />
         </>
+
     )
 }

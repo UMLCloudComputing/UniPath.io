@@ -185,11 +185,13 @@ const Pathway = ({ params }: { params: { id: string } }) => {
 
         <Box>
 
+
             <Grid container spacing={4} sx={{
                 "--Grid-columnSpacing": "2em",
                 "--Grid-rowSpacing": "0.5em",
                 flexWrap: "nowrap"
             }}>
+
                 <DragDropContext onDragEnd={handleDragAndDrop}>
 
                     {/* code for draggable semesters
@@ -217,6 +219,7 @@ const Pathway = ({ params }: { params: { id: string } }) => {
                 </DragDropContext>
             </Grid>
 
+
             <Tooltip title={"Add Semester"} placement="left">
                 <SpeedDial
                     ariaLabel={"Add Semester"}
@@ -233,9 +236,7 @@ const Pathway = ({ params }: { params: { id: string } }) => {
             </Tooltip>
             <CreateSemesterDialog open={createSemesterDialogOpen} onClose={closeCreateSemesterDialog} create={createSemester} />
         </Box>
-
     )
-
 }
 
 export default Pathway
