@@ -118,9 +118,10 @@ const Pathway = ({ params }: { params: { id: string } }) => {
 
     //crud handlers
     const createSemester = async (title: string) => {
-        const { data, errors } = await client.models.Semester.create({ input: { title } })
-        if (errors) console.error(errors)
-        setSemesters([...semesters, data])
+        console.log("Create semester clicked!")
+        // const { data, errors } = await client.models.Semester.create({ input: { title } })
+        // if (errors) console.error(errors)
+        // setSemesters([...semesters, data])
     }
 
 
