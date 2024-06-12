@@ -10,43 +10,64 @@ authenticated via an API key, can only "read" records.
 const schema = a.schema({
   Organization: a
     .model({
+      id: a.id(),
       name: a.string(),
-      courses: a.hasMany("Course"),
-      pathways: a.hasMany("Pathway"),
-      admins: a.hasMany("User"),
+      location: a.string(),
+      courseCatalog: a.hasOne("Course", "orgId"),
+      users: a.hasMany("User", "orgId"),
     })
-    .authorization([a.allow.owner(), a.allow.public().to(["read"])]),
-  User: a
+    .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
+  CourseCatalog: a
     .model({
-      name: a.string(),
-      courses: a.hasMany("Course"),
-      pathways: a.hasMany("Pathway"),
+      id: a.id(),
+      orgId: a.id(),
+      org: a.belongsTo("Organization", "orgId"),
+      courses: a.hasMany("Course", "orgId"),
     })
-    .authorization([a.allow.owner(), a.allow.public().to(["read"])]),
+    .authorization((allow) => [allow.owner()]),
   Course: a
     .model({
+      id: a.id(),
       name: a.string(),
       code: a.string(),
       credits: a.integer(),
       grade: a.string(),
+      catalogId: a.id(),
+      catalog: a.belongsTo("CourseCatalog", "catalogId"),
     })
-    .authorization([a.allow.owner(), a.allow.public().to(["read"])]),
+    .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
   Pathway: a
     .model({
+      id: a.id(),
       name: a.string(),
       degree: a.string(),
       yog: a.string(),
       institution: a.string(),
       degreeLevel: a.string(),
-      semesters: a.hasMany("Semester"),
+      userId: a.id(),
+      user: a.belongsTo("User", "userId"),
+      semesters: a.hasMany("Semester", "pathwayId"),
     })
-    .authorization([a.allow.owner(), a.allow.public().to(["read"])]),
+    .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
+  Class: a
+    .model({
+      id: a.id(),
+      name: a.string(),
+      code: a.string(),
+      credits: a.integer(),
+      grade: a.string(),
+      semesterId: a.id(),
+      org: a.belongsTo("Semester", "semesterId"),
+    })
+    .authorization((allow) => allow.owner()),
   Semester: a
     .model({
       name: a.string(),
-      courses: a.hasMany("Course"),
+      classes: a.hasMany("Class", "semesterId"),
+      pathwayId: a.id(),
+      pathway: a.belongsTo("Pathway", "pathwayId"),
     })
-    .authorization([a.allow.owner(), a.allow.public().to(["read"])]),
+    .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
 });
 
 export type Schema = ClientSchema<typeof schema>;

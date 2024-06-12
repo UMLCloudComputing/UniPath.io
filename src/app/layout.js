@@ -13,13 +13,11 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 
 // Local
-import ConfigureAmplifyClientSide from "@/components/ConfigureAmplify";
 import { darkTheme, lightTheme } from "@/components/theme";
 import { ThemeContext, ThemeContextProvider } from "@/contexts/ThemeContext";
-import { DragDropContext } from "@hello-pangea/dnd";
+import outputs from "MAIN/amplify_outputs.json"
 import { Amplify } from "aws-amplify";
 
-import outputs from "../../amplifyconfiguration.json";
 
 // MainApp is the main high-level layout component that wraps around other components in this application.
 const MainApp = ({ children }) => {
@@ -53,7 +51,6 @@ export default function RootLayout({ children }) {
 
             >
                 <AppRouterCacheProvider>
-                    <ConfigureAmplifyClientSide />
                     <ThemeContextProvider>
 
                         <MainApp>

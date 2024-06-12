@@ -10,11 +10,12 @@
     "dev-https": "next dev --experimental-https"
   },
   "dependencies": {
-    "@aws-amplify/adapter-nextjs": "^1.0.21",
-    "@aws-amplify/cli": "^12.7.1",
+    "@aws-amplify/adapter-nextjs": "^1.2.4",
+    "@aws-amplify/backend": "^1.0.3",
+    "@aws-amplify/backend-cli": "^1.0.4",
+    "@aws-amplify/cli": "^12.12.2",
+    "@aws-amplify/data-schema-types": "^1.0.1",
     "@aws-amplify/ui-react": "^6.0.3",
-    "@dnd-kit/core": "^6.1.0",
-    "@dnd-kit/sortable": "^8.0.0",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
@@ -22,7 +23,7 @@
     "@mui/icons-material": "^5.14.18",
     "@mui/material": "^5.14.18",
     "@mui/material-nextjs": "^5.15.7",
-    "aws-amplify": "^6.0.13",
+    "aws-amplify": "^6.3.6",
     "mui-nested-menu": "^3.3.0",
     "next": "latest",
     "react": "latest",
@@ -30,8 +31,7 @@
     "react-dom": "latest"
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^0.10.3",
-    "@aws-amplify/backend-cli": "^0.10.0",
+    "@types/aws-lambda": "^8.10.138",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-beautiful-dnd": "^13.1.8",

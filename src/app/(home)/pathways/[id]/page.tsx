@@ -5,10 +5,9 @@ import React, { createContext, useEffect, useState } from 'react'
 import Grid from '@mui/material/Unstable_Grid2'
 import { DragDropContext, DropResult, Droppable, OnDragEndResponder } from '@hello-pangea/dnd'
 import { DraggableSemester } from '../../../../components/Semester/DraggableSemester'
-import { DragEndEvent } from '@dnd-kit/core'
 import { Semester } from '../../../../components/Semester/Semester'
 import { generateClient } from 'aws-amplify/data'
-import type { Schema } from '../../../../../amplify/data/resource'
+import type { Schema } from 'AMPLIFY/data/resource'
 
 import { CreateSemesterDialog } from '../../../../components/Dialogs/CreateSemesterDialog'
 import { SemesterType } from '../../../../types/types'
@@ -86,26 +85,26 @@ const testingSemesters: SemesterType[] = [
 
 
 const Pathway = ({ params }: { params: { id: string } }) => {
-
+    type AmplifySemesterType = Schema["Semester"]["type"]
     const theme = useTheme()
     //state
-    const [semesters, setSemesters] = useState<SemesterType[]>(testingSemesters)
+    const [semesters, setSemesters] = useState<AmplifySemesterType[]>([])
     const [loading, setLoading] = useState(false)
     const [createSemesterDialogOpen, setCreateSemesterDialogOpen] = useState(false)
 
 
     // data fetching
-    // const client = generateClient<Schema>({ authMode: "userPool" })
-    // const fetchSemesters = async () => {
-    //     const { data, errors } = await client.models.Semester.list()
-    //     if (errors) console.error(errors)
-    //     setSemesters(data)
-    // }
-    // useEffect(() => {
-    //     setLoading(true)
-    //     fetchSemesters()
-    //     setLoading(false)
-    // }, [])
+    const client = generateClient<Schema>({ authMode: "userPool" })
+    const fetchSemesters = async () => {
+        const { data, errors } = await client.models.Semester.list()
+        if (errors) console.error(errors)
+        setSemesters(data)
+    }
+    useEffect(() => {
+        setLoading(true)
+        fetchSemesters()
+        setLoading(false)
+    }, [])
 
     //interact handlers
     const openCreateSemesterDialog = () => {
