@@ -13,8 +13,7 @@ const schema = a.schema({
       id: a.id(),
       name: a.string(),
       location: a.string(),
-      courseCatalog: a.hasOne("Course", "orgId"),
-      users: a.hasMany("User", "orgId"),
+      courseCatalog: a.hasOne("CourseCatalog", "orgId"),
     })
     .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
   CourseCatalog: a
@@ -22,7 +21,7 @@ const schema = a.schema({
       id: a.id(),
       orgId: a.id(),
       org: a.belongsTo("Organization", "orgId"),
-      courses: a.hasMany("Course", "orgId"),
+      courses: a.hasMany("Course", "catalogId"),
     })
     .authorization((allow) => [allow.owner()]),
   Course: a
@@ -45,7 +44,6 @@ const schema = a.schema({
       institution: a.string(),
       degreeLevel: a.string(),
       userId: a.id(),
-      user: a.belongsTo("User", "userId"),
       semesters: a.hasMany("Semester", "pathwayId"),
     })
     .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
