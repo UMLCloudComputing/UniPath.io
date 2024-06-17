@@ -19,7 +19,7 @@ import { ThemeContext, ThemeContextProvider } from "@/contexts/ThemeContext";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { Amplify } from "aws-amplify";
 
-import outputs from "../../amplifyconfiguration.json";
+import outputs from "../../amplify_outputs.json";
 
 // MainApp is the main high-level layout component that wraps around other components in this application.
 const MainApp = ({ children }) => {
