@@ -28,8 +28,8 @@ jobs:
       env:
         CI: true
 
-    - name: Create dummy amplifyconfiguration.json file
-      run: echo "{}" > amplifyconfiguration.json
+    - name: Create dummy amplify_outputs.json file
+      run: echo "{}" > amplify_outputs.json
 
     - name: Run build
       run: npm run build
