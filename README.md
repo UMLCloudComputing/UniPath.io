@@ -138,7 +138,7 @@ To run the application locally, you need to run the Amplify sandbox command to c
 Start the Amplify sandbox command. This will provision the AWS backend resources. Keep this command running in the background.
 
 ```sh
-npx amplify sandbox
+npx ampx sandbox
 ```
 
 Open a new terminal and start the frontend application:
