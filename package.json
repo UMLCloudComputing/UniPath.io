@@ -29,7 +29,6 @@
     "mui-nested-menu": "^3.3.0",
     "next": "latest",
     "react": "latest",
-    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "latest"
   },
   "devDependencies": {
