@@ -2,7 +2,7 @@ import {generateClient} from "aws-amplify/data";
 import {NextResponse} from "next/server";
 import {fetchAuthSession, getCurrentUser} from "aws-amplify/auth";
 import {generateServerClientUsingCookies} from "@aws-amplify/adapter-nextjs/api";
-import amplifyConfig from "MAIN/amplifyconfiguration.json" assert {type: "json"};
+import amplifyConfig from "MAIN/amplify_outputs.json" assert {type: "json"};
 import {cookies} from "next/headers";
 import {cookieBasedClient} from "@/utils/amplifyServerUtils";
 

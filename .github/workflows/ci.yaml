@@ -45,6 +45,6 @@ jobs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: `Build check completed! View branch preview: ${previewUrl}`
+            body: `Build check completed! View branch preview here: ${previewUrl}. Please allow 10-15 minutes for the preview to be deployed. Deployment errors will not be shown here.`
           })
 

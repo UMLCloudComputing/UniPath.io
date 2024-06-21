@@ -1,5 +1,5 @@
 import {createServerRunner} from "@aws-amplify/adapter-nextjs";
-import config from "MAIN/amplifyconfiguration.json";
+import config from "MAIN//amplify_outputs.json";
 import {generateServerClientUsingCookies} from "@aws-amplify/adapter-nextjs/api";
 import {cookies} from "next/headers";
 
