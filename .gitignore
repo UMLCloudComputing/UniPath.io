@@ -64,3 +64,5 @@ amplifytools.xcconfig
 amplifyconfiguration*
 
 certificates
+
+amplify_outputs*
