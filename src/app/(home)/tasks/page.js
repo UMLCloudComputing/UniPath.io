@@ -19,6 +19,8 @@ import { initialData } from '@/components/Data/initialData';
 
 // Assuming DragDropContext will be used later
 import { DragDropContext } from '@hello-pangea/dnd';
+import TaskHeaderCard from "../../../components/Cards/TaskHeaderCard";
+import TaskCard from "../../../components/Cards/TaskCard";
 
 export default function Lists() {
     // State management
@@ -34,31 +36,8 @@ export default function Lists() {
 
     return (
         <>
-            {data.columnOrder.map((columnId) => {
-                const column = data.columns[columnId];
-                const tasks = column.tasksIds.map((taskId) => data.tasks[taskId]);
-                const title = column.title;
-
-                return (
-                    <Box key={columnId} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                        <TaskDialog open={open} handleClose={handleTaskDialogClose} />
-                        <Typography variant="h4">{title}</Typography>
-                        <Column tasks={tasks} title={title} />
-                        <IconButton
-                            onClick={handlePlusClick}
-                            sx={{
-                                position: 'fixed',
-                                bottom: '4%',
-                                right: '4%',
-                                fontSize: '40px',
-                                color: theme.palette.primary.main,
-                            }}
-                        >
-                            <AddCircleOutlineIcon />
-                        </IconButton>
-                    </Box>
-                );
-            })}
+            <TaskHeaderCard />
+            <TaskCard />
         </>
     );
 }

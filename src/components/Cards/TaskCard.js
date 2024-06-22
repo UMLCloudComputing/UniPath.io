@@ -32,7 +32,7 @@ export default function TaskCard ()
                     </div>
 
                     <div style={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
-                        <Button sx={{textTransform:'inherit', width:'100%', justifyContent:'left', borderRadius:'20px', color:'gray'}}>
+                        <Button sx={{ textTransform: 'inherit', width: '100%', justifyContent: 'left', borderRadius: '20px', '&:hover': { backgroundColor: '#d3d3d3' }, '&:active': { backgroundColor: '#d3d3d3' } }}>
                             <CalendarMonthIcon sx={{ color: 'gray' }} />
                             <Typography variant="body1" color="GrayText" sx={{ marginLeft: '1%' }}>
                                 Date/time

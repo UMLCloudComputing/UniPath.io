@@ -13,11 +13,12 @@ import Tooltip from '@mui/material/Tooltip';
 // React
 import React from 'react';
 
-export default function TaskHeaderCard() {
+export default function TaskHeaderCard ()
+{
     return (
         <>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Card sx={{ width: '50%', borderTopRightRadius: '20px', borderTopLeftRadius: '20px' }}>
+                <Card sx={{ width: '50%', borderTopRightRadius: '20px', borderTopLeftRadius: '20px', borderBottomRightRadius: '0px', borderBottomLeftRadius: '0px' }}>
                     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left' }}>
                         <Typography variant='h4' sx={{ marginLeft: '2%' }}>
                             My Tasks
