@@ -9,12 +9,43 @@ import Button from '@mui/material/Button';
 import MoreVertOutlined from '@mui/icons-material/MoreVertOutlined';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 // React
 import React from 'react';
+import { useState } from 'react';
 
-export default function TaskHeaderCard ()
-{
+export default function TaskHeaderCard() {
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const taskHeaderOptionsOpen = Boolean(anchorEl);
+
+    const handleTaskHeaderOptionsClose = () => setAnchorEl(null);
+    const handleTaskHeaderOptionsOpen = (event) => setAnchorEl(event.currentTarget);
+
+    const TaskHeaderOptionsMenu = (
+        <Menu
+            anchorEl={anchorEl}
+            open={taskHeaderOptionsOpen}
+            onClose={handleTaskHeaderOptionsClose}
+            anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+            }}
+
+            keepMounted
+            transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+            }}
+        >
+            <MenuItem>
+                Delete all tasks
+            </MenuItem>
+        </Menu>
+    )
+
     return (
         <>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -24,11 +55,12 @@ export default function TaskHeaderCard ()
                             My Tasks
                         </Typography>
 
-                        <IconButton sx={{ marginLeft: 'auto', marginRight: '2%', top: '3px', position: 'relative' }}>
+                        <IconButton sx={{ marginLeft: 'auto', marginRight: '2%', top: '3px', position: 'relative' }} onClick={handleTaskHeaderOptionsOpen}>
                             <Tooltip title='More options' arrow>
                                 <MoreVertOutlined />
                             </Tooltip>
                         </IconButton>
+                        {TaskHeaderOptionsMenu}
                     </div>
 
                     <CardActions sx={{ width: '100%' }}>

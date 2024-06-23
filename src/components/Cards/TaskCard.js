@@ -11,18 +11,45 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import MoreVertOutlined from "@mui/icons-material/MoreVertOutlined";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 
 //React
 import React, { useState } from 'react';
 
-export default function TaskCard ()
-{
+export default function TaskCard() {
 
     const [isHovering, setIsHovering] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const taskOptionsOpen = Boolean(anchorEl);
 
     const handleMouseOver = () => setIsHovering(true);
     const handleMouseLeave = () => setIsHovering(false);
+    const handleTaskOptionsClose = () => setAnchorEl(null);
+    const handleTaskOptionsOpen = (event) => setAnchorEl(event.currentTarget);
+
+    const TaskOptionsMenu = (
+        <Menu
+            anchorEl={anchorEl}
+            open={taskOptionsOpen}
+            onClose={handleTaskOptionsClose}
+            anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+            }}
+
+            keepMounted
+            transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+            }}
+        >
+            <MenuItem>
+                Delete
+            </MenuItem>
+        </Menu>
+    )
 
     return (
         <>
@@ -35,11 +62,14 @@ export default function TaskCard ()
                         <TextField placeholder='Title' variant='standard' sx={{ width: '100%' }} InputProps={{ disableUnderline: 'true' }} />
                         {
                             (isHovering) ?
-                                <IconButton sx={{ marginLeft: 'auto', marginRight: '1%' }} size="small">
-                                    <Tooltip title='More options' arrow>
-                                        <MoreVertOutlined />
-                                    </Tooltip>
-                                </IconButton>
+                                <>
+                                    <IconButton sx={{ marginLeft: 'auto', marginRight: '1%' }} size="small" onClick={handleTaskOptionsOpen}>
+                                        <Tooltip title='More options' arrow>
+                                            <MoreVertOutlined />
+                                        </Tooltip>
+                                    </IconButton>
+                                    {TaskOptionsMenu}
+                                </>
                                 :
                                 <></>
                         }
