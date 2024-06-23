@@ -24,7 +24,7 @@ export default function TaskHeaderCard ()
                             My Tasks
                         </Typography>
 
-                        <IconButton style={{ marginLeft: 'auto', marginRight: '2%', top: '3px', position: 'relative' }}>
+                        <IconButton sx={{ marginLeft: 'auto', marginRight: '2%', top: '3px', position: 'relative' }}>
                             <Tooltip title='More options' arrow>
                                 <MoreVertOutlined />
                             </Tooltip>

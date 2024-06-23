@@ -7,13 +7,22 @@ import NotesIcon from '@mui/icons-material/Notes';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import MoreVertOutlined from "@mui/icons-material/MoreVertOutlined";
 
 
 //React
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function TaskCard ()
 {
+
+    const [isHovering, setIsHovering] = useState(false);
+
+    const handleMouseOver = () => setIsHovering(true);
+    const handleMouseLeave = () => setIsHovering(false);
 
     return (
         <>
@@ -21,9 +30,20 @@ export default function TaskCard ()
 
                 <Card sx={{ width: '50%', borderRadius: '0px' }}>
 
-                    <div style={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
+                    <div style={{ justifyContent: 'left', display: 'flex', alignItems: 'center', flexDirection: 'row' }} onMouseEnter={handleMouseOver} onMouseLeave={handleMouseLeave}>
                         <Radio size='small' />
                         <TextField placeholder='Title' variant='standard' sx={{ width: '100%' }} InputProps={{ disableUnderline: 'true' }} />
+                        {
+                            (isHovering) ?
+                                <IconButton sx={{ marginLeft: 'auto', marginRight: '1%' }} size="small">
+                                    <Tooltip title='More options' arrow>
+                                        <MoreVertOutlined />
+                                    </Tooltip>
+                                </IconButton>
+                                :
+                                <></>
+                        }
+
                     </div>
 
                     <div style={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
@@ -32,7 +52,7 @@ export default function TaskCard ()
                     </div>
 
                     <div style={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
-                        <Button sx={{ textTransform: 'inherit', width: '100%', justifyContent: 'left', borderRadius: '20px', '&:hover': { backgroundColor: '#d3d3d3' }, '&:active': { backgroundColor: '#d3d3d3' } }}>
+                        <Button sx={{ textTransform: 'inherit', width: '100%', justifyContent: 'left', borderRadius: '20px', '&:hover': { backgroundColor: '#d3d3d3' }, '&& .MuiTouchRipple-rippleVisible': { color: 'gray' } }}>
                             <CalendarMonthIcon sx={{ color: 'gray' }} />
                             <Typography variant="body1" color="GrayText" sx={{ marginLeft: '1%' }}>
                                 Date/time
