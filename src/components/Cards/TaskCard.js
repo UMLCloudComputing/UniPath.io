@@ -18,7 +18,8 @@ import MenuItem from "@mui/material/MenuItem";
 //React
 import React, { useState } from 'react';
 
-export default function TaskCard() {
+export default function TaskCard ({ task })
+{
 
     const [isHovering, setIsHovering] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -28,6 +29,8 @@ export default function TaskCard() {
     const handleMouseLeave = () => setIsHovering(false);
     const handleTaskOptionsClose = () => setAnchorEl(null);
     const handleTaskOptionsOpen = (event) => setAnchorEl(event.currentTarget);
+
+    const { title, details, date, important, checked } = task;
 
     const TaskOptionsMenu = (
         <Menu
@@ -53,13 +56,13 @@ export default function TaskCard() {
 
     return (
         <>
-            <div style={{ justifyContent: 'center', display: 'flex' }}>
+            <Box sx={{ justifyContent: 'center', display: 'flex' }}>
 
                 <Card sx={{ width: '50%', borderRadius: '0px' }}>
 
-                    <div style={{ justifyContent: 'left', display: 'flex', alignItems: 'center', flexDirection: 'row' }} onMouseEnter={handleMouseOver} onMouseLeave={handleMouseLeave}>
+                    <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center', flexDirection: 'row' }} onMouseEnter={handleMouseOver} onMouseLeave={handleMouseLeave}>
                         <Radio size='small' />
-                        <TextField placeholder='Title' variant='standard' sx={{ width: '100%' }} InputProps={{ disableUnderline: 'true' }} />
+                        <TextField placeholder='Title' variant='standard' sx={{ width: '100%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={title} />
                         {
                             (isHovering) ?
                                 <>
@@ -74,23 +77,23 @@ export default function TaskCard() {
                                 <></>
                         }
 
-                    </div>
+                    </Box>
 
-                    <div style={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
+                    <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
                         <NotesIcon sx={{ marginLeft: '1.1%' }} />
-                        <TextField placeholder='Details' variant='standard' sx={{ width: '100%', marginLeft: '1%' }} InputProps={{ disableUnderline: 'true' }} />
-                    </div>
+                        <TextField placeholder='Details' variant='standard' sx={{ width: '100%', marginLeft: '1%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={details} />
+                    </Box>
 
-                    <div style={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
+                    <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
                         <Button sx={{ textTransform: 'inherit', width: '100%', justifyContent: 'left', borderRadius: '20px', '&:hover': { backgroundColor: '#d3d3d3' }, '&& .MuiTouchRipple-rippleVisible': { color: 'gray' } }}>
                             <CalendarMonthIcon sx={{ color: 'gray' }} />
                             <Typography variant="body1" color="GrayText" sx={{ marginLeft: '1%' }}>
-                                Date/time
+                                {date}
                             </Typography>
                         </Button>
-                    </div>
+                    </Box>
                 </Card>
-            </div>
+            </Box>
         </>
     );
 }
