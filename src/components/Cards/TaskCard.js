@@ -18,7 +18,7 @@ import MenuItem from "@mui/material/MenuItem";
 //React
 import React, { useState } from 'react';
 
-export default function TaskCard ({ task })
+export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
 {
 
     const [isHovering, setIsHovering] = useState(false);
@@ -48,7 +48,7 @@ export default function TaskCard ({ task })
                 horizontal: "right",
             }}
         >
-            <MenuItem>
+            <MenuItem onClick={onDeleteClick}>
                 Delete
             </MenuItem>
         </Menu>
@@ -58,7 +58,7 @@ export default function TaskCard ({ task })
         <>
             <Box sx={{ justifyContent: 'center', display: 'flex' }}>
 
-                <Card sx={{ width: '50%', borderRadius: '0px' }}>
+                <Card sx={{ width: '50%', borderRadius: '0px', borderBottomRightRadius: borderBottomRadius, borderBottomLeftRadius: borderBottomRadius }}>
 
                     <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center', flexDirection: 'row' }} onMouseEnter={handleMouseOver} onMouseLeave={handleMouseLeave}>
                         <Radio size='small' />

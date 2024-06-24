@@ -17,7 +17,7 @@ import { DragDropContext } from '@hello-pangea/dnd';
 import TaskHeaderCard from "../../../components/Cards/TaskHeaderCard";
 import TaskCard from "../../../components/Cards/TaskCard";
 
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 
 export default function Lists ()
 {
@@ -27,15 +27,23 @@ export default function Lists ()
     // Use theme from Material UI
     const theme = useTheme();
 
+    const handleTaskDelete = (id) =>
+    {
+        setTasks(tasks.filter((t) => t.id !== id));
+        console.log('deleted');
+    }
+
     return (
         <>
             <TaskHeaderCard />
             <Box>
                 {
-                    initialTasks.map((t) =>
+                    tasks.map((t, index) =>
                     {
                         return (
-                            <TaskCard key={t.id} task={t} />
+                            (index === tasks.length - 1) ?
+                                <TaskCard key={t.id} task={t} borderBottomRadius={'20px'} onDeleteClick={() => handleTaskDelete(t.id)} />
+                                : <TaskCard key={t.id} task={t} onDeleteClick={() => handleTaskDelete(t.id)} />
                         )
                     })
                 }
