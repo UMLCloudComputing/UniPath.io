@@ -9,9 +9,10 @@ import { DraggableCourse } from "./DraggableCourse"
 import { SemesterFooter } from "./SemesterFooter"
 import { SemesterHeader } from "./SemesterHeader"
 import { AddCourseToSemesterDialog } from "../Dialogs/AddCourseToSemesterDialog"
-import { SemesterType } from "../../types/types"
+import { Schema } from "MAIN/amplify/data/resource"
+import { SemesterComponentProps } from "@/types/types"
 
-export const Semester = ({ title, courses, id }: SemesterType) => {
+export const Semester = ({ title, classes, id }: SemesterComponentProps) => {
     const theme = useTheme()
 
     const [semesterAnchorEl, setSemesterAnchorEl] = useState(null)
@@ -130,7 +131,7 @@ export const Semester = ({ title, courses, id }: SemesterType) => {
                                                 {...provided.droppableProps}
                                             >
                                                 {
-                                                    courses.map((c, i) => (
+                                                    classes.map((c, i) => (
                                                         <DraggableCourse key={c.id} data={c} handleOptionMenuOpen={handleCourseOptionsMenuClick} index={i} />
                                                     ))
                                                 }
@@ -141,7 +142,7 @@ export const Semester = ({ title, courses, id }: SemesterType) => {
 
                                 </Droppable>
                             </Box>
-                            <SemesterFooter handleAddCourse={handleAddCourse} totalCreds={courses.reduce((acc, course) => acc + course.credits, 0)} />
+                            <SemesterFooter handleAddCourse={handleAddCourse} totalCreds={classes.reduce((acc, course) => acc + course.credits, 0)} />
                         </Box>
 
                     </Collapse>

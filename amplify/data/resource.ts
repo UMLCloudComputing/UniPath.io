@@ -15,7 +15,13 @@ const schema = a.schema({
       location: a.string(),
       courseCatalog: a.hasOne("CourseCatalog", "orgId"),
     })
-    .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
+    .authorization((allow) => [
+      allow.owner(),
+      allow.guest().to(["read"]),
+      allow
+        .groups(["ADMIN", "OWNER"])
+        .to(["create", "update", "delete", "read"]),
+    ]),
   CourseCatalog: a
     .model({
       id: a.id(),
@@ -23,7 +29,7 @@ const schema = a.schema({
       org: a.belongsTo("Organization", "orgId"),
       courses: a.hasMany("Course", "catalogId"),
     })
-    .authorization((allow) => [allow.owner()]),
+    .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
   Course: a
     .model({
       id: a.id(),
@@ -44,6 +50,7 @@ const schema = a.schema({
       institution: a.string(),
       degreeLevel: a.string(),
       userId: a.id(),
+      user: a.belongsTo("User", "userId"),
       semesters: a.hasMany("Semester", "pathwayId"),
     })
     .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
@@ -66,6 +73,14 @@ const schema = a.schema({
       pathway: a.belongsTo("Pathway", "pathwayId"),
     })
     .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
+  User: a
+    .model({
+      id: a.id(),
+      email: a.string(),
+      name: a.string(),
+      pathways: a.hasMany("Pathway", "userId"),
+    })
+    .authorization((allow) => [allow.owner(), allow.group("ADMIN")]),
 });
 
 export type Schema = ClientSchema<typeof schema>;

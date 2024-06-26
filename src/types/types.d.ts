@@ -1,14 +1,7 @@
+import { Schema } from "MAIN/amplify/data/resource";
 
-export interface SemesterType {
+export interface SemesterComponentProps {
   id: string;
   title: string;
-  courses: CourseType[];
+  classes: Schema["Class"]["type"][];
 }
-
-export interface CourseType {
-  id: string;
-  name: string;
-  num: string;
-  credits: number;
-}
-
