@@ -32,7 +32,7 @@ export const initialTasks = [
         title: "finish homework",
         details: "finish it by 11:59pm",
         date: "June 23, 2024",
-        important: true,
+        important: false,
         done: false
     },
     {
@@ -72,7 +72,7 @@ export const initialTasks = [
         title: "Tasks",
         details: "finish them",
         date: "June 23, 2024",
-        important: true,
+        important: false,
         done: false
     },
     {
@@ -80,7 +80,7 @@ export const initialTasks = [
         title: "Tasks",
         details: "finish them",
         date: "June 23, 2024",
-        important: true,
+        important: false,
         done: false
     },
     {
@@ -96,7 +96,7 @@ export const initialTasks = [
         title: "Tasks",
         details: "finish them",
         date: "June 23, 2024",
-        important: true,
+        important: false,
         done: false
     }
 ]

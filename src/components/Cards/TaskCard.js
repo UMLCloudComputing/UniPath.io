@@ -13,24 +13,29 @@ import Tooltip from "@mui/material/Tooltip";
 import MoreVertOutlined from "@mui/icons-material/MoreVertOutlined";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
 
 //React
 import React, { useState } from 'react';
+import { Star } from "@mui/icons-material";
 
 export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
 {
 
+    const { title, details, date, important, checked } = task;
+
     const [isHovering, setIsHovering] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [isImportant, setIsImportant] = useState(important);
     const taskOptionsOpen = Boolean(anchorEl);
 
     const handleMouseOver = () => setIsHovering(true);
     const handleMouseLeave = () => setIsHovering(false);
     const handleTaskOptionsClose = () => setAnchorEl(null);
     const handleTaskOptionsOpen = (event) => setAnchorEl(event.currentTarget);
+    const handleImportantIconClick = () => setIsImportant(!isImportant);
 
-    const { title, details, date, important, checked } = task;
 
     const TaskOptionsMenu = (
         <Menu
@@ -66,9 +71,14 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
                         {
                             (isHovering) ?
                                 <>
-                                    <IconButton sx={{ marginLeft: 'auto', marginRight: '1%' }} size="small" onClick={handleTaskOptionsOpen}>
+                                    <IconButton sx={{ marginLeft: 'auto', marginRight: '-1%' }} size="small" onClick={handleTaskOptionsOpen}>
                                         <Tooltip title='More options' arrow>
                                             <MoreVertOutlined />
+                                        </Tooltip>
+                                    </IconButton>
+                                    <IconButton sx={{ marginLeft: 'auto', marginRight: '1%' }} size="small" onClick={handleImportantIconClick}>
+                                        <Tooltip title='Mark as important' arrow>
+                                            {isImportant ? <Star sx={{ color: '#FFFF00' }} /> : <StarOutlineIcon />}
                                         </Tooltip>
                                     </IconButton>
                                     {TaskOptionsMenu}

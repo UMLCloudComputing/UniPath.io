@@ -48,9 +48,9 @@ export default function TaskHeaderCard() {
 
     return (
         <>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <Card sx={{ width: '50%', borderTopRightRadius: '20px', borderTopLeftRadius: '20px', borderBottomRightRadius: '0px', borderBottomLeftRadius: '0px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'left' }}>
                         <Typography variant='h4' sx={{ marginLeft: '2%' }}>
                             My Tasks
                         </Typography>
@@ -61,7 +61,7 @@ export default function TaskHeaderCard() {
                             </Tooltip>
                         </IconButton>
                         {TaskHeaderOptionsMenu}
-                    </div>
+                    </Box>
 
                     <CardActions sx={{ width: '100%' }}>
                         <Button sx={{ textTransform: 'inherit', width: '100%', justifyContent: 'left', borderRadius: '20px', }}>
@@ -74,7 +74,7 @@ export default function TaskHeaderCard() {
                     </CardActions>
 
                 </Card>
-            </div>
+            </Box>
         </>
     );
 }
