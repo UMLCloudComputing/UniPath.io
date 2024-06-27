@@ -14,11 +14,11 @@ import MoreVertOutlined from "@mui/icons-material/MoreVertOutlined";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
-
+import { Star } from "@mui/icons-material";
 
 //React
 import React, { useState } from 'react';
-import { Star } from "@mui/icons-material";
+
 
 export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
 {
