@@ -18,6 +18,7 @@ import { Star } from "@mui/icons-material";
 
 //React
 import React, { useState } from 'react';
+import DatePickerDialog from "../Dialogs/DatePickerDialog";
 
 
 export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
@@ -28,6 +29,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
     const [isHovering, setIsHovering] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [isImportant, setIsImportant] = useState(important);
+    const [openCalendarDialog, setOpenCalendarDialog] = useState(false);
     const taskOptionsOpen = Boolean(anchorEl);
 
     const handleMouseOver = () => setIsHovering(true);
@@ -35,6 +37,8 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
     const handleTaskOptionsClose = () => setAnchorEl(null);
     const handleTaskOptionsOpen = (event) => setAnchorEl(event.currentTarget);
     const handleImportantIconClick = () => setIsImportant(!isImportant);
+    const handleDateIconClick = () => setOpenCalendarDialog(true);
+    const handleCloseDialog = () => setOpenCalendarDialog(false);
 
 
     const TaskOptionsMenu = (
@@ -95,7 +99,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
                     </Box>
 
                     <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
-                        <Button sx={{ textTransform: 'inherit', width: '100%', justifyContent: 'left', borderRadius: '20px', '&:hover': { backgroundColor: '#d3d3d3' }, '&& .MuiTouchRipple-rippleVisible': { color: 'gray' } }}>
+                        <Button onClick={handleDateIconClick} sx={{ textTransform: 'inherit', width: '100%', justifyContent: 'left', borderRadius: '20px', '&:hover': { backgroundColor: '#d3d3d3' }, '&& .MuiTouchRipple-rippleVisible': { color: 'gray' } }}>
                             <CalendarMonthIcon sx={{ color: 'gray' }} />
                             <Typography variant="body1" color="GrayText" sx={{ marginLeft: '1%' }}>
                                 {date}
@@ -103,6 +107,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
                         </Button>
                     </Box>
                 </Card>
+                <DatePickerDialog openCalendarDialog={openCalendarDialog} onClose={handleCloseDialog} />
             </Box>
         </>
     );
