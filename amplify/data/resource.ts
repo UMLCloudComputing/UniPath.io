@@ -1,5 +1,5 @@
-import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
-import { User } from 'aws-cdk-lib/aws-iam';
+import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+import { User } from "aws-cdk-lib/aws-iam";
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -10,69 +10,77 @@ and "delete" any "Todo" records.
 const schema = a.schema({
   Organization: a
     .model({
-      OrganizationId: a.id(),
+      id: a.id(),
       name: a.string(),
-      courses: a.hasMany("Course", "organizationId"),
-      pathways: a.hasMany("Pathway", "organizationId"),
-      admins: a.hasMany("User", "organizationId"),
+      location: a.string(),
+      courseCatalog: a.hasOne("CourseCatalog", "orgId"),
     })
-    .authorization((allow) => [allow.guest()]),
-  User: a
+    .authorization((allow) => [
+      allow.owner(),
+      allow.guest().to(["read"]),
+      allow
+        .groups(["ADMIN", "OWNER"])
+        .to(["create", "update", "delete", "read"]),
+    ]),
+  CourseCatalog: a
     .model({
-      UserId: a.id(),
-      name: a.string(),
-      organizationId: a.id(),
-      organization: a.belongsTo("Organization", "organizationId"),
-      courses: a.hasMany("Course", "userId"),
-      pathways: a.hasMany("Pathway", "userId"),
+      id: a.id(),
+      orgId: a.id(),
+      org: a.belongsTo("Organization", "orgId"),
+      courses: a.hasMany("Course", "catalogId"),
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
   Course: a
     .model({
-      CourseId: a.id(),
+      id: a.id(),
       name: a.string(),
       code: a.string(),
       credits: a.integer(),
       grade: a.string(),
-      organizationId: a.id(),
-      organization: a.belongsTo("Organization", "organizationId"),
-      userId: a.id(),
-      user: a.belongsTo("User", "userId"),
-      semesterId: a.id(),
-      semester: a.belongsTo("Semester", "semesterId"),
+      catalogId: a.id(),
+      catalog: a.belongsTo("CourseCatalog", "catalogId"),
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
   Pathway: a
     .model({
-      PathwayId: a.id(),
+      id: a.id(),
       name: a.string(),
       degree: a.string(),
       yog: a.string(),
       institution: a.string(),
       degreeLevel: a.string(),
-      organizationId: a.id(),
-      organization: a.belongsTo("Organization", "organizationId"),
       userId: a.id(),
       user: a.belongsTo("User", "userId"),
       semesters: a.hasMany("Semester", "pathwayId"),
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
+  Class: a
+    .model({
+      id: a.id(),
+      name: a.string(),
+      code: a.string(),
+      credits: a.integer(),
+      grade: a.string(),
+      semesterId: a.id(),
+      org: a.belongsTo("Semester", "semesterId"),
+    })
+    .authorization((allow) => allow.owner()),
   Semester: a
     .model({
-      SemesterId: a.id(),
       name: a.string(),
+      classes: a.hasMany("Class", "semesterId"),
       pathwayId: a.id(),
       pathway: a.belongsTo("Pathway", "pathwayId"),
-      courses: a.hasMany("Course", "semesterId"),
     })
-    .authorization((allow) => [allow.guest()]),
-
-  // Orginal Example
-  // Todo: a
-  //   .model({
-  //     content: a.string(),
-  //   })
-  //   .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
+  User: a
+    .model({
+      id: a.id(),
+      email: a.string(),
+      name: a.string(),
+      pathways: a.hasMany("Pathway", "userId"),
+    })
+    .authorization((allow) => [allow.owner(), allow.group("ADMIN")]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -80,7 +88,7 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'iam',
+    defaultAuthorizationMode: "iam",
   },
 });
 
