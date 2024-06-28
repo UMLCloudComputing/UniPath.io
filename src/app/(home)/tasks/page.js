@@ -18,6 +18,7 @@ import TaskHeaderCard from "../../../components/Cards/TaskHeaderCard";
 import TaskCard from "../../../components/Cards/TaskCard";
 
 import { Box } from "@mui/material";
+import DatePickerDialog from "@/components/Dialogs/DatePickerDialog";
 
 export default function Lists ()
 {
@@ -48,6 +49,7 @@ export default function Lists ()
                     })
                 }
             </Box>
+            <DatePickerDialog />
         </>
     );
 }
