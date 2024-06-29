@@ -34,9 +34,23 @@ export default function Lists ()
         console.log('deleted');
     }
 
+    const handleTaskAddClick = () =>
+    {
+        newTask = {
+            id: tasks.length,
+            title: "",
+            details: "",
+            date: "",
+            important: false,
+            done: false
+        };
+        setTasks([...tasks, newTask]);
+        console.log('added a task');
+    }
+
     return (
         <>
-            <TaskHeaderCard />
+            <TaskHeaderCard handleAddTask={handleTaskAddClick} />
             <Box>
                 {
                     tasks.map((t, index) =>

@@ -24,7 +24,7 @@ import DatePickerDialog from "../Dialogs/DatePickerDialog";
 export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
 {
 
-    const { title, details, date, important, checked } = task;
+    const { title, details, date, important, done } = task;
 
     const [isHovering, setIsHovering] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);

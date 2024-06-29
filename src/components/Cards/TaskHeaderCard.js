@@ -16,7 +16,8 @@ import MenuItem from "@mui/material/MenuItem";
 import React from 'react';
 import { useState } from 'react';
 
-export default function TaskHeaderCard() {
+export default function TaskHeaderCard ({ handleAddTask })
+{
 
     const [anchorEl, setAnchorEl] = useState(null);
     const taskHeaderOptionsOpen = Boolean(anchorEl);
@@ -64,7 +65,7 @@ export default function TaskHeaderCard() {
                     </Box>
 
                     <CardActions sx={{ width: '100%' }}>
-                        <Button sx={{ textTransform: 'inherit', width: '100%', justifyContent: 'left', borderRadius: '20px', }}>
+                        <Button onClick={handleAddTask} sx={{ textTransform: 'inherit', width: '100%', justifyContent: 'left', borderRadius: '20px', }}>
                             <AddTaskIcon color='blue' />
                             <Box width={'25px'} />
                             <Typography>
