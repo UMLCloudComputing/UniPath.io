@@ -36,7 +36,7 @@ export default function Lists ()
 
     const handleTaskAddClick = () =>
     {
-        newTask = {
+        const newTask = {
             id: tasks.length,
             title: "",
             details: "",
