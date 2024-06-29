@@ -15,6 +15,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import { Star } from "@mui/icons-material";
+import dayjs from 'dayjs';
 
 //React
 import React, { useState } from 'react';
@@ -30,6 +31,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
     const [anchorEl, setAnchorEl] = useState(null);
     const [isImportant, setIsImportant] = useState(important);
     const [openCalendarDialog, setOpenCalendarDialog] = useState(false);
+    const [dateValue, setDateValue] = useState(dayjs("2024-06-21"));
     const taskOptionsOpen = Boolean(anchorEl);
 
     const handleMouseOver = () => setIsHovering(true);
@@ -39,6 +41,8 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
     const handleImportantIconClick = () => setIsImportant(!isImportant);
     const handleDateIconClick = () => setOpenCalendarDialog(true);
     const handleCloseDialog = () => setOpenCalendarDialog(false);
+
+    console.log(dateValue);
 
 
     const TaskOptionsMenu = (
@@ -102,12 +106,12 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
                         <Button onClick={handleDateIconClick} sx={{ textTransform: 'inherit', width: '100%', justifyContent: 'left', borderRadius: '20px', '&:hover': { backgroundColor: '#d3d3d3' }, '&& .MuiTouchRipple-rippleVisible': { color: 'gray' } }}>
                             <CalendarMonthIcon sx={{ color: 'gray' }} />
                             <Typography variant="body1" color="GrayText" sx={{ marginLeft: '1%' }}>
-                                {date}
+                                {dateValue.format('MM/DD/YYYY')}
                             </Typography>
                         </Button>
                     </Box>
                 </Card>
-                <DatePickerDialog openCalendarDialog={openCalendarDialog} onClose={handleCloseDialog} />
+                <DatePickerDialog setDateValue={setDateValue} dateValue={dateValue} openCalendarDialog={openCalendarDialog} onClose={handleCloseDialog} setOpenCalendarDialog={setOpenCalendarDialog} />
             </Box>
         </>
     );
