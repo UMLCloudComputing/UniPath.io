@@ -14,14 +14,29 @@ export default function DatePickerDialog ({ dateValue, setDateValue, setOpenCale
 {
     const onChange = (value) =>
     {
-        console.log("output from onChange:" + value)
+        console.log("output from onChange:" + value);
         setDateValue(dayjs(value));
         setOpenCalendarDialog(false);
     }
+
+    const handleCloseDialog = () => {
+        setOpenCalendarDialog(false);
+    }
+
     return (
         <Dialog open={openCalendarDialog} onClose={onClose}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <StaticDatePicker slots={{ actionBar: "div" }} value={dateValue} onChange={(value) => onChange(value)} />
+                <StaticDatePicker
+                    slotProps={{
+                        actionBar: {
+                            actions: ['cancel', 'accept'],
+                            onCancel: handleCloseDialog,
+                        },
+                    }}
+                    value={dateValue}
+                    onAccept={(value) => { onChange(value) }}
+                    open={openCalendarDialog}
+                />
             </LocalizationProvider>
         </Dialog>
     );
