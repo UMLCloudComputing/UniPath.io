@@ -31,7 +31,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
     const [anchorEl, setAnchorEl] = useState(null);
     const [isImportant, setIsImportant] = useState(important);
     const [openCalendarDialog, setOpenCalendarDialog] = useState(false);
-    const [dateValue, setDateValue] = useState(dayjs("2024-06-21"));
+    const [dateValue, setDateValue] = useState(dayjs(date));
     const taskOptionsOpen = Boolean(anchorEl);
 
     const handleMouseOver = () => setIsHovering(true);

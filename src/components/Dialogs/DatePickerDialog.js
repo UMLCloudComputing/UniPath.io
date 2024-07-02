@@ -10,11 +10,10 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-export default function DatePickerDialog ({ dateValue, setDateValue, setOpenCalendarDialog, openCalendarDialog, onClose })
-{
-    const onChange = (value) =>
-    {
-        console.log("output from onChange:" + value);
+export default function DatePickerDialog({ dateValue, setDateValue, setOpenCalendarDialog, openCalendarDialog, onClose }) {
+
+    const onAccept = (value) => {
+        console.log("output from onAccept:" + value);
         setDateValue(dayjs(value));
         setOpenCalendarDialog(false);
     }
@@ -34,7 +33,7 @@ export default function DatePickerDialog ({ dateValue, setDateValue, setOpenCale
                         },
                     }}
                     value={dateValue}
-                    onAccept={(value) => { onChange(value) }}
+                    onAccept={(value) => { onAccept(value) }}
                     open={openCalendarDialog}
                 />
             </LocalizationProvider>
