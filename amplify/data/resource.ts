@@ -72,6 +72,7 @@ const schema = a.schema({
     .model({
       TaskId: a.id(),
       userId: a.id(),
+      user: a.belongsTo("User", "userId"),
       organizationId: a.id(),
       organization: a.belongsTo("Organization", "organizationId"),
       title: a.string(),
