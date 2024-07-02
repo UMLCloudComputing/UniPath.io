@@ -73,6 +73,7 @@ const schema = a.schema({
       TaskId: a.id(),
       userId: a.id(),
       organizationId: a.id(),
+      organization: a.belongsTo("Organization", "organizationId"),
       title: a.string(),
       details: a.string(),
       date: a.date(),
