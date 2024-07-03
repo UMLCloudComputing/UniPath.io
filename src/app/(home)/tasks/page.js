@@ -42,15 +42,16 @@ export default function Lists ()
 
     useEffect(() => fetchTasks(), []);
 
-    const handleTaskDelete = (id) =>
+    const handleTaskDelete = async (id) =>
     {
-        setTasks(tasks.filter((t) => t.id !== id));
+        const { data, errors } = await client.models.Tasks.delete({ TaskId: id });
+        errors ? console.error(errors) :
+            fetchTasks();
         console.log('deleted');
     }
 
     const handleTaskAddClick = async () =>
     {
-
         const { errors, data } = await client.models.Tasks.create({
             TaskId: uuidv4(),
             title: "",
@@ -60,7 +61,7 @@ export default function Lists ()
             done: false
         })
         errors ? console.error(errors) :
-            setTasks([...tasks, data]);
+            fetchTasks();
         console.log('added a task');
     }
 
@@ -73,8 +74,8 @@ export default function Lists ()
                     {
                         return (
                             (index === tasks.length - 1) ?
-                                <TaskCard key={t.id} task={t} borderBottomRadius={'20px'} onDeleteClick={() => handleTaskDelete(t.id)} />
-                                : <TaskCard key={t.id} task={t} onDeleteClick={() => handleTaskDelete(t.id)} />
+                                <TaskCard key={t.TaskId} task={t} borderBottomRadius={'20px'} onDeleteClick={handleTaskDelete} />
+                                : <TaskCard key={t.TaskId} task={t} onDeleteClick={handleTaskDelete} />
                         )
                     })
                 }
