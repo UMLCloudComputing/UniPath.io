@@ -81,7 +81,7 @@ const schema = a.schema({
       important: a.boolean(),
       done: a.boolean(),
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.authenticated()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;

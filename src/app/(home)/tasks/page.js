@@ -1,7 +1,7 @@
 "use client";
 
 // React imports
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 // Material UI imports
 import { useTheme } from '@mui/material/styles';
@@ -11,22 +11,36 @@ import Column from '../../../components/Layouts/TasksColumn';
 
 // Data Imports
 import { initialTasks } from '@/components/Data/initialData';
+import { generateClient } from "aws-amplify/data";
+
 
 // Assuming DragDropContext will be used later
 import { DragDropContext } from '@hello-pangea/dnd';
-import TaskHeaderCard from "../../../components/Cards/TaskHeaderCard";
-import TaskCard from "../../../components/Cards/TaskCard";
+import TaskHeaderCard from "@/components/Cards/TaskHeaderCard";
+import TaskCard from "@/components/Cards/TaskCard";
 
 import { Box } from "@mui/material";
-import DatePickerDialog from "@/components/Dialogs/DatePickerDialog";
-
+import { v4 as uuidv4 } from 'uuid';
 export default function Lists ()
 {
+    const client = generateClient({ authMode: 'userPool' });
+
     // State management    
-    const [tasks, setTasks] = useState(initialTasks);
+    const [tasks, setTasks] = useState([]);
 
     // Use theme from Material UI
     const theme = useTheme();
+
+    const fetchTasks = () =>
+    {
+        client.models.Tasks.list().then(({ data, errors }) =>
+        {
+            errors ? console.error(errors) :
+                setTasks(data);
+        });
+    }
+
+    useEffect(() => fetchTasks(), []);
 
     const handleTaskDelete = (id) =>
     {
@@ -34,17 +48,19 @@ export default function Lists ()
         console.log('deleted');
     }
 
-    const handleTaskAddClick = () =>
+    const handleTaskAddClick = async () =>
     {
-        const newTask = {
-            id: tasks.length,
+
+        const { errors, data } = await client.models.Tasks.create({
+            TaskId: uuidv4(),
             title: "",
             details: "",
-            date: "",
+            date: null,
             important: false,
             done: false
-        };
-        setTasks([...tasks, newTask]);
+        })
+        errors ? console.error(errors) :
+            setTasks([...tasks, data]);
         console.log('added a task');
     }
 

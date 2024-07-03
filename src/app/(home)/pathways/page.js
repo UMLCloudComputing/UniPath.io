@@ -105,7 +105,7 @@ export default function PathwaysPage() {
             {/*Popup Dialog*/}
             <PathwayDialog
                 open={createDialogOpen}
-                handleClose={handleCreateDialogClose} b
+                handleClose={handleCreateDialogClose}
                 handleCreate={handleCreate}
             />
             <EditPathwayDialog
