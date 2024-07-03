@@ -1,5 +1,4 @@
-import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
-import { User } from 'aws-cdk-lib/aws-iam';
+import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -10,71 +9,85 @@ and "delete" any "Todo" records.
 const schema = a.schema({
   Organization: a
     .model({
-      OrganizationId: a.id(),
+      id: a.id(),
       name: a.string(),
-      courses: a.hasMany("Course", "organizationId"),
-      pathways: a.hasMany("Pathway", "organizationId"),
-      admins: a.hasMany("User", "organizationId"),
-      tasks: a.hasMany("Tasks", "organizationId"),
+      location: a.customType({
+        streetAddress: a.string(),
+        city: a.string(),
+        state: a.string(),
+        zipCode: a.string()
+      }),
+      courseCatalog: a.hasOne("CourseCatalog", "orgId"),
+      users: a.string().array()
     })
-    .authorization((allow) => [allow.guest()]),
-  User: a
+    .authorization((allow) => [
+      allow.owner(),
+      allow.guest().to(["read"]),
+      allow.ownersDefinedIn("users")
+    ]),
+  CourseCatalog: a
     .model({
-      UserId: a.id(),
-      name: a.string(),
-      organizationId: a.id(),
-      organization: a.belongsTo("Organization", "organizationId"),
-      courses: a.hasMany("Course", "userId"),
-      pathways: a.hasMany("Pathway", "userId"),
-      tasks: a.hasMany("Tasks", "userId"),
+      id: a.id(),
+      orgId: a.id(),
+      org: a.belongsTo("Organization", "orgId"),
+      courses: a.hasMany("Course", "catalogId"),
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
   Course: a
     .model({
-      CourseId: a.id(),
+      id: a.id(),
       name: a.string(),
       code: a.string(),
       credits: a.integer(),
       grade: a.string(),
-      organizationId: a.id(),
-      organization: a.belongsTo("Organization", "organizationId"),
-      userId: a.id(),
-      user: a.belongsTo("User", "userId"),
-      semesterId: a.id(),
-      semester: a.belongsTo("Semester", "semesterId"),
+      catalogId: a.id(),
+      catalog: a.belongsTo("CourseCatalog", "catalogId"),
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
   Pathway: a
     .model({
-      PathwayId: a.id(),
+      id: a.id(),
       name: a.string(),
       degree: a.string(),
       yog: a.string(),
       institution: a.string(),
       degreeLevel: a.string(),
-      organizationId: a.id(),
-      organization: a.belongsTo("Organization", "organizationId"),
       userId: a.id(),
       user: a.belongsTo("User", "userId"),
       semesters: a.hasMany("Semester", "pathwayId"),
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.owner()]),
+  Class: a
+    .model({
+      id: a.id(),
+      name: a.string(),
+      code: a.string(),
+      credits: a.integer(),
+      grade: a.string(),
+      semesterId: a.id(),
+      org: a.belongsTo("Semester", "semesterId"),
+    })
+    .authorization((allow) => allow.owner()),
   Semester: a
     .model({
-      SemesterId: a.id(),
+      id: a.id(),
       name: a.string(),
+      classes: a.hasMany("Class", "semesterId"),
       pathwayId: a.id(),
       pathway: a.belongsTo("Pathway", "pathwayId"),
-      courses: a.hasMany("Course", "semesterId"),
     })
-    .authorization((allow) => [allow.guest()]),
-  Tasks: a
+    .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
+  User: a
     .model({
-      TaskId: a.id(),
-      userId: a.id(),
-      user: a.belongsTo("User", "userId"),
-      organizationId: a.id(),
-      organization: a.belongsTo("Organization", "organizationId"),
+      id: a.id(),
+      email: a.string(),
+      name: a.string(),
+      pathways: a.hasMany("Pathway", "userId"),
+    })
+    .authorization((allow) => [allow.owner(), allow.group("ADMIN")]),
+    Task: a
+    .model({
+      id: a.id(),
       title: a.string(),
       details: a.string(),
       date: a.date(),
@@ -89,7 +102,7 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'iam',
+    defaultAuthorizationMode: "iam",
   },
 });
 
@@ -98,7 +111,7 @@ Go to your frontend source code. From your client-side code, generate a
 Data client to make CRUDL requests to your table. (THIS SNIPPET WILL ONLY
 WORK IN THE FRONTEND CODE FILE.)
 
-Using JavaScript or Next.js React Server Components, Middleware, Server
+Using JavaScript or Next.js React Server Components, Middleware, Server 
 Actions or Pages Router? Review how to generate Data clients for those use
 cases: https://docs.amplify.aws/gen2/build-a-backend/data/connect-to-API/
 =========================================================================*/

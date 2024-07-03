@@ -39,13 +39,5 @@
   ],
   "exclude": [
     "node_modules"
-  ],
-  "references": [
-    {
-      "path": "./amplify/tsconfig.json"
-    },
-    {
-      "path": "./src/tsconfig.json"
-    }
   ]
 }
