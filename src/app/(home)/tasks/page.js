@@ -20,7 +20,6 @@ import TaskHeaderCard from "@/components/Cards/TaskHeaderCard";
 import TaskCard from "@/components/Cards/TaskCard";
 
 import { Box } from "@mui/material";
-import { v4 as uuidv4 } from 'uuid';
 export default function Lists ()
 {
     const client = generateClient({ authMode: 'userPool' });
@@ -44,7 +43,7 @@ export default function Lists ()
 
     const handleTaskDelete = async (id) =>
     {
-        const { data, errors } = await client.models.Tasks.delete({ TaskId: id });
+        const { data, errors } = await client.models.Tasks.delete({ id: id });
         errors ? console.error(errors) :
             fetchTasks();
         console.log('deleted');
@@ -53,7 +52,6 @@ export default function Lists ()
     const handleTaskAddClick = async () =>
     {
         const { errors, data } = await client.models.Tasks.create({
-            TaskId: uuidv4(),
             title: "",
             details: "",
             date: null,
@@ -74,8 +72,8 @@ export default function Lists ()
                     {
                         return (
                             (index === tasks.length - 1) ?
-                                <TaskCard key={t.TaskId} task={t} borderBottomRadius={'20px'} onDeleteClick={handleTaskDelete} />
-                                : <TaskCard key={t.TaskId} task={t} onDeleteClick={handleTaskDelete} />
+                                <TaskCard key={t.id} task={t} borderBottomRadius={'20px'} onDeleteClick={() => handleTaskDelete(t.id)} />
+                                : <TaskCard key={t.id} task={t} onDeleteClick={() => handleTaskDelete(t.id)} />
                         )
                     })
                 }

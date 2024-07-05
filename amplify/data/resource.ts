@@ -15,7 +15,6 @@ const schema = a.schema({
       courses: a.hasMany("Course", "organizationId"),
       pathways: a.hasMany("Pathway", "organizationId"),
       admins: a.hasMany("User", "organizationId"),
-      tasks: a.hasMany("Tasks", "organizationId"),
     })
     .authorization((allow) => [allow.guest()]),
   User: a
@@ -70,11 +69,9 @@ const schema = a.schema({
     .authorization((allow) => [allow.guest()]),
   Tasks: a
     .model({
-      TaskId: a.id(),
       userId: a.id(),
       user: a.belongsTo("User", "userId"),
-      organizationId: a.id(),
-      organization: a.belongsTo("Organization", "organizationId"),
+      TaskId: a.id(),
       title: a.string(),
       details: a.string(),
       date: a.date(),
