@@ -32,10 +32,10 @@ import { useAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 // Next
-import {usePathname, useRouter} from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import SearchBar from "@/components/Inputs/SearchBar";
 import AppBarMenu from "@/components/Menus/AppBarMenu";
-import {useState} from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 /**
@@ -74,7 +74,8 @@ export default function NavBar({
     });
 
     const handleLoginClick = () => {
-        router.push(`/login?next=${pathname}`);
+        // router.push(`/login?next=${pathname}`); FIX THIS! This is temporary until new login page is created
+        router.push("/temp-login")
     };
 
     const handleAboutClick = () => {
@@ -123,23 +124,23 @@ export default function NavBar({
                     {/* Left Group */}
                     {showDrawerIcon ?
                         <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        sx={{ mr: "0.5em", display: {xs: "none", md: "flex"}}}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    : <></>
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            sx={{ mr: "0.5em", display: { xs: "none", md: "flex" } }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        : <></>
                     }
                     <Image
                         src="/logo.png"
                         alt="UniPath.io Logo"
                         width={160}
                         height={40}
-                        style={{marginRight: "10px" }}
+                        style={{ marginRight: "10px" }}
                     />
                     <Box sx={{ flexGrow: 1 }} />
 
@@ -156,7 +157,7 @@ export default function NavBar({
                         gridTemplateColumns: "repeat(3, 0.5fr)",
                         gap: "0.5em"
                     }}>
-                        {showAboutButton? (
+                        {showAboutButton ? (
                             // change this to ref about page once its been written
                             <Button color="inherit" onClick={handleAboutClick}>
                                 About

@@ -1,8 +1,8 @@
 "use client"
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import {usePathname, useSearchParams, useRouter} from "next/navigation";
-import {CircularProgress} from "@mui/material";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { CircularProgress } from "@mui/material";
 
 export default function AuthRedirectPage() {
     const router = useRouter()
@@ -10,11 +10,11 @@ export default function AuthRedirectPage() {
     const redirectPage = nextQuery.get("next")
 
     setTimeout(() => {
-        router.replace(`/login?next=${redirectPage}`)
+        router.replace(`/temp-login?next=${redirectPage}`) //FIX THIS TEMPORARY
     }, 2000
     )
     return (
-        <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "75vh"}}
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "75vh" }}
         >
             <Typography>
                 You must be signed in to access this page. Redirecting to login...
@@ -22,9 +22,9 @@ export default function AuthRedirectPage() {
             </Typography>
             <CircularProgress
                 disableShrink
-            sx={{
-                mt: 4
-            }}
+                sx={{
+                    mt: 4
+                }}
             />
         </Box>
     )

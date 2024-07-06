@@ -15,15 +15,17 @@ const schema = a.schema({
         streetAddress: a.string(),
         city: a.string(),
         state: a.string(),
-        zipCode: a.string()
+        zipCode: a.string(),
       }),
       courseCatalog: a.hasOne("CourseCatalog", "orgId"),
-      users: a.string().array()
+      users: a.string().array(),
+      admins: a.string().array(),
     })
     .authorization((allow) => [
       allow.owner(),
       allow.guest().to(["read"]),
-      allow.ownersDefinedIn("users")
+      allow.ownersDefinedIn("users").to(["read"]),
+      allow.ownersDefinedIn("admins").to(["read", "update", "delete"]),
     ]),
   CourseCatalog: a
     .model({
@@ -85,7 +87,7 @@ const schema = a.schema({
       pathways: a.hasMany("Pathway", "userId"),
     })
     .authorization((allow) => [allow.owner(), allow.group("ADMIN")]),
-    Task: a
+  Task: a
     .model({
       id: a.id(),
       title: a.string(),
