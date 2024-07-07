@@ -22,10 +22,9 @@ import React, { useState } from 'react';
 import DatePickerDialog from "../Dialogs/DatePickerDialog";
 
 
-export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
-{
+export default function TaskCard({ task, borderBottomRadius, onDeleteClick, onChange }) {
 
-    const { title, details, date, important, done } = task;
+    const { id, title, details, date, important, done } = task;
 
     const [isHovering, setIsHovering] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -74,16 +73,34 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
 
                     <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center', flexDirection: 'row' }} onMouseEnter={handleMouseOver} onMouseLeave={handleMouseLeave}>
                         <Radio size='small' />
-                        <TextField placeholder='Title' variant='standard' sx={{ width: '100%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={title} />
+                        <TextField
+                            placeholder='Title'
+                            variant='standard'
+                            sx={{ width: '100%' }}
+                            InputProps={{ disableUnderline: 'true' }}
+                            defaultValue={title}
+                            onBlur={
+                                (event) =>
+                                    onChange({
+                                        id: id,
+                                        title: event.target.value,
+                                    })} />
                         {
                             (isHovering) ?
                                 <>
-                                    <IconButton sx={{ marginLeft: 'auto', marginRight: '-1%' }} size="small" onClick={handleTaskOptionsOpen}>
+                                    <IconButton
+                                        sx={{ marginLeft: 'auto', marginRight: '-1%' }}
+                                        size="small"
+                                        onClick={handleTaskOptionsOpen}
+                                    >
                                         <Tooltip title='More options' arrow>
                                             <MoreVertOutlined />
                                         </Tooltip>
                                     </IconButton>
-                                    <IconButton sx={{ marginLeft: 'auto', marginRight: '1%' }} size="small" onClick={handleImportantIconClick}>
+                                    <IconButton
+                                        sx={{ marginLeft: 'auto', marginRight: '1%' }}
+                                        size="small"
+                                        onClick={handleImportantIconClick}>
                                         <Tooltip title='Mark as important' arrow>
                                             {isImportant ? <Star sx={{ color: '#FFFF00' }} /> : <StarOutlineIcon />}
                                         </Tooltip>
@@ -98,7 +115,17 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
 
                     <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
                         <NotesIcon sx={{ marginLeft: '1.1%' }} />
-                        <TextField placeholder='Details' variant='standard' sx={{ width: '100%', marginLeft: '1%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={details} />
+                        <TextField
+                            placeholder='Details'
+                            variant='standard'
+                            sx={{ width: '100%', marginLeft: '1%' }}
+                            InputProps={{ disableUnderline: 'true' }}
+                            defaultValue={details}
+                            onBlur={(event) => onChange({
+                                id: id,
+                                details: event.target.value,
+                            })}
+                        />
                     </Box>
 
                     <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
@@ -110,7 +137,15 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
                         </Button>
                     </Box>
                 </Card>
-                <DatePickerDialog setDateValue={setDateValue} dateValue={dateValue} openCalendarDialog={openCalendarDialog} onClose={handleCloseDialog} setOpenCalendarDialog={setOpenCalendarDialog} />
+                <DatePickerDialog
+                    setDateValue={setDateValue}
+                    dateValue={dateValue}
+                    openCalendarDialog={openCalendarDialog}
+                    onClose={handleCloseDialog}
+                    setOpenCalendarDialog={setOpenCalendarDialog}
+                    taskId={id}
+                    onDateChange={onChange}
+                    />
             </Box>
         </>
     );

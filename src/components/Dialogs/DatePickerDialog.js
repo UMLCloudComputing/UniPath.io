@@ -10,11 +10,16 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-export default function DatePickerDialog({ dateValue, setDateValue, setOpenCalendarDialog, openCalendarDialog, onClose }) {
+export default function DatePickerDialog({ taskId, onDateChange, dateValue, setDateValue, setOpenCalendarDialog, openCalendarDialog, onClose }) {
 
     const onAccept = (value) => {
-        console.log("output from onAccept:" + value);
+        console.log("output from onAccept dayjs:  " + dayjs(value));
         setDateValue(dayjs(value));
+        onDateChange({
+            id: taskId,
+            date: dayjs(value).format('MM/DD/YYYY'),
+        });
+        console.log('changed date');
         setOpenCalendarDialog(false);
     }
 

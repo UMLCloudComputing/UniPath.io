@@ -20,8 +20,7 @@ import TaskHeaderCard from "@/components/Cards/TaskHeaderCard";
 import TaskCard from "@/components/Cards/TaskCard";
 
 import { Box } from "@mui/material";
-export default function Lists ()
-{
+export default function Lists() {
     const client = generateClient({ authMode: 'userPool' });
 
     // State management    
@@ -30,10 +29,8 @@ export default function Lists ()
     // Use theme from Material UI
     const theme = useTheme();
 
-    const fetchTasks = () =>
-    {
-        client.models.Tasks.list().then(({ data, errors }) =>
-        {
+    const fetchTasks = () => {
+        client.models.Tasks.list().then(({ data, errors }) => {
             errors ? console.error(errors) :
                 setTasks(data);
         });
@@ -41,16 +38,14 @@ export default function Lists ()
 
     useEffect(() => fetchTasks(), []);
 
-    const handleTaskDelete = async (id) =>
-    {
+    const handleTaskDelete = async (id) => {
         const { data, errors } = await client.models.Tasks.delete({ id: id });
         errors ? console.error(errors) :
             fetchTasks();
         console.log('deleted');
     }
 
-    const handleTaskAddClick = async () =>
-    {
+    const handleTaskAddClick = async () => {
         const { errors, data } = await client.models.Tasks.create({
             title: "",
             details: "",
@@ -58,9 +53,18 @@ export default function Lists ()
             important: false,
             done: false
         })
+
         errors ? console.error(errors) :
             fetchTasks();
         console.log('added a task');
+    }
+
+    const handleFieldChange = async (fields) => {
+        const { errors, data } = await client.models.Tasks.update(fields)
+
+        errors ? console.error(errors) :
+            fetchTasks();
+        console.log('updated task');
     }
 
     return (
@@ -68,12 +72,11 @@ export default function Lists ()
             <TaskHeaderCard handleAddTask={handleTaskAddClick} />
             <Box>
                 {
-                    tasks.map((t, index) =>
-                    {
+                    tasks.map((t, index) => {
                         return (
                             (index === tasks.length - 1) ?
-                                <TaskCard key={t.id} task={t} borderBottomRadius={'20px'} onDeleteClick={() => handleTaskDelete(t.id)} />
-                                : <TaskCard key={t.id} task={t} onDeleteClick={() => handleTaskDelete(t.id)} />
+                                <TaskCard key={t.id} task={t} borderBottomRadius={'20px'} onDeleteClick={() => handleTaskDelete(t.id)} onChange={handleFieldChange} />
+                                : <TaskCard key={t.id} task={t} onDeleteClick={() => handleTaskDelete(t.id)} onChange={handleFieldChange} />
                         )
                     })
                 }
