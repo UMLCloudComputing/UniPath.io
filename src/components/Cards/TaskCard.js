@@ -42,7 +42,6 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
     const handleDateIconClick = () => setOpenCalendarDialog(true);
     const handleCloseDialog = () => setOpenCalendarDialog(false);
 
-    console.log(dateValue);
 
 
     const TaskOptionsMenu = (
