@@ -132,7 +132,9 @@ export default function TaskCard({ task, borderBottomRadius, onDeleteClick, onCh
                         <Button onClick={handleDateIconClick} sx={{ textTransform: 'inherit', width: '100%', justifyContent: 'left', borderRadius: '20px', '&:hover': { backgroundColor: '#d3d3d3' }, '&& .MuiTouchRipple-rippleVisible': { color: 'gray' } }}>
                             <CalendarMonthIcon sx={{ color: 'gray' }} />
                             <Typography variant="body1" color="GrayText" sx={{ marginLeft: '1%' }}>
-                                {dateValue.format('MM/DD/YYYY')}
+                                {
+                                    date === " " ? <>Choose Date</> : dayjs(date).format('MM/DD/YYYY')
+                                }
                             </Typography>
                         </Button>
                     </Box>
@@ -145,7 +147,7 @@ export default function TaskCard({ task, borderBottomRadius, onDeleteClick, onCh
                     setOpenCalendarDialog={setOpenCalendarDialog}
                     taskId={id}
                     onDateChange={onChange}
-                    />
+                />
             </Box>
         </>
     );

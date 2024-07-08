@@ -74,7 +74,7 @@ const schema = a.schema({
       TaskId: a.id(),
       title: a.string(),
       details: a.string(),
-      date: a.date(),
+      date: a.string(),
       important: a.boolean(),
       done: a.boolean(),
     })

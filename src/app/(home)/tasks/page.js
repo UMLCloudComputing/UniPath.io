@@ -49,7 +49,7 @@ export default function Lists() {
         const { errors, data } = await client.models.Tasks.create({
             title: "",
             details: "",
-            date: null,
+            date: " ",
             important: false,
             done: false
         })
