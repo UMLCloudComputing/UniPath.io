@@ -133,7 +133,7 @@ export default function TaskCard({ task, borderBottomRadius, onDeleteClick, onCh
                             <CalendarMonthIcon sx={{ color: 'gray' }} />
                             <Typography variant="body1" color="GrayText" sx={{ marginLeft: '1%' }}>
                                 {
-                                    date === " " ? <>Choose Date</> : dayjs(date).format('MM/DD/YYYY')
+                                    dateValue === " " ? <>Choose Date</> : dayjs(dateValue).format('MM/DD/YYYY')
                                 }
                             </Typography>
                         </Button>
