@@ -98,7 +98,7 @@ npm install -g @aws-amplify/cli
 - Make a new profile: 
 
     ```sh
-    npx amplify configure profile
+    npx ampx configure profile
     ```
 
     Hit Enter.
@@ -106,7 +106,7 @@ npm install -g @aws-amplify/cli
     Note: If there's already a profile, then use:
 
     ```sh
-    npx amplify configure profile --name [insert name of profile you want here]
+    npx ampx configure profile --name [insert name of profile you want here]
     ```
 
     It should automatically switch.
@@ -118,7 +118,8 @@ npm install -g @aws-amplify/cli
 2. **Configure Google Client ID**:
 
     ```sh
-    amplify configure secret set GOOGLE_CLIENT_ID [your_client_id_here]
+    npx ampx secret set GOOGLE_CLIENT_ID
+    [your_client_id_here]
     ```
 
     Replace `[your_client_id_here]` from the client ID above, then paste in the value. Hit enter.
@@ -126,7 +127,8 @@ npm install -g @aws-amplify/cli
 3. **Configure Google Client Secret**:
 
     ```sh
-    amplify configure secret set GOOGLE_CLIENT_SECRET [your_client_secret_here]
+    npx ampx secret set GOOGLE_CLIENT_SECRET
+    [your_client_secret_here]
     ```
 
     Replace `[your_client_secret_here]` from the client secret secret, then paste in the value. Hit enter.
