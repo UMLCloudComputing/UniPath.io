@@ -79,11 +79,11 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onT
     // think about where to move the logic, here or to file above
     // distinguish between what value to save
     const saveDescriptionValue = () => {
-        onDescriptionChange(descrptionValue);
+        onDescriptionChange(task.id, descrptionValue);
     };
 
     const saveTitleValue = () => {
-        onTitleChange(titleValue);
+        onTitleChange(task.id, titleValue);
     };
 
     const TaskOptionsMenu = (

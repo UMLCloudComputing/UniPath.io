@@ -26,17 +26,25 @@ export default function Lists ()
     const client = generateClient({ authMode: 'userPool' });
 
     // State management    
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState(new Map());
 
     // Use theme from Material UI
     const theme = useTheme();
 
     const fetchTasks = () =>
     {
+        let newMap = new Map();
         client.models.Tasks.list().then(({ data, errors }) =>
         {
-            errors ? console.error(errors) :
-                setTasks(data);
+            if(errors) {
+                console.error(errors);
+            } else {
+                for(const task of data) {
+                    newMap[task.id] = task;
+                }
+
+                setTasks(newMap);
+            }
         });
     }
 
@@ -44,9 +52,14 @@ export default function Lists ()
 
     const handleTaskDelete = async (id) =>
     {
+        let newMap = new Map(tasks);
         const { data, errors } = await client.models.Tasks.delete({ id: id });
-        errors ? console.error(errors) :
-            fetchTasks();
+        if (errors) {
+            console.log(errors);
+        } else {
+            newMap.delete(id);
+            setTasks(newMap);
+        }
         console.log('deleted');
     }
 
@@ -59,34 +72,62 @@ export default function Lists ()
             important: false,
             done: false
         })
-        errors ? console.error(errors) :
-            fetchTasks();
+
+        if (errors) {
+            console.log(errors);
+        } else {
+            let newMap = (new Map(tasks)).set(data.id, data);
+            setTasks(newMap);
+        }
         console.log('added a task');
     }
 
-    const handleTitleChange = async (title) => {
-        // wait until we figure out how this works.
+    const handleTitleChange = async (id, title) => {
+        const { errors, data } = await client.models.Tasks.update({
+            "id": id, 
+            "title": title,
+        })
+
+        if (errors) {
+            console.log(errors);
+        } else {
+            let newMap = (new Map(tasks)).set(data.id, data);
+            setTasks(newMap);
+        }
+        console.log(`updated task ${title}'s title`);
     }
 
-    const handleDescriptionChange = async (Description) => {
-        // do something
-        console.log(`Description changed: ${Description}`)
+    const handleDescriptionChange = async (id, description) => {
+        const { errors, data } = await client.models.Tasks.update({
+            "id": id, 
+            "details": description,
+        })
+
+        if (errors) {
+            console.log(errors);
+        } else {
+            let newMap = (new Map(tasks)).set(data.id, data);
+            setTasks(newMap);
+        }
+        console.log(`updated task ${description}'s desc`);
     }
 
     return (
         <>
             <TaskHeaderCard handleAddTask={handleTaskAddClick} />
             <Box>
+                <>
                 {
-                    tasks.map((t, index) =>
+                    Array.from(tasks.values()).map((t, index) =>
                     {
                         return (
                             (index === tasks.length - 1) ?
                             <TaskCard key={t.id} task={t} borderBottomRadius={'20px'} onDeleteClick={() => handleTaskDelete(t.id)} onTitleChange={handleTitleChange} onDescriptionChange={handleDescriptionChange}/>
-                                : <TaskCard key={t.id} task={t} onDeleteClick={() => handleTaskDelete(t.id)} />
+                                : <TaskCard key={t.id} task={t} onDeleteClick={() => handleTaskDelete(t.id)} onTitleChange={handleTitleChange} onDescriptionChange={handleDescriptionChange}/>
                         )
                     })
                 }
+                </>
             </Box>
         </>
     );
