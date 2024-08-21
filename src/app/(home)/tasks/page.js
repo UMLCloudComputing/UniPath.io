@@ -20,6 +20,7 @@ import TaskHeaderCard from "@/components/Cards/TaskHeaderCard";
 import TaskCard from "@/components/Cards/TaskCard";
 
 import { Box } from "@mui/material";
+import { Description } from '@mui/icons-material';
 export default function Lists ()
 {
     const client = generateClient({ authMode: 'userPool' });
@@ -63,6 +64,15 @@ export default function Lists ()
         console.log('added a task');
     }
 
+    const handleTitleChange = async (title) => {
+        // wait until we figure out how this works.
+    }
+
+    const handleDescriptionChange = async (Description) => {
+        // do something
+        console.log(`Description changed: ${Description}`)
+    }
+
     return (
         <>
             <TaskHeaderCard handleAddTask={handleTaskAddClick} />
@@ -72,7 +82,7 @@ export default function Lists ()
                     {
                         return (
                             (index === tasks.length - 1) ?
-                                <TaskCard key={t.id} task={t} borderBottomRadius={'20px'} onDeleteClick={() => handleTaskDelete(t.id)} />
+                            <TaskCard key={t.id} task={t} borderBottomRadius={'20px'} onDeleteClick={() => handleTaskDelete(t.id)} onTitleChange={handleTitleChange} onDescriptionChange={handleDescriptionChange}/>
                                 : <TaskCard key={t.id} task={t} onDeleteClick={() => handleTaskDelete(t.id)} />
                         )
                     })

@@ -22,12 +22,13 @@ import React, { useState } from 'react';
 import DatePickerDialog from "../Dialogs/DatePickerDialog";
 
 
-export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
+export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onTitleChange, onDescriptionChange })
 {
 
     const { title, details, date, important, done } = task;
 
     const [titleValue, setTitleValue] = useState("");
+    const [descrptionValue, setDescriptionValue] = useState("");
     const [enterPressed, setEnterPressed] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -44,18 +45,32 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
     const handleDateIconClick = () => setOpenCalendarDialog(true);
     const handleCloseDialog = () => setOpenCalendarDialog(false);
     const handleTitleChange = (event) => setTitleValue(event.target.value);
-    const handleDescriptionChange = (event) => setTitleValue;
+    const handleDescriptionChange = (event) => setDescriptionValue(event.target.value);
 
-    const handleKeyDown = (event) => {
+    const handleTitleKeyDown = (event) => {
         if (event.key === 'Enter') {
             setEnterPressed(true);
-            saveValue();
+            saveTitleValue();
         }
     };
 
-    const handleBlur = () => {
+    const handleDescriptionKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            setEnterPressed(true);
+            saveDescriptionValue();
+        }
+    };
+
+    const handleTitleBlur = () => {
         if (!enterPressed) {
-            saveValue();
+            saveTitleValue();
+        }
+        setEnterPressed(false);
+    };
+
+    const handleDescriptionBlur = () => {
+        if (!enterPressed) {
+            saveDescriptionValue();
         }
         setEnterPressed(false);
     };
@@ -63,8 +78,12 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
     // write logic here
     // think about where to move the logic, here or to file above
     // distinguish between what value to save
-    const saveValue = () => {
-        console.log(`title: ${titleValue}`);
+    const saveDescriptionValue = () => {
+        onDescriptionChange(descrptionValue);
+    };
+
+    const saveTitleValue = () => {
+        onTitleChange(titleValue);
     };
 
     const TaskOptionsMenu = (
@@ -97,7 +116,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
 
                     <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center', flexDirection: 'row' }} onMouseEnter={handleMouseOver} onMouseLeave={handleMouseLeave}>
                         <Radio size='small' />
-                        <TextField placeholder='Title' variant='standard' sx={{ width: '100%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={title} onBlur={handleBlur} onChange={handleTitleChange}/>
+                        <TextField placeholder='Title' variant='standard' sx={{ width: '100%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={title} onBlur={handleTitleBlur} onChange={handleTitleChange} onKeyDown={handleTitleKeyDown}/>
                         {
                             (isHovering) ?
                                 <>
@@ -121,7 +140,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
 
                     <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
                         <NotesIcon sx={{ marginLeft: '1.1%' }} />
-                        <TextField placeholder='Details' variant='standard' sx={{ width: '100%', marginLeft: '1%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={details} onBlur={handleBlur} onChange={handleDescriptionChange}/>
+                        <TextField placeholder='Details' variant='standard' sx={{ width: '100%', marginLeft: '1%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={details} onBlur={handleDescriptionBlur} onChange={handleDescriptionChange} onKeyDown={handleDescriptionKeyDown}/>
                     </Box>
 
                     <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
