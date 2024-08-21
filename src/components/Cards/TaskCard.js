@@ -27,6 +27,8 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
 
     const { title, details, date, important, done } = task;
 
+    const [titleValue, setTitleValue] = useState("");
+    const [enterPressed, setEnterPressed] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [isImportant, setIsImportant] = useState(important);
@@ -41,9 +43,29 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
     const handleImportantIconClick = () => setIsImportant(!isImportant);
     const handleDateIconClick = () => setOpenCalendarDialog(true);
     const handleCloseDialog = () => setOpenCalendarDialog(false);
+    const handleTitleChange = (event) => setTitleValue(event.target.value);
+    const handleDescriptionChange = (event) => setTitleValue;
 
-    console.log(dateValue);
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            setEnterPressed(true);
+            saveValue();
+        }
+    };
 
+    const handleBlur = () => {
+        if (!enterPressed) {
+            saveValue();
+        }
+        setEnterPressed(false);
+    };
+
+    // write logic here
+    // think about where to move the logic, here or to file above
+    // distinguish between what value to save
+    const saveValue = () => {
+        console.log(`title: ${titleValue}`);
+    };
 
     const TaskOptionsMenu = (
         <Menu
@@ -75,7 +97,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
 
                     <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center', flexDirection: 'row' }} onMouseEnter={handleMouseOver} onMouseLeave={handleMouseLeave}>
                         <Radio size='small' />
-                        <TextField placeholder='Title' variant='standard' sx={{ width: '100%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={title} />
+                        <TextField placeholder='Title' variant='standard' sx={{ width: '100%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={title} onBlur={handleBlur} onChange={handleTitleChange}/>
                         {
                             (isHovering) ?
                                 <>
@@ -99,7 +121,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
 
                     <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
                         <NotesIcon sx={{ marginLeft: '1.1%' }} />
-                        <TextField placeholder='Details' variant='standard' sx={{ width: '100%', marginLeft: '1%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={details} />
+                        <TextField placeholder='Details' variant='standard' sx={{ width: '100%', marginLeft: '1%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={details} onBlur={handleBlur} onChange={handleDescriptionChange}/>
                     </Box>
 
                     <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
