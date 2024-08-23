@@ -41,12 +41,11 @@ export default function Lists ()
                 console.error(errors);
             } else {
                 for(const task of data) {
-                    newMap[task.id] = task;
+                    newMap.set(task.id, task);
                 }
 
                 setIsLoading(false);
                 setTasks(newMap);
-                console.log("Loaded");
             }
         });
     }
