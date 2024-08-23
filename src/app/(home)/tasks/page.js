@@ -129,6 +129,21 @@ export default function Lists ()
         console.log(`updated task ${data.title}'s importance`);
     }
 
+    const handleDateChange = async (id, date) => {
+        const { errors, data } = await client.models.Tasks.update({
+            "id": id,
+            "date": date
+        })
+
+        if (errors) {
+            console.log(errors);
+        } else {
+            let newMap = (new Map(tasks)).set(data.id, data);
+            setTasks(newMap);
+        }
+        console.log(`updated task ${data.title}'s date`);
+    }
+
     return (
         <>
             <TaskHeaderCard handleAddTask={handleTaskAddClick} />
@@ -138,8 +153,8 @@ export default function Lists ()
                     {
                         return (
                             (index === tasks.length - 1) ?
-                            <TaskCard key={t.id} task={t} borderBottomRadius={'20px'} onDeleteClick={() => handleTaskDelete(t.id)} onTitleChange={handleTitleChange} onDescriptionChange={handleDescriptionChange} onImportantChange={handleImportantChange}/>
-                                : <TaskCard key={t.id} task={t} onDeleteClick={() => handleTaskDelete(t.id)} onTitleChange={handleTitleChange} onDescriptionChange={handleDescriptionChange} onImportantChange={handleImportantChange}/>
+                            <TaskCard key={t.id} task={t} borderBottomRadius={'20px'} onDeleteClick={() => handleTaskDelete(t.id)} onTitleChange={handleTitleChange} onDescriptionChange={handleDescriptionChange} onImportantChange={handleImportantChange} onDateChange={handleDateChange}/>
+                                : <TaskCard key={t.id} task={t} onDeleteClick={() => handleTaskDelete(t.id)} onTitleChange={handleTitleChange} onDescriptionChange={handleDescriptionChange} onImportantChange={handleImportantChange} onDateChange={handleDateChange}/>
                         )
                     })
                 }

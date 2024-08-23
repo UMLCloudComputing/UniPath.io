@@ -22,7 +22,7 @@ import React, { useState } from 'react';
 import DatePickerDialog from "../Dialogs/DatePickerDialog";
 
 
-export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onTitleChange, onDescriptionChange, onImportantChange })
+export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onTitleChange, onDescriptionChange, onImportantChange, onDateChange })
 {
 
     const { title, details, date, important, done } = task;
@@ -43,7 +43,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onT
     const handleTaskOptionsOpen = (event) => setAnchorEl(event.currentTarget);
     const handleImportantIconClick = () => toggleImportant();
     const handleDateIconClick = () => setOpenCalendarDialog(true);
-    const handleCloseDialog = () => setOpenCalendarDialog(false);
+    const handleCloseDialog = () => handleDateChange();
     const handleTitleChange = (event) => setTitleValue(event.target.value);
     const handleDescriptionChange = (event) => setDescriptionValue(event.target.value);
 
@@ -63,7 +63,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onT
 
     const handleTitleBlur = () => {
         if (!enterPressed) {
-            saveTitleVlue();
+            saveTitleValue();
         }
         setEnterPressed(false);
     };
@@ -80,6 +80,11 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onT
         setIsImportant(!isImportant);
     }
 
+    const handleDateChange = () => {
+        saveDateValue();
+        setOpenCalendarDialog(false)
+    }
+
     const saveDescriptionValue = () => {
         onDescriptionChange(task.id, descrptionValue);
     };
@@ -90,6 +95,10 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onT
 
     const saveImportantValue = () => {
         onImportantChange(task.id, !isImportant)
+    }
+
+    const saveDateValue = () => {
+        onDateChange(task.id, dateValue)
     }
 
     const TaskOptionsMenu = (
