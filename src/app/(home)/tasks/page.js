@@ -1,7 +1,7 @@
 "use client";
 
 // React imports
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useReducer } from 'react';
 
 // Material UI imports
 import { useTheme } from '@mui/material/styles';
@@ -19,13 +19,15 @@ import { DragDropContext } from '@hello-pangea/dnd';
 import TaskHeaderCard from "@/components/Cards/TaskHeaderCard";
 import TaskCard from "@/components/Cards/TaskCard";
 
-import { Box } from "@mui/material";
+import { Box, Skeleton } from "@mui/material";
+import { Description } from '@mui/icons-material';
 export default function Lists ()
 {
     const client = generateClient({ authMode: 'userPool' });
 
     // State management    
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState(new Map());
+    const [isLoading, setIsLoading] = useState(true);
 
     // Use theme from Material UI
     const theme = useTheme();
@@ -34,18 +36,32 @@ export default function Lists ()
     {
         client.models.Tasks.list().then(({ data, errors }) =>
         {
-            errors ? console.error(errors) :
-                setTasks(data);
+            let newMap = new Map();
+            if(errors) {
+                console.error(errors);
+            } else {
+                for(const task of data) {
+                    newMap.set(task.id, task);
+                }
+
+                setIsLoading(false);
+                setTasks(newMap);
+            }
         });
     }
 
-    useEffect(() => fetchTasks(), []);
+    useEffect(() => {fetchTasks()}, []);
 
     const handleTaskDelete = async (id) =>
     {
+        let newMap = new Map(tasks);
         const { data, errors } = await client.models.Tasks.delete({ id: id });
-        errors ? console.error(errors) :
-            fetchTasks();
+        if (errors) {
+            console.log(errors);
+        } else {
+            newMap.delete(id);
+            setTasks(newMap);
+        }
         console.log('deleted');
     }
 
@@ -58,9 +74,74 @@ export default function Lists ()
             important: false,
             done: false
         })
-        errors ? console.error(errors) :
-            fetchTasks();
+
+        if (errors) {
+            console.log(errors);
+        } else {
+            let newMap = (new Map(tasks)).set(data.id, data);
+            setTasks(newMap);
+        }
         console.log('added a task');
+    }
+
+    const handleTitleChange = async (id, title) => {
+        const { errors, data } = await client.models.Tasks.update({
+            "id": id, 
+            "title": title,
+        })
+
+        if (errors) {
+            console.log(errors);
+        } else {
+            let newMap = (new Map(tasks)).set(data.id, data);
+            setTasks(newMap);
+        }
+        console.log(`updated task ${title}'s title`);
+    }
+
+    const handleDescriptionChange = async (id, description) => {
+        const { errors, data } = await client.models.Tasks.update({
+            "id": id, 
+            "details": description,
+        })
+
+        if (errors) {
+            console.log(errors);
+        } else {
+            let newMap = (new Map(tasks)).set(data.id, data);
+            setTasks(newMap);
+        }
+        console.log(`updated task ${description}'s desc`);
+    }
+
+    const handleImportantChange = async (id, important) => {
+        const { errors, data } = await client.models.Tasks.update({
+            "id": id,
+            "important": important
+        })
+
+        if (errors) {
+            console.log(errors);
+        } else {
+            let newMap = (new Map(tasks)).set(data.id, data);
+            setTasks(newMap);
+        }
+        console.log(`updated task ${data.title}'s importance`);
+    }
+
+    const handleDateChange = async (id, date) => {
+        const { errors, data } = await client.models.Tasks.update({
+            "id": id,
+            "date": date
+        })
+
+        if (errors) {
+            console.log(errors);
+        } else {
+            let newMap = (new Map(tasks)).set(data.id, data);
+            setTasks(newMap);
+        }
+        console.log(`updated task ${data.title}'s date`);
     }
 
     return (
@@ -68,12 +149,12 @@ export default function Lists ()
             <TaskHeaderCard handleAddTask={handleTaskAddClick} />
             <Box>
                 {
-                    tasks.map((t, index) =>
+                    Array.from(tasks.values()).map((t, index) =>
                     {
                         return (
                             (index === tasks.length - 1) ?
-                                <TaskCard key={t.id} task={t} borderBottomRadius={'20px'} onDeleteClick={() => handleTaskDelete(t.id)} />
-                                : <TaskCard key={t.id} task={t} onDeleteClick={() => handleTaskDelete(t.id)} />
+                            <TaskCard key={t.id} task={t} borderBottomRadius={'20px'} onDeleteClick={() => handleTaskDelete(t.id)} onTitleChange={handleTitleChange} onDescriptionChange={handleDescriptionChange} onImportantChange={handleImportantChange} onDateChange={handleDateChange}/>
+                                : <TaskCard key={t.id} task={t} onDeleteClick={() => handleTaskDelete(t.id)} onTitleChange={handleTitleChange} onDescriptionChange={handleDescriptionChange} onImportantChange={handleImportantChange} onDateChange={handleDateChange}/>
                         )
                     })
                 }

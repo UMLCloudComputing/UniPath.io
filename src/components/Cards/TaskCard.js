@@ -22,11 +22,14 @@ import React, { useState } from 'react';
 import DatePickerDialog from "../Dialogs/DatePickerDialog";
 
 
-export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
+export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onTitleChange, onDescriptionChange, onImportantChange, onDateChange })
 {
 
     const { title, details, date, important, done } = task;
 
+    const [titleValue, setTitleValue] = useState("");
+    const [descrptionValue, setDescriptionValue] = useState("");
+    const [enterPressed, setEnterPressed] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [isImportant, setIsImportant] = useState(important);
@@ -38,12 +41,65 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
     const handleMouseLeave = () => setIsHovering(false);
     const handleTaskOptionsClose = () => setAnchorEl(null);
     const handleTaskOptionsOpen = (event) => setAnchorEl(event.currentTarget);
-    const handleImportantIconClick = () => setIsImportant(!isImportant);
+    const handleImportantIconClick = () => toggleImportant();
     const handleDateIconClick = () => setOpenCalendarDialog(true);
-    const handleCloseDialog = () => setOpenCalendarDialog(false);
+    const handleCloseDialog = () => handleDateChange();
+    const handleTitleChange = (event) => setTitleValue(event.target.value);
+    const handleDescriptionChange = (event) => setDescriptionValue(event.target.value);
 
-    console.log(dateValue);
+    const handleTitleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            setEnterPressed(true);
+            saveTitleValue();
+        }
+    };
 
+    const handleDescriptionKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            setEnterPressed(true);
+            saveDescriptionValue();
+        }
+    };
+
+    const handleTitleBlur = () => {
+        if (!enterPressed) {
+            saveTitleValue();
+        }
+        setEnterPressed(false);
+    };
+
+    const handleDescriptionBlur = () => {
+        if (!enterPressed) {
+            saveDescriptionValue();
+        }
+        setEnterPressed(false);
+    };
+
+    const toggleImportant = () => {
+        saveImportantValue();
+        setIsImportant(!isImportant);
+    }
+
+    const handleDateChange = () => {
+        saveDateValue();
+        setOpenCalendarDialog(false)
+    }
+
+    const saveDescriptionValue = () => {
+        onDescriptionChange(task.id, descrptionValue);
+    };
+
+    const saveTitleValue = () => {
+        onTitleChange(task.id, titleValue);
+    };
+
+    const saveImportantValue = () => {
+        onImportantChange(task.id, !isImportant)
+    }
+
+    const saveDateValue = () => {
+        onDateChange(task.id, dateValue)
+    }
 
     const TaskOptionsMenu = (
         <Menu
@@ -75,7 +131,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
 
                     <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center', flexDirection: 'row' }} onMouseEnter={handleMouseOver} onMouseLeave={handleMouseLeave}>
                         <Radio size='small' />
-                        <TextField placeholder='Title' variant='standard' sx={{ width: '100%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={title} />
+                        <TextField placeholder='Title' variant='standard' sx={{ width: '100%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={title} onBlur={handleTitleBlur} onChange={handleTitleChange} onKeyDown={handleTitleKeyDown}/>
                         {
                             (isHovering) ?
                                 <>
@@ -99,7 +155,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick })
 
                     <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
                         <NotesIcon sx={{ marginLeft: '1.1%' }} />
-                        <TextField placeholder='Details' variant='standard' sx={{ width: '100%', marginLeft: '1%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={details} />
+                        <TextField placeholder='Details' variant='standard' sx={{ width: '100%', marginLeft: '1%' }} InputProps={{ disableUnderline: 'true' }} defaultValue={details} onBlur={handleDescriptionBlur} onChange={handleDescriptionChange} onKeyDown={handleDescriptionKeyDown}/>
                     </Box>
 
                     <Box sx={{ justifyContent: 'left', display: 'flex', alignItems: 'center' }}>
