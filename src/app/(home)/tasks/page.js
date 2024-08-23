@@ -1,7 +1,7 @@
 "use client";
 
 // React imports
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useReducer } from 'react';
 
 // Material UI imports
 import { useTheme } from '@mui/material/styles';
@@ -19,7 +19,7 @@ import { DragDropContext } from '@hello-pangea/dnd';
 import TaskHeaderCard from "@/components/Cards/TaskHeaderCard";
 import TaskCard from "@/components/Cards/TaskCard";
 
-import { Box } from "@mui/material";
+import { Box, Skeleton } from "@mui/material";
 import { Description } from '@mui/icons-material';
 export default function Lists ()
 {
@@ -27,15 +27,16 @@ export default function Lists ()
 
     // State management    
     const [tasks, setTasks] = useState(new Map());
+    const [isLoading, setIsLoading] = useState(true);
 
     // Use theme from Material UI
     const theme = useTheme();
 
     const fetchTasks = () =>
     {
-        let newMap = new Map();
         client.models.Tasks.list().then(({ data, errors }) =>
         {
+            let newMap = new Map();
             if(errors) {
                 console.error(errors);
             } else {
@@ -43,12 +44,14 @@ export default function Lists ()
                     newMap[task.id] = task;
                 }
 
+                setIsLoading(false);
                 setTasks(newMap);
+                console.log("Loaded");
             }
         });
     }
 
-    useEffect(() => fetchTasks(), []);
+    useEffect(() => {fetchTasks()}, []);
 
     const handleTaskDelete = async (id) =>
     {
@@ -112,22 +115,35 @@ export default function Lists ()
         console.log(`updated task ${description}'s desc`);
     }
 
+    const handleImportantChange = async (id, important) => {
+        const { errors, data } = await client.models.Tasks.update({
+            "id": id,
+            "important": important
+        })
+
+        if (errors) {
+            console.log(errors);
+        } else {
+            let newMap = (new Map(tasks)).set(data.id, data);
+            setTasks(newMap);
+        }
+        console.log(`updated task ${data.title}'s importance`);
+    }
+
     return (
         <>
             <TaskHeaderCard handleAddTask={handleTaskAddClick} />
             <Box>
-                <>
                 {
                     Array.from(tasks.values()).map((t, index) =>
                     {
                         return (
                             (index === tasks.length - 1) ?
-                            <TaskCard key={t.id} task={t} borderBottomRadius={'20px'} onDeleteClick={() => handleTaskDelete(t.id)} onTitleChange={handleTitleChange} onDescriptionChange={handleDescriptionChange}/>
-                                : <TaskCard key={t.id} task={t} onDeleteClick={() => handleTaskDelete(t.id)} onTitleChange={handleTitleChange} onDescriptionChange={handleDescriptionChange}/>
+                            <TaskCard key={t.id} task={t} borderBottomRadius={'20px'} onDeleteClick={() => handleTaskDelete(t.id)} onTitleChange={handleTitleChange} onDescriptionChange={handleDescriptionChange} onImportantChange={handleImportantChange}/>
+                                : <TaskCard key={t.id} task={t} onDeleteClick={() => handleTaskDelete(t.id)} onTitleChange={handleTitleChange} onDescriptionChange={handleDescriptionChange} onImportantChange={handleImportantChange}/>
                         )
                     })
                 }
-                </>
             </Box>
         </>
     );

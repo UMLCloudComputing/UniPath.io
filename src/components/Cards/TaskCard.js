@@ -22,7 +22,7 @@ import React, { useState } from 'react';
 import DatePickerDialog from "../Dialogs/DatePickerDialog";
 
 
-export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onTitleChange, onDescriptionChange })
+export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onTitleChange, onDescriptionChange, onImportantChange })
 {
 
     const { title, details, date, important, done } = task;
@@ -41,7 +41,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onT
     const handleMouseLeave = () => setIsHovering(false);
     const handleTaskOptionsClose = () => setAnchorEl(null);
     const handleTaskOptionsOpen = (event) => setAnchorEl(event.currentTarget);
-    const handleImportantIconClick = () => setIsImportant(!isImportant);
+    const handleImportantIconClick = () => toggleImportant();
     const handleDateIconClick = () => setOpenCalendarDialog(true);
     const handleCloseDialog = () => setOpenCalendarDialog(false);
     const handleTitleChange = (event) => setTitleValue(event.target.value);
@@ -63,7 +63,7 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onT
 
     const handleTitleBlur = () => {
         if (!enterPressed) {
-            saveTitleValue();
+            saveTitleVlue();
         }
         setEnterPressed(false);
     };
@@ -75,9 +75,11 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onT
         setEnterPressed(false);
     };
 
-    // write logic here
-    // think about where to move the logic, here or to file above
-    // distinguish between what value to save
+    const toggleImportant = () => {
+        saveImportantValue();
+        setIsImportant(!isImportant);
+    }
+
     const saveDescriptionValue = () => {
         onDescriptionChange(task.id, descrptionValue);
     };
@@ -85,6 +87,10 @@ export default function TaskCard ({ task, borderBottomRadius, onDeleteClick, onT
     const saveTitleValue = () => {
         onTitleChange(task.id, titleValue);
     };
+
+    const saveImportantValue = () => {
+        onImportantChange(task.id, !isImportant)
+    }
 
     const TaskOptionsMenu = (
         <Menu
