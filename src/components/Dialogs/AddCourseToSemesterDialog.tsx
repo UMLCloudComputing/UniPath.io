@@ -1,5 +1,5 @@
 import { Box, Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
-import React from "react";
+import React, { FormEvent } from "react";
 
 const testingCourses = [
     { id: "1", num: "COMP.1020", name: "Introduction to Computer Science", credits: 3 },
@@ -27,7 +27,7 @@ const testingCourses = [
     { id: "23", num: "PHYS.1410", name: "Physics I", credits: 3 }
 
 ]
-export const AddCourseToSemesterDialog = ({ open, onClose, semester }: { open: boolean, onClose: any }) => {
+export const AddCourseToSemesterDialog = ({ open, onClose, semester }: { open: boolean, onClose: any, semester: any }) => {
 
     return (
         <>
@@ -36,13 +36,13 @@ export const AddCourseToSemesterDialog = ({ open, onClose, semester }: { open: b
                 onClose={onClose}
                 PaperProps={{
                     component: 'form',
-                    onSubmit: (e) => {
+                    onSubmit: (e: FormEvent<HTMLFormElement>) => {
                         e.preventDefault();
                         onClose();
                     }
                 }}>
                 <DialogTitle>Adding Course to {semester.title}</DialogTitle>
-                <DialogContent>
+                {/* <DialogContent>
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
                         {testingCourses.map((c) => {
                             return <Box key={c.id} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -51,7 +51,7 @@ export const AddCourseToSemesterDialog = ({ open, onClose, semester }: { open: b
                             </Box>
                         })}
                     </Box>
-                </DialogContent>
+                </DialogContent> */}
 
             </Dialog>
         </>

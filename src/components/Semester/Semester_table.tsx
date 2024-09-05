@@ -4,9 +4,6 @@ import React, { ReactNode, SetStateAction, useContext, useRef, useState } from "
 import { Course } from "./Course"
 import { OptionsMenu } from "../Menus/OptionsMenu"
 import { IconMenuItem, NestedMenuItem } from "mui-nested-menu"
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
-import { useDraggable } from "@dnd-kit/core"
-import { useSortable } from "@dnd-kit/sortable"
 
 // export const Semester_table = ({ title, _courses }: { title: string, _courses: Course[] }) => {
 //     const theme = useTheme()

@@ -1,7 +1,7 @@
 "use client"
 import { CalendarViewDayOutlined } from '@mui/icons-material'
 import { Box, SpeedDial, SpeedDialIcon, Tooltip, useTheme } from '@mui/material'
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import Grid from '@mui/material/Unstable_Grid2'
 import { DragDropContext, DropResult, Droppable, OnDragEndResponder } from '@hello-pangea/dnd'
 import { DraggableSemester } from '../../../../components/Semester/DraggableSemester'
@@ -17,11 +17,10 @@ const Pathway = ({ params }: { params: { id: string } }) => {
 
     const theme = useTheme()
     //state
-
-    const selectionSet = ["id", "name", "classes.*"] as const;
+    const selectionSet = useMemo(() => ["id", "name", "classes.*"] as const, []);
     type SemesterWithClasses = SelectionSet<Schema["Semester"]["type"], typeof selectionSet>
     const [semesters, setSemesters] = useState<SemesterWithClasses[]>()
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [createSemesterDialogOpen, setCreateSemesterDialogOpen] = useState(false)
 
 
@@ -29,19 +28,21 @@ const Pathway = ({ params }: { params: { id: string } }) => {
     const client = generateClient<Schema>({ authMode: "userPool" })
 
 
-    const fetchSemesters = async () => {
+    const fetchSemesters = useCallback(async () => {
         const { data, errors } = await client.models.Semester.list({
             selectionSet
         })
         console.log(data)
         if (errors) console.error(errors)
         setSemesters(data)
-    }
-    useEffect(() => {
-        setLoading(true)
-        fetchSemesters()
         setLoading(false)
-    }, [])
+    }, [client, selectionSet])
+
+    useEffect(() => {
+
+        fetchSemesters()
+
+    }, [fetchSemesters])
 
     //interact handlers
     const openCreateSemesterDialog = () => {

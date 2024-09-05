@@ -1,7 +1,7 @@
 "use client";
 
 // React imports
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 
 // Material UI imports
 import { useTheme } from '@mui/material/styles';
@@ -23,30 +23,31 @@ export default function Lists() {
     const client = generateClient<Schema>({ authMode: 'userPool' });
 
     // State management    
-    const [tasks, setTasks] = useState<Schema["Tasks"]["type"][]>([]);
+    const [tasks, setTasks] = useState<Schema["Task"]["type"][]>([]);
 
     // Use theme from Material UI
     const theme = useTheme();
 
-    const fetchTasks = () => {
-        client.models.Tasks.list().then(({ data, errors }) => {
-            errors ? console.error(errors) :
-                setTasks(data);
-        });
-    }
+    const fetchTasks = useCallback(async () => {
+        const { data, errors } = await client.models.Task.list();
+        errors ? console.error(errors) : setTasks(data);
+
+    }, [client])
 
 
-    useEffect(() => fetchTasks(), []);
+    useEffect(() => {
+        fetchTasks()
+    }, [fetchTasks]);
 
     const handleTaskDelete = async (id: any) => {
-        const { data, errors } = await client.models.Tasks.delete({ id: id });
+        const { data, errors } = await client.models.Task.delete({ id: id });
         errors ? console.error(errors) :
             fetchTasks();
         console.log('deleted');
     }
 
     const handleTaskAddClick = async () => {
-        const { errors, data } = await client.models.Tasks.create({
+        const { errors, data } = await client.models.Task.create({
             title: "",
             details: "",
             date: null,

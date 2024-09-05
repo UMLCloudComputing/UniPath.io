@@ -3,7 +3,7 @@ import { CreateOrgDialog } from "@/components/Dialogs/CreateOrgDialog";
 import { Box, Button, Typography } from "@mui/material";
 import { generateClient } from "aws-amplify/api";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Schema } from "ROOT/amplify/data/resource";
 
 export default function AdminPage() {
@@ -16,12 +16,12 @@ export default function AdminPage() {
     const [createOrgDialogOpen, setCreateOrgDialogOpen] = useState(false)
 
 
-    const fetchOrganizations = async () => {
+    const fetchOrganizations = useCallback(async () => {
         const { data, errors } = await client.models.Organization.list()
         console.log(data)
         if (errors) console.error(errors)
         setOrgs(data)
-    }
+    }, [client])
 
     const createOrg = async (name: string, address: string, city: string, state: string, zip: string) => {
         const { errors } = await client.models.Organization.create({ name: name, location: { city: city, state: state, streetAddress: address, zipCode: zip } })
@@ -31,7 +31,7 @@ export default function AdminPage() {
 
     useEffect(() => {
         fetchOrganizations()
-    }, [])
+    }, [fetchOrganizations])
 
     const openCreateOrgDialog = () => {
         setCreateOrgDialogOpen(true)

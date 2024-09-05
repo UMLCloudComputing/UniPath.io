@@ -26,7 +26,7 @@ export default function OrganizationPage({ params }: { params: { orgId: string }
             setOrg(data)
         }
         setLoading(false)
-    }, [])
+    }, [client, router])
 
     const getCourseCatalog = useCallback(async () => {
         const { data, errors } = await org!.courseCatalog()
