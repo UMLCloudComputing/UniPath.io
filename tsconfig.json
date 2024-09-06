@@ -19,7 +19,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "ROOT/*": ["./*"]
+      "ROOT/*": ["./*"],
+      "SCHEMA": ["./amplify/data/resource"],
+      "PUBLIC": ["./public"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -7,7 +7,7 @@ import { DragDropContext, DropResult, Droppable, OnDragEndResponder } from '@hel
 import { DraggableSemester } from '../../../../components/Semester/DraggableSemester'
 import { Semester } from '../../../../components/Semester/Semester'
 import { generateClient, SelectionSet } from 'aws-amplify/data'
-import type { Schema } from '../../../../../amplify/data/resource'
+import type { Schema } from 'SCHEMA'
 
 import { CreateSemesterDialog } from '../../../../components/Dialogs/CreateSemesterDialog'
 

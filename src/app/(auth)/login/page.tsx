@@ -70,6 +70,7 @@ function SignInPage() {
             socialProviders={["google"]}
             initialState={"signIn"}
             components={components}
+
         />
     )
 }
