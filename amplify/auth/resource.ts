@@ -17,8 +17,22 @@ export const auth = defineAuth({
         scopes: ["email"],
       },
 
-      callbackUrls: ["http://localhost:3000", "https://unipath.io"],
-      logoutUrls: ["http://localhost:3000", "https://unipath.io"],
+      callbackUrls: [
+        "http://localhost:3000",
+        "https://unipath.io",
+        "https://new-amplify.dlg3hfa689bpo.amplifyapp.com",
+      ],
+      logoutUrls: [
+        "http://localhost:3000",
+        "https://unipath.io",
+        "https://new-amplify.dlg3hfa689bpo.amplifyapp.com",
+      ],
+    },
+  },
+  userAttributes: {
+    "custom:role": {
+      dataType: "String",
+      mutable: true,
     },
   },
 });
