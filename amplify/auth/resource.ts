@@ -1,5 +1,5 @@
 import { defineAuth, secret } from "@aws-amplify/backend";
-
+import { preSignUp } from "./pre-sign-up/resource";
 /**
  * Define and configure your auth resource
  * @see https://docs.amplify.aws/gen2/build-a-backend/auth
@@ -13,6 +13,7 @@ export const auth = defineAuth({
         clientSecret: secret("GOOGLE_CLIENT_SECRET"),
         attributeMapping: {
           email: "email",
+          fullname: "name",
         },
         scopes: ["email"],
       },
@@ -34,5 +35,16 @@ export const auth = defineAuth({
       dataType: "String",
       mutable: true,
     },
+    "custom:institution": {
+      dataType: "String",
+      mutable: true,
+    },
+    fullname: {
+      mutable: true,
+      required: true,
+    },
+  },
+  triggers: {
+    preSignUp,
   },
 });

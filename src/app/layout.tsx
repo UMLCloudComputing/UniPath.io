@@ -8,18 +8,16 @@ import { useAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css"; // Amplify component styles
 
 // Material UI
-import { ThemeProvider } from '@mui/material/styles';
+import { createTheme, StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 
 // Local
 import ConfigureAmplifyClientSide from "@/components/ConfigureAmplify";
-import { darkTheme, lightTheme } from "@/components/theme";
+// import { darkTheme, lightTheme } from "@/components/theme";
 import { ThemeContext, ThemeContextProvider } from "@/contexts/ThemeContext";
-import { DragDropContext } from "@hello-pangea/dnd";
-import { Amplify } from "aws-amplify";
-
-import outputs from "ROOT/amplify_outputs.json";
+import createCache from "@emotion/cache";
+import { CacheProvider } from "@emotion/react";
 
 // MainApp is the main high-level layout component that wraps around other components in this application.
 const MainApp = ({ children }: { children: any }) => {
@@ -40,6 +38,28 @@ const MainApp = ({ children }: { children: any }) => {
   );
 };
 
+const cache = createCache({
+  key: 'css',
+  prepend: true,
+});
+
+// const rootElement = document.getElementById("root");
+// const root = createRoot(rootElement);
+
+// Light theme
+export const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
+
+// Dark theme
+export const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
+
 // RootLayout is the main high-level layout component that wraps around other components in this application. 
 // It provides them with theme and authentication contexts.
 export default function RootLayout({ children }: { children: any }) {
@@ -52,17 +72,23 @@ export default function RootLayout({ children }: { children: any }) {
       <body
 
       >
-        <AppRouterCacheProvider>
-          <ConfigureAmplifyClientSide />
-          <ThemeContextProvider>
+        <div id="root">
+          <StyledEngineProvider injectFirst>
+            <CacheProvider value={cache}>
+              <AppRouterCacheProvider>
+                <ConfigureAmplifyClientSide />
+                <ThemeContextProvider>
 
-            <MainApp>
-              {children}
-            </MainApp>
+                  <MainApp>
+                    {children}
+                  </MainApp>
 
-          </ThemeContextProvider>
-        </AppRouterCacheProvider>
+                </ThemeContextProvider>
+              </AppRouterCacheProvider>
+            </CacheProvider>
+          </StyledEngineProvider>
+        </div>
       </body>
-    </html>
+    </html >
   );
 }

@@ -18,6 +18,7 @@ const schema = a.schema({
         zipCode: a.string(),
       }),
       courseCatalog: a.hasOne("CourseCatalog", "orgId"),
+      // users: a.hasMany("User", "orgId"),
       users: a.string().array(),
       admins: a.string().array(),
     })
@@ -85,6 +86,8 @@ const schema = a.schema({
       name: a.string(),
       pathways: a.hasMany("Pathway", "userId"),
       tasks: a.hasMany("Task", "userId"),
+      // organization: a.belongsTo("Organization", "orgId"),
+      // orgId: a.id(),
     })
     .authorization((allow) => [allow.owner(), allow.group("ADMIN")]),
   Task: a
